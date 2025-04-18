@@ -1,0 +1,21 @@
+.result-container {
+  text-align: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.result-header h2 {
+  font-size: 62px;
+}
+
+.result-body h3 {
+  font-size: 52px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.result-body p {
+  font-size: 32px;
+  padding-left: 430px;
+  padding-right: 430px;
+}

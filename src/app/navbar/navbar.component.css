@@ -1,0 +1,36 @@
+/* Navbar Styling */
+.navbar {
+  background-color: #468B73; /* Color de fondo similar */
+  padding: 1px 40px;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.navbar-logo {
+  height: 80px;
+  width: auto;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 50px;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding-top: 8px;
+}
+
+.btn-valoration {
+  background-color: #225946;
+  padding: 8px 20px;
+  border-radius: 15px;
+}

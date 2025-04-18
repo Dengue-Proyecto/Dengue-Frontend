@@ -1,0 +1,121 @@
+<div class="form-container">
+  <div class="form-header">
+    <h1>Valoración del Riesgo de Dengue</h1>
+    <h2>Responda honestamente las siguientes preguntas.</h2>
+  </div>
+
+  <form [formGroup]="form">
+    <!-- Pregunta 1 a 5 -->
+    <div *ngIf="currentPage === 1">
+
+
+      <!-- Pregunta 3 -->
+      <div class="question">
+        <div class="question-number">3</div>
+        <div class="question-content">
+          <label for="dolorCabezaSeveroSi">¿Tienes dolor de cabeza severo?</label>
+          <div class="options">
+            <input type="radio" id="dolorCabezaSeveroSi" formControlName="dolorCabezaSevero" value="Si" /> Sí
+            <input type="radio" id="dolorCabezaSeveroNo" formControlName="dolorCabezaSevero" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="question">
+        <div class="question-number">4</div>
+        <div class="question-content">
+          <label for="dolorDetrasOjosSi">¿Tienes dolor detrás de los ojos?</label>
+          <div class="options">
+            <input type="radio" id="dolorDetrasOjosSi" formControlName="dolorDetrasOjos" value="Si" /> Sí
+            <input type="radio" id="dolorDetrasOjosNo" formControlName="dolorDetrasOjos" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="question">
+        <div class="question-number">5</div>
+        <div class="question-content">
+          <label for="dolorArticularMuscularSi">¿Tienes dolor articular o muscular?</label>
+          <div class="options">
+            <input type="radio" id="dolorArticularMuscularSi" formControlName="dolorArticularMuscular" value="Si" /> Sí
+            <input type="radio" id="dolorArticularMuscularNo" formControlName="dolorArticularMuscular" value="No" /> No
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta 6 a 10 (segunda página) -->
+    <div *ngIf="currentPage === 2">
+      <!-- Pregunta 6 -->
+      <div class="question">
+        <div class="question-number">6</div>
+        <div class="question-content">
+          <label for="saborMetalicoBocaSi">¿Tienes sabor metálico en la boca?</label>
+          <div class="options">
+            <input type="radio" id="saborMetalicoBocaSi" formControlName="saborMetalicoBoca" value="Si" /> Sí
+            <input type="radio" id="saborMetalicoBocaNo" formControlName="saborMetalicoBoca" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 7 -->
+      <div class="question">
+        <div class="question-number">7</div>
+        <div class="question-content">
+          <label for="perdidaApetitoSi">¿Tienes pérdida de apetito?</label>
+          <div class="options">
+            <input type="radio" id="perdidaApetitoSi" formControlName="perdidaApetito" value="Si" /> Sí
+            <input type="radio" id="perdidaApetitoNo" formControlName="perdidaApetito" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 8 -->
+      <div class="question">
+        <div class="question-number">8</div>
+        <div class="question-content">
+          <label for="dolorAbdominalSi">¿Tienes dolor abdominal?</label>
+          <div class="options">
+            <input type="radio" id="dolorAbdominalSi" formControlName="dolorAbdominal" value="Si" /> Sí
+            <input type="radio" id="dolorAbdominalNo" formControlName="dolorAbdominal" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 9 -->
+      <div class="question">
+        <div class="question-number">9</div>
+        <div class="question-content">
+          <label for="nauseasVomitosSi">¿Tienes náuseas o vómitos?</label>
+          <div class="options">
+            <input type="radio" id="nauseasVomitosSi" formControlName="nauseasVomitos" value="Si" /> Sí
+            <input type="radio" id="nauseasVomitosNo" formControlName="nauseasVomitos" value="No" /> No
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 10 -->
+      <div class="question">
+        <div class="question-number">10</div>
+        <div class="question-content">
+          <label for="diarreaSi">¿Tienes diarrea?</label>
+          <div class="options">
+            <input type="radio" id="diarreaSi" formControlName="diarrea" value="Si" /> Sí
+            <input type="radio" id="diarreaNo" formControlName="diarrea" value="No" /> No
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <button type="button" (click)="anterior()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button *ngIf="currentPage < totalPages" type="button" (click)="siguiente()" [disabled]="currentPage === totalPages">Siguiente</button>
+      <button *ngIf="currentPage === totalPages" type="button" (click)="enviarFormulario()">Enviar</button>
+    </div>
+
+  </form>
+</div>
