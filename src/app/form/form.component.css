@@ -72,6 +72,11 @@ button {
   margin-left: 30px;
 }
 
+select {
+  font-family: 'PT Serif';
+  width: 80px;
+}
+
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
