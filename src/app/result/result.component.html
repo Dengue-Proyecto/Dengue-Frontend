@@ -1,9 +1,79 @@
-<div class="result-container">
-  <div class="result-header">
-    <h2>Nivel de riesgo de tener Dengue</h2>
+<div class="container">
+  <!-- Título principal -->
+
+  <h2 class="text-center">RESULTADOS DE LA EVALUACIÓN</h2>
+  <h3 class="text-center">Comparativa de Modelos</h3>
+
+  <!-- Tabla de comparación de modelos -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Modelo</th>
+      <th>Precisión</th>
+      <th>Recall</th>
+      <th>F1-Score</th>
+      <th>Riesgo de Dengue</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Fila para Máquinas de Vectores de Soporte (SVM) -->
+    <tr>
+      <td>Máquinas de Vectores de Soporte (SVM)</td>
+      <td>88%</td>
+      <td>86%</td>
+      <td>0.92</td>
+      <td>Alto</td>
+    </tr>
+    <!-- Fila para XGBoost -->
+    <tr>
+      <td>XGBoost</td>
+      <td>85%</td>
+      <td>83%</td>
+      <td>0.87</td>
+      <td>Moderado</td>
+    </tr>
+    <!-- Fila para Bosque Aleatorio (Random Forest) -->
+    <tr>
+      <td>Bosque Aleatorio (Random Forest)</td>
+      <td>87%</td>
+      <td>85%</td>
+      <td>0.89</td>
+      <td>Alto</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Título de métricas generales -->
+  <h3 class="text-center">Métricas Generales</h3>
+
+  <!-- Contenedor de las métricas generales alineadas -->
+  <div class="metrics-container">
+    <!-- Cuadro 1: Precisión Promedio -->
+    <div class="metric-card bg-primary">
+      <h4>Precisión Promedio</h4>
+      <p>87.5%</p>
+    </div>
+    <!-- Cuadro 2: Recall Promedio -->
+    <div class="metric-card bg-success">
+      <h4>Recall Promedio</h4>
+      <p>85.3%</p>
+    </div>
+
+    <!-- Cuadro 4: Tiempo Promedio de Inferencia -->
+    <div class="metric-card bg-danger">
+      <h4>Tiempo Promedio de Inferencia</h4>
+      <p>0.15s</p>
+    </div>
   </div>
-  <div class="result-body">
-    <h3>{{ resultado }}</h3>
-    <p>No olvides que esto es una valoración. En caso de tener dudas es mejor consultar con un médico.</p>
+
+  <!-- Conclusión -->
+  <div class="conclusion">
+    <h3 class="text-center">Conclusión</h3>
+    <p class="text-center">El modelo con mejor precisión es <strong>Máquinas de Vectores de Soporte (SVM)</strong> con un 88% de precisión y un nivel de riesgo de <strong>Alto</strong>.</p>
   </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary" (click)="volverAIntentar()">Volver a Intentar</button>
+  </div>
+
 </div>

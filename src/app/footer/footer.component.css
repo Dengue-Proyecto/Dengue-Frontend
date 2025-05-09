@@ -1,0 +1,14 @@
+/* Estilos para el footer */
+.footer {
+  background-color: #468B73; /* Color verde especificado */
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  color: white;
+  margin: 0;
+  font-size: 16px;
+}

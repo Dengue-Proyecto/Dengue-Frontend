@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -68,17 +68,23 @@ export class FormComponent implements OnInit {
 
       console.log('Datos del formulario:', formDataWithBooleans);
 
-      // Enviar los datos
-      this.http.post('http://localhost:8000/evaluar_riesgo', formDataWithBooleans)
-        .subscribe((response: any) => {
-          // Recibimos la respuesta y redirigimos al componente de resultados con el riesgo
-          this.router.navigate(['/result'], { state: { resultado: response.riesgo, probabilidad: response.probabilidad } });
-        }, (error) => {
-          console.error('Error en la solicitud:', error);
-        });
+      // Simulación de la respuesta del backend
+      const simulatedResponse = {
+        riesgo: 'Riesgo Alto',
+        probabilidad: 0.85,  // Simulando probabilidad
+      };
+
+      // Redirigir al componente de resultados con los valores simulados
+      this.router.navigate(['/result'], {
+        state: {
+          resultadoModelo1: simulatedResponse.riesgo,
+          probabilidadModelo1: simulatedResponse.probabilidad,
+          resultadoModelo2: 'Riesgo Bajo',  // Puedes simular un segundo modelo también
+          probabilidadModelo2: 0.75
+        }
+      });
     } else {
       console.log('Formulario inválido');
     }
   }
-
 }

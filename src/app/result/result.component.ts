@@ -1,22 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-result',
-  standalone: false,
   templateUrl: './result.component.html',
-  styleUrl: './result.component.css'
+  styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  resultado: string | null = '';
 
-  constructor() {
-  }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    // Obtener el estado que contiene el resultado enviado desde el formulario
-    const state = history.state;
-    if (state && state.resultado) {
-      this.resultado = state.resultado;
-    }
+    // Cualquier lógica de inicialización que necesites
+  }
+
+  // Método para volver a intentar
+  volverAIntentar() {
+    this.router.navigate(['/form']);  // Suponiendo que la ruta al formulario es '/formulario'
   }
 }
