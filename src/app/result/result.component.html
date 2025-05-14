@@ -8,31 +8,38 @@
     <tr>
       <th>Modelo</th>
       <th>Riesgo de Dengue</th>
+      <th>Probabilidad</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <td>Máquinas de Vectores de Soporte (SVM Lineal)</td>
       <td>{{ riesgo_lineal }}</td>
+      <td>{{ probabilidad_lineal_pct }}%</td>
     </tr>
     <tr>
       <td>Máquinas de Vectores de Soporte (SVM Polinómico)</td>
       <td>{{ riesgo_poli }}</td>
+      <td>{{ probabilidad_poli_pct }}%</td>
     </tr>
     <tr>
       <td>Máquinas de Vectores de Soporte (SVM RBF)</td>
       <td>{{ riesgo_rbf }}</td>
+      <td>{{ probabilidad_rbf_pct }}%</td>
     </tr>
     <tr>
       <td>Máquinas de Vectores de Soporte (SVM Sigmoid)</td>
       <td>{{ riesgo_sigmoid }}</td>
+      <td>{{ probabilidad_sigmoid_pct }}%</td>
     </tr>
     <tr>
       <td>Bosque Aleatorio (Random Forest)</td>
       <td>{{ riesgo_random_forest }}</td>
+      <td>{{ probabilidad_random_forest_pct }}%</td>
     </tr>
     </tbody>
   </table>
+
 
   <!-- Título de métricas generales -->
   <h3 class="text-center">Métricas Generales</h3>

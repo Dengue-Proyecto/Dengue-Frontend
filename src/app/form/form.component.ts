@@ -79,7 +79,12 @@ export class FormComponent implements OnInit {
               riesgo_poli: response.riesgo_poli,
               riesgo_rbf: response.riesgo_rbf,
               riesgo_sigmoid: response.riesgo_sigmoid,
-              riesgo_random_forest: response.riesgo_random_forest
+              riesgo_random_forest: response.riesgo_random_forest,
+              probabilidad_lineal_pct: response.probabilidad_lineal_pct,
+              probabilidad_poli_pct: response.probabilidad_poli_pct,
+              probabilidad_rbf_pct: response.probabilidad_rbf_pct,
+              probabilidad_sigmoid_pct: response.probabilidad_sigmoid_pct,
+              probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
             }
           });
         }, (error) => {
