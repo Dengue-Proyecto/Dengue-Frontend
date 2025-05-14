@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     AppComponent,
     NavbarComponent,
+    ResultComponent,
     FooterComponent,
   ],
   imports: [
@@ -25,7 +26,6 @@ import { FooterComponent } from './footer/footer.component';
     ReactiveFormsModule,
     FormModule,
     RouterModule,
-    ResultComponent,
     HttpClientModule,
     NgOptimizedImage,
     CommonModule

@@ -1,44 +1,35 @@
 <div class="container">
-  <!-- Título principal -->
+  <h1 class="text-center">RESULTADOS DE LA EVALUACIÓN</h1>
+  <h2 class="text-center">Comparativa de Modelos</h2>
 
-  <h2 class="text-center">RESULTADOS DE LA EVALUACIÓN</h2>
-  <h3 class="text-center">Comparativa de Modelos</h3>
-
-  <!-- Tabla de comparación de modelos -->
-  <table class="table">
+  <!-- Tabla de Resultados por Modelo -->
+  <table class="table table-bordered table-striped">
     <thead>
     <tr>
       <th>Modelo</th>
-      <th>Precisión</th>
-      <th>Recall</th>
-      <th>F1-Score</th>
       <th>Riesgo de Dengue</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Fila para Máquinas de Vectores de Soporte (SVM) -->
     <tr>
-      <td>Máquinas de Vectores de Soporte (SVM)</td>
-      <td>88%</td>
-      <td>86%</td>
-      <td>0.92</td>
-      <td>Alto</td>
+      <td>Máquinas de Vectores de Soporte (SVM Lineal)</td>
+      <td>{{ riesgo_lineal }}</td>
     </tr>
-    <!-- Fila para XGBoost -->
     <tr>
-      <td>XGBoost</td>
-      <td>85%</td>
-      <td>83%</td>
-      <td>0.87</td>
-      <td>Moderado</td>
+      <td>Máquinas de Vectores de Soporte (SVM Polinómico)</td>
+      <td>{{ riesgo_poli }}</td>
     </tr>
-    <!-- Fila para Bosque Aleatorio (Random Forest) -->
+    <tr>
+      <td>Máquinas de Vectores de Soporte (SVM RBF)</td>
+      <td>{{ riesgo_rbf }}</td>
+    </tr>
+    <tr>
+      <td>Máquinas de Vectores de Soporte (SVM Sigmoid)</td>
+      <td>{{ riesgo_sigmoid }}</td>
+    </tr>
     <tr>
       <td>Bosque Aleatorio (Random Forest)</td>
-      <td>87%</td>
-      <td>85%</td>
-      <td>0.89</td>
-      <td>Alto</td>
+      <td>{{ riesgo_random_forest }}</td>
     </tr>
     </tbody>
   </table>
