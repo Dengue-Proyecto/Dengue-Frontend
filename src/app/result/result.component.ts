@@ -23,6 +23,23 @@ export class ResultComponent implements OnInit {
   probabilidad_sigmoid_pct!: number;
   probabilidad_random_forest_pct!: number;
 
+  precision_promedio!: number;
+  recall_promedio!: number;
+  tiempo_promedio!: number;
+  mejor_modelo_nombre!: string;
+  nivel_riesgo_mejor_modelo!: string;
+
+  // metricas
+  metricas: { [key: string]: any } = {};
+
+  nombreModelos: { [key: string]: string } = {
+    svm_linear: 'SVM Lineal',
+    svm_poly: 'SVM Polinómico',
+    svm_rbf: 'SVM RBF',
+    svm_sigmoid: 'SVM Sigmoid',
+    random_forest: 'Random Forest'
+  };
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -43,6 +60,15 @@ export class ResultComponent implements OnInit {
       this.probabilidad_rbf_pct = state.probabilidad_rbf_pct;
       this.probabilidad_sigmoid_pct = state.probabilidad_sigmoid_pct;
       this.probabilidad_random_forest_pct = state.probabilidad_random_forest_pct;
+
+      // metricas
+      this.metricas = state.metricas || {};
+
+      this.precision_promedio = state.precision_promedio;
+      this.recall_promedio = state.recall_promedio;
+      this.tiempo_promedio = state.tiempo_promedio;
+      this.mejor_modelo_nombre = state.mejor_modelo_nombre;
+      this.nivel_riesgo_mejor_modelo = state.nivel_riesgo_mejor_modelo;
     }
   }
 

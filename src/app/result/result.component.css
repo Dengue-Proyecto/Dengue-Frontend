@@ -108,3 +108,63 @@
   text-align: center;
   margin-top: 20px;
 }
+
+/* Contenedor de métricas por modelo (flex) */
+.metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* Tarjeta de cada modelo */
+.model-metric-card {
+  background-color: #468B73; /* verde oscuro acorde a tu diseño */
+  color: white;
+  width: 260px;
+  padding: 20px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.model-metric-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.25);
+}
+
+/* Título dentro de la tarjeta */
+.model-metric-card h4 {
+  margin-bottom: 12px;
+  font-weight: 700;
+  border-bottom: 2px solid #ffffff; /* verde claro para contraste */
+  padding-bottom: 8px;
+  margin-top: 0;
+}
+
+/* Lista sin estilo predeterminado */
+.model-metric-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Items de la lista */
+.model-metric-card ul li {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Responsive: apila en pantallas pequeñas */
+@media (max-width: 600px) {
+  .metrics-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .model-metric-card {
+    width: 90%;
+  }
+}
+

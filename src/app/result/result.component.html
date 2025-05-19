@@ -40,35 +40,43 @@
     </tbody>
   </table>
 
+  <!-- Métricas por modelo -->
+  <h2 class="text-center mt-4">Métricas por Modelo</h2>
 
-  <!-- Título de métricas generales -->
+  <div class="metrics-grid">
+    <div *ngFor="let modelo of metricas | keyvalue" class="metric-card model-metric-card">
+      <h4 class="text-capitalize">{{ nombreModelos[modelo.key] || modelo.key }}</h4>
+      <ul>
+        <li><strong>Accuracy:</strong> {{ modelo.value?.accuracy | number:'1.2-2' }}%</li>
+        <li><strong>AUC-ROC:</strong> {{ modelo.value?.auc_roc | number:'1.2-2' }}%</li>
+        <li><strong>Recall:</strong> {{ modelo.value?.recall | number:'1.2-2' }}%</li>
+        <li><strong>Specificity:</strong> {{ modelo.value?.specificity | number:'1.2-2' }}%</li>
+        <li><strong>FPR:</strong> {{ modelo.value?.fpr | number:'1.2-2' }}%</li>
+        <li><strong>F1-Score:</strong> {{ modelo.value?.f1_score | number:'1.2-2' }}%</li>
+        <li><strong>Tiempo de Predicción Aproximado (s):</strong> {{ modelo.value?.prediction_time | number:'1.4-4' }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Métricas Generales -->
   <h3 class="text-center">Métricas Generales</h3>
 
-  <!-- Contenedor de las métricas generales alineadas -->
   <div class="metrics-container">
-    <!-- Cuadro 1: Precisión Promedio -->
     <div class="metric-card bg-primary">
       <h4>Precisión Promedio</h4>
-      <p>87.5%</p>
+      <p>{{ precision_promedio }}%</p>
     </div>
-    <!-- Cuadro 2: Recall Promedio -->
     <div class="metric-card bg-success">
       <h4>Recall Promedio</h4>
-      <p>85.3%</p>
+      <p>{{ recall_promedio }}%</p>
     </div>
-
-    <!-- Cuadro 4: Tiempo Promedio de Inferencia -->
     <div class="metric-card bg-danger">
       <h4>Tiempo Promedio de Inferencia</h4>
-      <p>0.15s</p>
+      <p>{{ tiempo_promedio }}s</p>
     </div>
   </div>
 
-  <!-- Conclusión -->
-  <div class="conclusion">
-    <h3 class="text-center">Conclusión</h3>
-    <p class="text-center">El modelo con mejor precisión es <strong>Máquinas de Vectores de Soporte (SVM)</strong> con un 88% de precisión y un nivel de riesgo de <strong>Alto</strong>.</p>
-  </div>
+
 
   <div class="text-center mt-4">
     <button class="btn btn-secondary" (click)="volverAIntentar()">Volver a Intentar</button>

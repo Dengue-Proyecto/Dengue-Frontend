@@ -85,6 +85,10 @@ export class FormComponent implements OnInit {
               probabilidad_rbf_pct: response.probabilidad_rbf_pct,
               probabilidad_sigmoid_pct: response.probabilidad_sigmoid_pct,
               probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
+              metricas: response.metricas,
+              precision_promedio: response.precision_promedio,
+              recall_promedio: response.recall_promedio,
+              tiempo_promedio: response.tiempo_promedio
             }
           });
         }, (error) => {
