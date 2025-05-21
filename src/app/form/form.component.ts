@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-form',
@@ -69,7 +70,7 @@ export class FormComponent implements OnInit {
       console.log('Datos del formulario:', formDataWithBooleans);
 
       // Enviar los datos
-      this.http.post('http://localhost:8000/evaluar_riesgo', formDataWithBooleans)
+      this.http.post(`${environment.apiUrl}/evaluar_riesgo`, formDataWithBooleans)
         .subscribe((response: any) => {
           console.log('Respuesta del backend:', response);  // Asegúrate de ver la respuesta aquí
           // Redirigir con los datos al componente de resultados
