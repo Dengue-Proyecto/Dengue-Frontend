@@ -15,6 +15,7 @@ export class ResultComponent implements OnInit {
   riesgo_rbf!: string;
   riesgo_sigmoid!: string;
   riesgo_random_forest!: string;
+  riesgo_xgboost!:string;
 
   // Variables para mostrar las probabilidades
   probabilidad_lineal_pct!: number;
@@ -22,6 +23,7 @@ export class ResultComponent implements OnInit {
   probabilidad_rbf_pct!: number;
   probabilidad_sigmoid_pct!: number;
   probabilidad_random_forest_pct!: number;
+  probabilidad_xgboost_pct!: number;
 
   precision_promedio!: number;
   recall_promedio!: number;
@@ -37,7 +39,8 @@ export class ResultComponent implements OnInit {
     svm_poly: 'SVM Polinómico',
     svm_rbf: 'SVM RBF',
     svm_sigmoid: 'SVM Sigmoid',
-    random_forest: 'Random Forest'
+    random_forest: 'Random Forest',
+    xgboost: 'XGboost'
   };
 
   constructor(private router: Router) { }
@@ -53,6 +56,7 @@ export class ResultComponent implements OnInit {
       this.riesgo_rbf = state.riesgo_rbf;
       this.riesgo_sigmoid = state.riesgo_sigmoid;
       this.riesgo_random_forest = state.riesgo_random_forest;
+      this.riesgo_xgboost = state.riesgo_xgboost;
 
       // Recibir y asignar las probabilidades en porcentaje
       this.probabilidad_lineal_pct = state.probabilidad_lineal_pct;
@@ -60,6 +64,7 @@ export class ResultComponent implements OnInit {
       this.probabilidad_rbf_pct = state.probabilidad_rbf_pct;
       this.probabilidad_sigmoid_pct = state.probabilidad_sigmoid_pct;
       this.probabilidad_random_forest_pct = state.probabilidad_random_forest_pct;
+      this.probabilidad_xgboost_pct = state.probabilidad_xgboost_pct;
 
       // metricas
       this.metricas = state.metricas || {};
