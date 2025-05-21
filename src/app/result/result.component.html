@@ -47,13 +47,13 @@
     <div *ngFor="let modelo of metricas | keyvalue" class="metric-card model-metric-card">
       <h4 class="text-capitalize">{{ nombreModelos[modelo.key] || modelo.key }}</h4>
       <ul>
-        <li><strong>Accuracy:</strong> {{ modelo.value?.accuracy | number:'1.2-2' }}%</li>
+        <li><strong>Precisión:</strong> {{ modelo.value?.accuracy | number:'1.2-2' }}%</li>
         <li><strong>AUC-ROC:</strong> {{ modelo.value?.auc_roc | number:'1.2-2' }}%</li>
-        <li><strong>Recall:</strong> {{ modelo.value?.recall | number:'1.2-2' }}%</li>
-        <li><strong>Specificity:</strong> {{ modelo.value?.specificity | number:'1.2-2' }}%</li>
-        <li><strong>FPR:</strong> {{ modelo.value?.fpr | number:'1.2-2' }}%</li>
-        <li><strong>F1-Score:</strong> {{ modelo.value?.f1_score | number:'1.2-2' }}%</li>
-        <li><strong>Tiempo de Predicción Aproximado (s):</strong> {{ modelo.value?.prediction_time | number:'1.4-4' }}</li>
+        <li><strong>Porcentaje de verdaderos positivos:</strong> {{ modelo.value?.recall | number:'1.2-2' }}%</li>
+        <li><strong>Especificidad:</strong> {{ modelo.value?.specificity | number:'1.2-2' }}%</li>
+        <li><strong>Porcentaje de falsos positivos:</strong> {{ modelo.value?.fpr | number:'1.2-2' }}%</li>
+        <li><strong>Puntuacion F1:</strong> {{ modelo.value?.f1_score | number:'1.2-2' }}%</li>
+        <li><strong>Tiempo de Predicción Aproximado:</strong> {{ modelo.value?.prediction_time | number:'1.4-4' }} s</li>
       </ul>
     </div>
   </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="metric-card bg-danger">
       <h4>Tiempo Promedio de Inferencia</h4>
-      <p>{{ tiempo_promedio }}s</p>
+      <p>{{ tiempo_promedio }} s</p>
     </div>
   </div>
 
@@ -87,9 +87,8 @@
     </p>
   </div>
 
-
   <div class="text-center mt-4">
-    <button class="btn btn-secondary" (click)="volverAIntentar()">Volver a Intentar</button>
+    <a class="btn btn-secondary" routerLink="/form">Volver a Intentar</a>
   </div>
 
 </div>

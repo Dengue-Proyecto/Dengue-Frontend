@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {NgOptimizedImage} from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
+import { LandingComponent } from './landing/landing.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     ResultComponent,
     FooterComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,

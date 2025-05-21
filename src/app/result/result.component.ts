@@ -72,7 +72,4 @@ export class ResultComponent implements OnInit {
     }
   }
 
-  volverAIntentar() {
-    this.router.navigate(['/form']);  // Suponiendo que la ruta al formulario es '/formulario'
-  }
 }

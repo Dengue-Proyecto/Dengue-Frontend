@@ -98,6 +98,7 @@
   padding: 10px 20px;
   font-size: 18px;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .btn-secondary:hover {
