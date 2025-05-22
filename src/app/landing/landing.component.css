@@ -2,7 +2,8 @@
   background-color: #BCCECC; /* similar al color de fondo gris verdoso */
   padding: 80px 80px;
   color: #000000;
-  margin-bottom: 312px;
+  min-height: calc(100vh - 17vh); /* Altura viewport menos el alto del footer */
+  box-sizing: border-box; /* para que el padding no aumente el ancho */
 }
 
 .container-blanco {
@@ -10,25 +11,24 @@
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 45px;
   font-weight: normal;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 p {
   margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 1rem;
+  margin-bottom: 60px;
+  font-size: 25px;
 }
 
 button {
   background-color: #225946; /* verde oscuro */
   color: white;
   border: none;
-  padding: 8px 24px;
-  border-radius: 12px;
-  font-size: 1rem;
+  padding: 10px 32px;
+  border-radius: 15px;
+  font-size: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   font-family: "PT Serif", serif;
 }

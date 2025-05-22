@@ -19,18 +19,22 @@
 
 .navbar-links {
   display: flex;
-  gap: 50px;
+  gap: 30px;
 }
 
 .navbar-link {
+  border-radius: 15px;
   color: white;
   text-decoration: none;
   font-size: 18px;
-  padding-top: 8px;
+  padding: 8px 20px;
 }
 
 .btn-valoration {
   background-color: #225946;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
   padding: 8px 20px;
   border-radius: 15px;
 }
