@@ -1,0 +1,36 @@
+<div class="form-container">
+  <h2>Regístrate</h2>
+  <form (ngSubmit)="onSubmit()" #registroForm="ngForm">
+    <div class="form-grid">
+      <div>
+        <label>Nombres:</label>
+        <input type="text" name="nombres" [(ngModel)]="usuario.nombres" required>
+      </div>
+      <div>
+        <label>Nro. de Colegiatura:</label>
+        <div class="colegiatura">
+          <input type="text" name="colegiatura" [(ngModel)]="usuario.colegiatura" required>
+          <button type="button" (click)="buscar()">Buscar</button>
+        </div>
+      </div>
+      <div>
+        <label>Apellido paterno:</label>
+        <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" required>
+      </div>
+      <div>
+        <label>Apellido materno:</label>
+        <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" required>
+      </div>
+      <div>
+        <label>Correo electrónico:</label>
+        <input type="email" name="correo" [(ngModel)]="usuario.correo" required>
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input type="password" name="contrasena" [(ngModel)]="usuario.contrasena" required>
+      </div>
+    </div>
+    <button type="submit" class="btn-registrar">Registrarse</button>
+  </form>
+  <p class="login-link">¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+</div>

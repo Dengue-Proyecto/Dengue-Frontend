@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FormModule} from './form/form.module';
 import { RouterModule } from '@angular/router';
 import { ResultComponent } from './result/result.component';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { LandingComponent } from './landing/landing.component';
 import { Result1Component } from './result1/result1.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { Result1Component } from './result1/result1.component';
     FooterComponent,
     LandingComponent,
     Result1Component,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { Result1Component } from './result1/result1.component';
     RouterModule,
     HttpClientModule,
     NgOptimizedImage,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

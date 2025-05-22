@@ -1,0 +1,78 @@
+.form-container {
+  background-color: #BCCECC;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 60%;
+  margin: 60px auto;
+  text-align: center;
+  font-family: "PT Serif", serif;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 4rem; /* menos espacio vertical y horizontal */
+  margin-top: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: normal;
+  text-align: left;
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 80%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.colegiatura {
+  position: relative;
+
+}
+
+.colegiatura input {
+  width: 80%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+}
+
+.colegiatura button {
+  position: absolute;
+  left: 19.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #1b4d3e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-registrar {
+  background-color: #225946;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 15px;
+  margin-top: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.login-link {
+  margin-top: 1.2rem;
+}
+
+.login-link a {
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+}
