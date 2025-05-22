@@ -11,7 +11,7 @@
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem 4rem; /* menos espacio vertical y horizontal */
+  gap: 1.5rem 4rem;
   margin-top: 1rem;
 }
 
@@ -31,27 +31,21 @@ input {
 }
 
 .colegiatura {
-  position: relative;
-
+  width: 92%;
+  display: flex;
+  gap: 15px;
 }
 
 .colegiatura input {
-  width: 80%;
-  padding: 0.4rem 0.5rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-
+  margin-left: 33px;
 }
 
 .colegiatura button {
-  position: absolute;
-  left: 19.5rem;
   padding: 0.5rem 1rem;
   background-color: #1b4d3e;
-  color: white;
   border: none;
-  border-radius: 5px;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -62,9 +56,10 @@ input {
   font-size: 18px;
   padding: 8px 20px;
   border-radius: 15px;
-  margin-top: 2rem;
+  margin-top: 1.7rem;
   border: none;
   cursor: pointer;
+  font-family: "PT Serif", serif;
 }
 
 .login-link {
