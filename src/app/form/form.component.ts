@@ -74,7 +74,7 @@ export class FormComponent implements OnInit {
         .subscribe((response: any) => {
           console.log('Respuesta del backend:', response);  // Asegúrate de ver la respuesta aquí
           // Redirigir con los datos al componente de resultados
-          this.router.navigate(['/result'], {
+          this.router.navigate(['/result1'], {
             state: {
               riesgo_lineal: response.riesgo_lineal,
               riesgo_poli: response.riesgo_poli,

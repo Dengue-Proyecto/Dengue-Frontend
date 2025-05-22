@@ -1,0 +1,42 @@
+.result-container {
+  text-align: center;
+  justify-content: center;
+}
+
+.result-header h2 {
+  font-size: 52px;
+}
+
+.result-body h3 {
+  font-size: 86px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.result-body p {
+  font-size: 32px;
+  padding-left: 430px;
+  padding-right: 430px;
+}
+
+/* Estilo para los botones */
+.button {
+  background-color: #225946; /* verde oscuro */
+  color: white;
+  border: none;
+  padding: 10px 32px;
+  border-radius: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: "PT Serif", serif;
+  margin-right: 40px; /* Espacio entre los botones */
+}
+
+.button-container {
+  margin-top: 20px; /* Espacio entre el párrafo y los botones */
+  margin-bottom: 20px;
+}
+
+.button:last-child {
+  margin-right: 0; /* El último botón no tiene margen a la derecha */
+}
