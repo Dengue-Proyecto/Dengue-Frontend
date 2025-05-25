@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { LandingComponent } from './landing/landing.component';
 import { Result1Component } from './result1/result1.component';
-import { RegisterComponent } from './register/register.component';
+import {RegisterModule} from './register/register.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -24,13 +25,14 @@ import { RegisterComponent } from './register/register.component';
     FooterComponent,
     LandingComponent,
     Result1Component,
-    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormModule,
+    RegisterModule,
     RouterModule,
     HttpClientModule,
     NgOptimizedImage,

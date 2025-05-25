@@ -5,6 +5,7 @@ import {ResultComponent} from './result/result.component';
 import {LandingComponent} from './landing/landing.component';
 import {Result1Component} from './result1/result1.component';
 import {RegisterComponent} from './register/register.component';
+import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'result', component: ResultComponent },
   { path: 'result1', component: Result1Component },
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' }
 ];
 
