@@ -1,1 +1,18 @@
-<p>login works!</p>
+<div class="login-container">
+  <h2>Inicia Sesión</h2>
+
+  <form (ngSubmit)="iniciarSesion()" #formulario="ngForm">
+    <label>Nro. de Colegiatura:</label>
+    <input type="text" name="numero_colegiatura" [(ngModel)]="datosLogin.numero_colegiatura" required maxlength="6" minlength="6" (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"/>
+
+    <label>Contraseña:</label>
+    <input type="password" name="contrasena" [(ngModel)]="datosLogin.contrasena" required />
+
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <p class="register-text">
+    No tienes una cuenta.
+    <a href="/register">Regístrate</a>
+  </p>
+</div>

@@ -84,4 +84,20 @@ export class RegisterComponent {
         }
       });
   }
+
+  soloNumeros(event: KeyboardEvent): void {
+    const charCode = event.key.charCodeAt(0);
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault(); // Bloquea letras y símbolos
+    }
+  }
+
+  evitarPegadoInvalido(event: ClipboardEvent): void {
+    const textoPegado = event.clipboardData?.getData('text') || '';
+    const esNumerico = /^\d{1,6}$/.test(textoPegado); // Solo números, máximo 6
+
+    if (!esNumerico) {
+      event.preventDefault(); // Cancela pegado si no es válido
+    }
+  }
 }

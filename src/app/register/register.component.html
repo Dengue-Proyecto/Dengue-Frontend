@@ -9,7 +9,7 @@
       <div>
         <label>Nro. de Colegiatura:</label>
         <div class="colegiatura">
-          <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura" required pattern="^\d{6}$" maxlength="6" minlength="6" #colegiatura="ngModel">
+          <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura" required pattern="[0-9]*" inputmode="numeric" maxlength="6" minlength="6"   (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"#colegiatura="ngModel">
           <button type="button" (click)="buscarDatos()" [disabled]="buscando">Buscar</button>
           <div *ngIf="colegiatura.invalid && (colegiatura.dirty || colegiatura.touched)" class="error">
             El número de colegiatura debe tener exactamente 6 dígitos numéricos.
@@ -43,5 +43,5 @@
     </div>
     <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
   </form>
-  <p class="login-link">¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+  <p class="login-link">¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
 </div>
