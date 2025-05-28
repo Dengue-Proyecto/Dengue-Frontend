@@ -2,6 +2,7 @@
  import {HttpClient} from '@angular/common/http';
  import {environment} from '../../environments/environment';
  import {Router} from '@angular/router';
+ import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,14 @@ export class LoginComponent {
     contrasena: ''
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   iniciarSesion() {
     this.http.post(`${environment.apiUrl}/usuario/login`, this.datosLogin)
       .subscribe({
         next: (respuesta: any) => {
           console.log('Token:', respuesta.access_token);
-          localStorage.setItem('token', respuesta.access_token);
+          this.authService.login(respuesta.access_token);  // <--- Aquí avisamos al servicio
           this.router.navigate(['/form']);
         },
         error: (error) => {

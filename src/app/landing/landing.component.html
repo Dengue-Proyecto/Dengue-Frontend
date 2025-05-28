@@ -1,5 +1,7 @@
 <div class="container">
   <h2>CONOZCA EL NIVEL DE RIESGO DE SU PACIENTE</h2>
   <p>Realice una evaluación hoy y fortalezca la salud para el futuro.</p>
-  <button [routerLink]="['/form']">Evaluar</button>
+
+  <button *ngIf="estaLogueado" [routerLink]="['/form']">Evaluar</button>
+  <button *ngIf="!estaLogueado" [routerLink]="['/register']">Registrarse</button>
 </div>

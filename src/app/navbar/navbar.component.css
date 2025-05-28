@@ -28,6 +28,7 @@
   text-decoration: none;
   font-size: 18px;
   padding: 8px 20px;
+  cursor: pointer;
 }
 
 .btn-valoration {

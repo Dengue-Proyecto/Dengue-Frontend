@@ -1,0 +1,36 @@
+<div class="contenedor">
+  <h2>Registro de Evaluaciones</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>N°</th>
+      <th>Fecha y hora</th>
+      <th>Riesgo</th>
+      <th>Síntomas identificados</th>
+      <th>Cantidad de Síntomas</th>
+      <th>Tiempo de Evaluación</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fila of filasPaginadas; let i = index">
+      <td>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</td>
+      <td>{{ convertirFecha(fila.fecha) }}</td>
+      <td>{{ fila.riesgo }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let sintoma of fila.sintomas_identificados">{{ formatearSintoma(sintoma) }}</li>
+        </ul>
+      </td>
+      <td>{{ fila.cantidad_sintomas }}</td>
+      <td>{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="paginacion">
+    <button (click)="anterior()" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="siguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+  </div>
+</div>

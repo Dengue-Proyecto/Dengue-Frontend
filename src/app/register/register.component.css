@@ -36,6 +36,12 @@ input {
   gap: 15px;
 }
 
+.error {
+  font-size: 0.9rem;
+  margin-left: 33px;
+  margin-top: 5px;
+}
+
 .colegiatura input {
   margin-left: 33px;
 }

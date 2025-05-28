@@ -16,6 +16,7 @@ export class FormComponent implements OnInit {
   totalPages = 2;  // Tres páginas para dividir las preguntas
   edades: number[] = [];
   diasDeFiebre: number[] = [];  // Lista para los días de fiebre
+  tiempoInicio: number = 0;
 
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {}
 
@@ -36,6 +37,16 @@ export class FormComponent implements OnInit {
 
     this.edades = Array.from({ length: 99 }, (_, i) => i + 1);
     this.diasDeFiebre = Array.from({ length: 15 }, (_, i) => i);
+    this.iniciarEvaluacion();
+  }
+
+  iniciarEvaluacion() {
+    this.tiempoInicio = Date.now();
+  }
+
+  calcularTiempoEvaluacion(): number {
+    const ahora = Date.now();
+    return Math.floor((ahora - this.tiempoInicio) / 1000); // segundos
   }
 
   siguiente() {
@@ -52,6 +63,7 @@ export class FormComponent implements OnInit {
 
   enviarFormulario() {
     if (this.form.valid) {
+      const tiempoEvaluacionSegundos = this.calcularTiempoEvaluacion();
       const formData = this.form.value;
       const formDataWithBooleans = {
         edad: formData.edad,
@@ -64,17 +76,17 @@ export class FormComponent implements OnInit {
         perdida_apetito: formData.perdidaApetito === 'Si',
         dolor_abdominal: formData.dolorAbdominal === 'Si',
         nauseas_vomitos: formData.nauseasVomitos === 'Si',
-        diarrea: formData.diarrea === 'Si'
+        diarrea: formData.diarrea === 'Si',
+        tiempo_evaluacion: tiempoEvaluacionSegundos
       };
 
       console.log('Datos del formulario:', formDataWithBooleans);
 
-      // Enviar los datos
       this.http.post(`${environment.apiUrl}/evaluar_riesgo`, formDataWithBooleans)
         .subscribe((response: any) => {
-          console.log('Respuesta del backend:', response);  // Asegúrate de ver la respuesta aquí
-          // Redirigir con los datos al componente de resultados
-          this.router.navigate(['/result1'], {
+          console.log('Respuesta del backend:', response);
+
+          this.router.navigate(['/result'], {
             state: {
               riesgo_lineal: response.riesgo_lineal,
               riesgo_poli: response.riesgo_poli,

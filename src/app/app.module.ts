@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FormModule} from './form/form.module';
 import { RouterModule } from '@angular/router';
 import { ResultComponent } from './result/result.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import {NgOptimizedImage} from '@angular/common';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,8 @@ import { LandingComponent } from './landing/landing.component';
 import { Result1Component } from './result1/result1.component';
 import {RegisterModule} from './register/register.module';
 import { LoginComponent } from './login/login.component';
+import {AuthInterceptor} from './auth.interceptor';
+import {EvaluationsModule} from './evaluations/evaluations.module';
 
 
 @NgModule({
@@ -33,13 +35,16 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     FormModule,
     RegisterModule,
+    EvaluationsModule,
     RouterModule,
     HttpClientModule,
     NgOptimizedImage,
     CommonModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

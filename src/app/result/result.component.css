@@ -95,14 +95,13 @@
   background-color: #468B73;
   color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 10px 32px;
+  font-size: 20px;
   border-radius: 5px;
   text-decoration: none;
-}
-
-.btn-secondary:hover {
-  background-color: #468B73;
+  margin-right: 40px;
+  cursor: pointer;
+  font-family: "PT Serif", serif;
 }
 
 .text-center {
