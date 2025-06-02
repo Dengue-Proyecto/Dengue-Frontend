@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import {EvaluationsComponent} from './evaluations.component';
 
 
-
 @NgModule({
   declarations: [EvaluationsComponent],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [EvaluationsComponent]
 })

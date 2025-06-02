@@ -63,8 +63,10 @@ export class FormComponent implements OnInit {
 
   enviarFormulario() {
     if (this.form.valid) {
-      const tiempoEvaluacionSegundos = this.calcularTiempoEvaluacion();
+      const tiempoFinal = Date.now();
+      const tiempoEvaluacionSegundos = Math.floor((tiempoFinal - this.tiempoInicio) / 1000);
       const formData = this.form.value;
+
       const formDataWithBooleans = {
         edad: formData.edad,
         genero: formData.genero,
@@ -77,7 +79,9 @@ export class FormComponent implements OnInit {
         dolor_abdominal: formData.dolorAbdominal === 'Si',
         nauseas_vomitos: formData.nauseasVomitos === 'Si',
         diarrea: formData.diarrea === 'Si',
-        tiempo_evaluacion: tiempoEvaluacionSegundos
+        tiempo_inicial: this.tiempoInicio,
+        tiempo_final: tiempoFinal,
+        tiempo_evaluacion: tiempoEvaluacionSegundos,
       };
 
       console.log('Datos del formulario:', formDataWithBooleans);
@@ -86,7 +90,7 @@ export class FormComponent implements OnInit {
         .subscribe((response: any) => {
           console.log('Respuesta del backend:', response);
 
-          this.router.navigate(['/result1'], {
+          this.router.navigate(['/resultado1'], {
             state: {
               riesgo_lineal: response.riesgo_lineal,
               riesgo_poli: response.riesgo_poli,

@@ -2,7 +2,7 @@
   background-color: #BCCECC; /* similar al color de fondo gris verdoso */
   padding: 80px 80px;
   color: #000000;
-  min-height: calc(100vh - 17.2vh); /* Altura viewport menos el alto del footer */
+  min-height: calc(100vh - 11.9vh); /* Altura viewport menos el alto del footer */
   box-sizing: border-box; /* para que el padding no aumente el ancho */
 }
 

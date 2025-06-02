@@ -1,17 +1,18 @@
 <nav class="navbar">
   <div class="navbar-container">
-    <a routerLink="/landing">
+    <a routerLink="/inicio">
       <img src="logo1.png" alt="Logo" class="navbar-logo" />
     </a>
 
     <div *ngIf="!estaLogueado" class="navbar-links">
-      <a routerLink="/login" class="navbar-link">Iniciar Sesión</a>
-      <a routerLink="/register" class="btn-valoration">Registrarse</a>
+      <a routerLink="/iniciar" class="btn-valoration">Iniciar Sesión</a>
+      <a routerLink="/registro" class="btn-valoration">Registrarse</a>
     </div>
 
     <div *ngIf="estaLogueado" class="navbar-links">
-      <a (click)="logout()" class="navbar-link">Cerrar sesión</a>
-      <a routerLink="/evaluations" class="btn-valoration">Ver evaluaciones</a>
+      <a routerLink="/formulario" class="btn-valoration">Evaluar</a>
+      <a routerLink="/evaluaciones" class="btn-valoration">Ver evaluaciones</a>
+      <a (click)="logout()" class="btn-valoration">Cerrar sesión</a>
     </div>
   </div>
 </nav>

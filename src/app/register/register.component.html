@@ -3,10 +3,6 @@
   <form (ngSubmit)="onSubmit()" #registroForm="ngForm" novalidate>
     <div class="form-grid">
       <div>
-        <label>Nombres:</label>
-        <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [readonly]="true">
-      </div>
-      <div>
         <label>Nro. de Colegiatura:</label>
         <div class="colegiatura">
           <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura"
@@ -20,12 +16,16 @@
         </div>
       </div>
       <div>
+        <label>Nombres:</label>
+        <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP">
+      </div>
+      <div>
         <label>Apellido paterno:</label>
-        <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [readonly]="true">
+        <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP">
       </div>
       <div>
         <label>Apellido materno:</label>
-        <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [readonly]="true">
+        <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP">
       </div>
       <div>
         <label>Correo electrónico:</label>
@@ -46,5 +46,5 @@
     </div>
     <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
   </form>
-  <p class="login-link">¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
+  <p class="login-link">¿Ya tienes una cuenta? <a href="/iniciar">Inicia sesión</a></p>
 </div>

@@ -24,6 +24,7 @@ export class RegisterComponent {
   };
 
   buscando: boolean = false;
+  errorCMP: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -39,6 +40,7 @@ export class RegisterComponent {
     }
 
     this.buscando = true;
+    this.errorCMP = false;
 
     this.buscarPorCMP(this.usuario.numeroColegiatura).subscribe({
       next: (datos: DatosCMP) => {
@@ -46,10 +48,12 @@ export class RegisterComponent {
         this.usuario.apellidoPaterno = datos.apellido_paterno;
         this.usuario.apellidoMaterno = datos.apellido_materno;
         this.buscando = false;
+        this.errorCMP = false;
       },
       error: () => {
-        alert('No se encontraron datos para ese número de colegiatura.');
+        alert('No se encontraron datos para ese número de colegiatura. Puede ingresar los datos manualmente.');
         this.buscando = false;
+        this.errorCMP = true; // activa campos manuales
         this.usuario.nombres = '';
         this.usuario.apellidoPaterno = '';
         this.usuario.apellidoMaterno = '';
@@ -77,7 +81,7 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           alert('Registro exitoso.');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/iniciar']);
         },
         error: (err) => {
           alert('Ocurrió un error al registrar: ' + (err.error?.detail || err.message || 'Intenta nuevamente.'));

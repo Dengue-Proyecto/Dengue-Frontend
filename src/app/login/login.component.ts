@@ -24,7 +24,7 @@ export class LoginComponent {
         next: (respuesta: any) => {
           console.log('Token:', respuesta.access_token);
           this.authService.login(respuesta.access_token);  // <--- Aquí avisamos al servicio
-          this.router.navigate(['/form']);
+          this.router.navigate(['/formulario']);
         },
         error: (error) => {
           console.error('Error en login:', error);

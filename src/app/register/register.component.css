@@ -30,6 +30,13 @@ input {
   border: 1px solid #ccc;
 }
 
+input:disabled {
+  background-color: #e8e6e6;
+  color: #444;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
 .colegiatura {
   width: 92%;
   display: flex;

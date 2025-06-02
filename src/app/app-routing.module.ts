@@ -10,14 +10,14 @@ import {EvaluationsComponent} from './evaluations/evaluations.component';
 
 
 const routes: Routes = [
-  { path: 'landing', component: LandingComponent },
-  { path: 'form', component: FormComponent },
-  { path: 'result', component: ResultComponent },
-  { path: 'result1', component: Result1Component },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'evaluations', component: EvaluationsComponent },
-  { path: '', redirectTo: '/landing', pathMatch: 'full' }
+  { path: 'inicio', component: LandingComponent },
+  { path: 'formulario', component: FormComponent },
+  { path: 'resultado', component: ResultComponent },
+  { path: 'resultado1', component: Result1Component },
+  { path: 'registro', component: RegisterComponent },
+  { path: 'iniciar', component: LoginComponent },
+  { path: 'evaluaciones', component: EvaluationsComponent },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' }
 ];
 
 @NgModule({
