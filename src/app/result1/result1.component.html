@@ -1,13 +1,15 @@
 <div class="result-container">
-  <div class="result-header">
-    <h2>Nivel de riesgo de tener Dengue</h2>
-  </div>
-  <div class="result-body">
-    <h3>{{ riesgo_random_forest }}</h3>
-    <p>No olvides que esto es una valoración. En caso de tener dudas es mejor consultar con un médico.</p>
-    <div class="button-container">
-      <button class="button" routerLink="/formulario">Volver a evaluar</button>
-      <button class="button" routerLink="/evaluaciones">Ver evaluaciones</button>
+  <div id="pdfContent">
+    <div class="result-header">
+        <h2>Nivel de riesgo de tener Dengue</h2>
+      </div>
+      <div class="result-body">
+        <h3>{{ riesgo_random_forest }}</h3>
+        <p>No olvides que esto es una valoración. En caso de tener dudas es mejor consultar con un médico.</p>
     </div>
+  </div>
+  <div class="button-container">
+    <button class="button" (click)="descargarPDF()">Descargar resultado</button>
+    <button class="button" routerLink="/evaluaciones">Ver evaluaciones</button>
   </div>
 </div>
