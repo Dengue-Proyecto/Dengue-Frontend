@@ -14,6 +14,11 @@ export class EvaluationsComponent implements OnInit {
   registrosPorPagina: number = 5;
   totalPaginas: number = 1;
   filasPaginadas: any[] = [];
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  riesgoFiltro: string = '';
+  evaluacionesFiltradas: any[] = [];
+  minFechaFin: string = '';
 
   // Usar la URL base de environment
   private apiUrl = `${environment.apiUrl}/mis_evaluaciones`;
@@ -31,6 +36,62 @@ export class EvaluationsComponent implements OnInit {
     'dias_de_fiebre': 'Días con fiebre',
   };
 
+  ajustarFechaHasta() {
+    this.minFechaFin = this.fechaInicio; // deshabilita fechas anteriores en "Hasta"
+    if (this.fechaFin && this.fechaFin < this.minFechaFin) {
+      this.fechaFin = this.minFechaFin; // corrige si estaba antes de la fecha mínima
+    }
+  }
+
+  aplicarFiltros() {
+    this.evaluacionesFiltradas = [...this.filas];
+
+    if (this.fechaInicio && this.fechaFin) {
+      function fechaLocalString(fecha: Date): string {
+        const ano = fecha.getFullYear();
+        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        return `${ano}-${mes}-${dia}`;
+      }
+
+      const inicioStr = this.fechaInicio;
+      const finStr = this.fechaFin;
+
+      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => {
+        try {
+          const fechaEvalStr = fechaLocalString(new Date(eva.fecha));
+          return fechaEvalStr >= inicioStr && fechaEvalStr <= finStr;
+        } catch {
+          return false;
+        }
+      });
+    }
+
+    if (this.riesgoFiltro) {
+      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => eva.riesgo === this.riesgoFiltro);
+    }
+
+    this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
+    this.paginaActual = 1;
+
+    if (this.evaluacionesFiltradas.length === 0) {
+      this.filasPaginadas = []; // así activa el else y muestra el mensaje
+    } else {
+      this.cambiarPagina(1);
+    }
+  }
+
+  limpiarFiltros() {
+    this.fechaInicio = '';
+    this.fechaFin = '';
+    this.riesgoFiltro = '';
+    this.evaluacionesFiltradas = [...this.filas];
+
+    this.totalPaginas = Math.ceil(this.filas.length / this.registrosPorPagina);
+    this.paginaActual = 1;
+    this.filasPaginadas = this.filas.slice(0, this.registrosPorPagina);
+  }
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -41,7 +102,8 @@ export class EvaluationsComponent implements OnInit {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: data => {
         this.filas = data;
-        this.totalPaginas = Math.ceil(this.filas.length / this.registrosPorPagina);
+        this.evaluacionesFiltradas = [...data]; // <== copia para filtros
+        this.totalPaginas = Math.ceil(data.length / this.registrosPorPagina);
         this.cambiarPagina(1);
       },
       error: err => {
@@ -54,7 +116,7 @@ export class EvaluationsComponent implements OnInit {
     if (pagina < 1 || pagina > this.totalPaginas) return;
     this.paginaActual = pagina;
     const inicio = (pagina - 1) * this.registrosPorPagina;
-    this.filasPaginadas = this.filas.slice(inicio, inicio + this.registrosPorPagina);
+    this.filasPaginadas = this.evaluacionesFiltradas.slice(inicio, inicio + this.registrosPorPagina);
   }
 
   siguiente() {

@@ -90,7 +90,7 @@ export class FormComponent implements OnInit {
         .subscribe((response: any) => {
           console.log('Respuesta del backend:', response);
 
-          this.router.navigate(['/resultado1'], {
+          this.router.navigate(['/resultado'], {
             state: {
               riesgo_lineal: response.riesgo_lineal,
               riesgo_poli: response.riesgo_poli,
@@ -107,7 +107,8 @@ export class FormComponent implements OnInit {
               metricas: response.metricas,
               precision_promedio: response.precision_promedio,
               recall_promedio: response.recall_promedio,
-              tiempo_promedio: response.tiempo_promedio
+              tiempo_promedio: response.tiempo_promedio,
+              recomendacion: response.recomendacion
             }
           });
         }, (error) => {

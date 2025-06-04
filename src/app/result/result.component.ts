@@ -16,6 +16,7 @@ export class ResultComponent implements OnInit {
   riesgo_sigmoid!: string;
   riesgo_random_forest!: string;
   riesgo_xgboost!:string;
+  recomendacion!: string;
 
   // Variables para mostrar las probabilidades
   probabilidad_lineal_pct!: number;
@@ -74,6 +75,8 @@ export class ResultComponent implements OnInit {
       this.tiempo_promedio = state.tiempo_promedio;
       this.mejor_modelo_nombre = state.mejor_modelo_nombre;
       this.nivel_riesgo_mejor_modelo = state.nivel_riesgo_mejor_modelo;
+
+      this.recomendacion = state.recomendacion;
     }
   }
 

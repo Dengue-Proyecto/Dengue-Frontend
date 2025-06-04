@@ -1,36 +1,71 @@
 <div class="contenedor">
   <h2>Registro de Evaluaciones</h2>
 
-  <table>
-    <thead>
-    <tr>
-      <th>N°</th>
-      <th>Fecha y hora</th>
-      <th>Riesgo</th>
-      <th>Síntomas identificados</th>
-      <th>Cantidad de Síntomas</th>
-      <th>Tiempo de Evaluación</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let fila of filasPaginadas; let i = index">
-      <td>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</td>
-      <td>{{ convertirFecha(fila.fecha) }}</td>
-      <td>{{ fila.riesgo }}</td>
-      <td>
-        <ul>
-          <li *ngFor="let sintoma of fila.sintomas_identificados">{{ formatearSintoma(sintoma) }}</li>
-        </ul>
-      </td>
-      <td>{{ fila.cantidad_sintomas }}</td>
-      <td>{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="filtros">
+    <label>
+      Desde:
+      <input type="date" [(ngModel)]="fechaInicio" (change)="ajustarFechaHasta()">
+    </label>
 
-  <div class="paginacion">
-    <button (click)="anterior()" [disabled]="paginaActual === 1">Anterior</button>
-    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-    <button (click)="siguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    <label>
+      Hasta:
+      <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin">
+    </label>
+
+    <label>
+      Riesgo:
+      <select [(ngModel)]="riesgoFiltro">
+        <option value="">Todos</option>
+        <option value="bajo">Bajo</option>
+        <option value="medio">Medio</option>
+        <option value="alto">Alto</option>
+      </select>
+    </label>
+
+    <button (click)="aplicarFiltros()">Filtrar</button>
+    <button (click)="limpiarFiltros()">Limpiar filtros</button>
   </div>
+
+  <div *ngIf="filasPaginadas.length > 0; else sinResultados">
+    <table>
+      <thead>
+      <tr>
+        <th>N°</th>
+        <th>Fecha y hora</th>
+        <th>Riesgo</th>
+        <th>Síntomas identificados</th>
+        <th>Cantidad de Síntomas</th>
+        <th>Tiempo de Evaluación</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let fila of filasPaginadas; let i = index">
+        <td>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</td>
+        <td>{{ convertirFecha(fila.fecha) }}</td>
+        <td>{{ fila.riesgo }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let sintoma of fila.sintomas_identificados">{{ formatearSintoma(sintoma) }}</li>
+          </ul>
+        </td>
+        <td>{{ fila.cantidad_sintomas }}</td>
+        <td>{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="paginacion">
+      <button (click)="anterior()" [disabled]="paginaActual === 1">Anterior</button>
+      <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+      <button (click)="siguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+  </div>
+
+  <!-- Mostrar si no hay resultados -->
+  <ng-template #sinResultados>
+    <div class="sin-resultados">
+      No hay evaluaciones que coincidan con los filtros seleccionados.
+    </div>
+  </ng-template>
+
 </div>
