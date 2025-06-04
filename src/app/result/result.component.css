@@ -109,6 +109,47 @@
   margin-top: 20px;
 }
 
+/* Ocultar los botones al generar el PDF */
+.hide-when-pdf {
+  display: block;
+}
+
+/* Aplicar solo cuando se descarga el PDF */
+#content-to-pdf.pdfto-hide .hide-when-pdf {
+  display: none;
+}
+
+/* Para que las métricas y resultados tengan un formato adecuado */
+.metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.metric-card {
+  width: 250px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.table-bordered {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.table-bordered th, .table-bordered td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+
 /* Contenedor de métricas por modelo (flex) */
 .metrics-grid {
   display: flex;
@@ -155,6 +196,25 @@
   margin-bottom: 6px;
   font-weight: 500;
 }
+
+.conclusion {
+  text-align: left; /* Asegura que todo el contenido dentro de la clase conclusion esté alineado a la izquierda */
+  margin: 0 10px; /* Añade un pequeño margen de 10px a los lados para que no se vea tan pegado a los bordes */
+}
+
+.conclusion h3 {
+  margin-bottom: 10px; /* Opcional: espaciado debajo del título */
+}
+
+.conclusion p {
+
+  line-height: 1.6em; /* Opcional: mejora la legibilidad de los párrafos */
+}
+
+.conclusion div {
+  margin-top: 15px; /* Opcional: espaciado entre los bloques de contenido */
+}
+
 
 /* Responsive: apila en pantallas pequeñas */
 @media (max-width: 600px) {

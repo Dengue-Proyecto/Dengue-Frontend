@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router } from '@angular/router';
+import html2pdf from 'html2pdf.js';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-result',
@@ -15,8 +17,7 @@ export class ResultComponent implements OnInit {
   riesgo_rbf!: string;
   riesgo_sigmoid!: string;
   riesgo_random_forest!: string;
-  riesgo_xgboost!:string;
-  recomendacion!: string;
+  riesgo_xgboost!: string;
 
   // Variables para mostrar las probabilidades
   probabilidad_lineal_pct!: number;
@@ -32,7 +33,7 @@ export class ResultComponent implements OnInit {
   mejor_modelo_nombre!: string;
   nivel_riesgo_mejor_modelo!: string;
 
-  // metricas
+  // métricas
   metricas: { [key: string]: any } = {};
 
   nombreModelos: { [key: string]: string } = {
@@ -43,6 +44,9 @@ export class ResultComponent implements OnInit {
     random_forest: 'Random Forest',
     xgboost: 'XGboost'
   };
+
+  // Variables para la interpretación generada por Gemini
+  interpretacion!: string;
 
   constructor(private router: Router) { }
 
@@ -67,7 +71,7 @@ export class ResultComponent implements OnInit {
       this.probabilidad_random_forest_pct = state.probabilidad_random_forest_pct;
       this.probabilidad_xgboost_pct = state.probabilidad_xgboost_pct;
 
-      // metricas
+      // Asignar métricas
       this.metricas = state.metricas || {};
 
       this.precision_promedio = state.precision_promedio;
@@ -76,8 +80,60 @@ export class ResultComponent implements OnInit {
       this.mejor_modelo_nombre = state.mejor_modelo_nombre;
       this.nivel_riesgo_mejor_modelo = state.nivel_riesgo_mejor_modelo;
 
-      this.recomendacion = state.recomendacion;
+      // Asignar la interpretación
+      this.interpretacion = state.interpretacion || "No se pudo generar la interpretación.";
+      console.log("Interpretación:", this.interpretacion);
     }
+  }
+
+  // Función para limpiar el formato, reemplazar Markdown y agregar saltos de línea
+  limpiarInterpretacion(): string {
+    return this.interpretacion
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  // Reemplaza **texto** con <strong>texto</strong>
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')  // Reemplaza *texto* con <em>texto</em>
+      .replace(/\n/g, '<br>');  // Reemplaza saltos de línea (\n) por <br>
+  }
+
+  // Función para descargar el PDF
+  descargarPDF() {
+    // Seleccionar el contenido que queremos convertir a PDF
+    const content = document.getElementById('content-to-pdf') as HTMLElement;
+
+    if (!content) {
+      console.error('No se encontró el contenido para generar el PDF.');
+      return;
+    }
+
+    // Ocultar los botones mientras generamos el PDF
+    const buttons = document.querySelectorAll('button, a');
+    buttons.forEach((button: any) => button.style.display = 'none');
+
+    // Configuración de opciones para html2pdf
+    const opt = {
+      margin: 11,
+      filename: 'resultados_evaluacion.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 4 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Usamos html2pdf para generar el PDF del contenido
+    html2pdf()
+      .from(content) // Seleccionamos el contenido HTML para convertirlo a PDF
+      .set(opt) // Aplicamos la configuración de opciones
+      .toPdf()
+      .get('pdf')
+      .then((pdf: jsPDF) => {
+        console.log('PDF generado correctamente');
+        pdf.save('resultados_evaluacion.pdf');
+
+        // Restaurar los botones después de que se haya generado el PDF
+        buttons.forEach((button: any) => button.style.display = 'inline');
+      })
+      .catch((error: any) => {  // Aquí definimos el error como 'any'
+        console.error('Error generando el PDF:', error);
+      });
+
   }
 
 }

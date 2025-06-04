@@ -1,34 +1,143 @@
-.container {
-  background-color: #BCCECC; /* similar al color de fondo gris verdoso */
-  padding: 80px 80px;
-  color: #000000;
-  min-height: calc(100vh - 11.9vh); /* Altura viewport menos el alto del footer */
-  box-sizing: border-box; /* para que el padding no aumente el ancho */
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
 }
 
-.container-blanco {
-  background-color: #ffffff;
+.risk-evaluation {
+  min-height: 87.75dvh; ; /* altura menor para evitar scroll */
+  width: 100vw;
+  /* Degradado de blanco (izquierda) a verde #83A69A (derecha) */
+  background: linear-gradient(270deg, #83A69A 0%, #ffffff 100%);
+  color: #225946; /* texto verde oscuro */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
-h2 {
-  font-size: 45px;
-  font-weight: normal;
-  margin-bottom: 25px;
+
+.risk-evaluation .content {
+  max-width: 700px; /* contenido más ancho para mejor lectura */
 }
 
-p {
-  margin-top: 0;
-  margin-bottom: 60px;
-  font-size: 25px;
+/* Título principal */
+.main-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 60px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 24px;
+  line-height: 1.1;
 }
 
-button {
-  background-color: #225946; /* verde oscuro */
-  color: white;
-  border: none;
+.main-title .highlight {
+  color: #468B73; /* azul verdoso para destacar */
+}
+
+/* Descripción */
+.description {
+  font-size: 1.125rem;
+  color: #468B73; /* verde oscuro con transparencia */
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Contenedor botones */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+  align-items: center;
+}
+
+/* Botón Evaluar */
+.btn.primary {
+  flex: 1 1 140px;
+  min-width: 140px;
   padding: 10px 32px;
-  border-radius: 15px;
   font-size: 20px;
+  font-weight: 700;
+  border-radius: 15px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  box-shadow: 0 5px 15px rgba(34, 89, 70, 0.2);
+  user-select: none;
   font-family: "PT Serif", serif;
+  background-color: #225946;
+  color: white;
 }
+
+.btn.primary:hover,
+.btn.primary:focus {
+  background-color: #1B473A;
+  box-shadow: 0 0 15px #225946aa;
+  outline: none;
+  transform: scale(1.05);
+}
+
+/* Botón Registrarse con ancho fijo y centrado */
+.btn.register {
+  background-color: #468B73;
+  color: #F8FAFC;
+  border: none;
+  padding: 12px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(70, 139, 115, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  user-select: none;
+  text-align: center;
+  white-space: nowrap;
+  max-width: 280px;  /* ancho máximo fijo */
+  width: 100%;       /* que ocupe todo dentro del max-width */
+  flex: none;        /* no crecer ni encoger */
+  margin: 0 auto;    /* centrar horizontal */
+}
+
+.btn.register:hover,
+.btn.register:focus {
+  background-color: #3a705f;
+  box-shadow: 0 0 20px #468B73cc;
+  outline: none;
+  transform: scale(1.05);
+}
+
+/* Disclaimer */
+.disclaimer {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  max-width: 700px;
+  font-size: 0.8rem;
+  color: #468B73cc;
+  padding: 0 1rem;
+  line-height: 1.3;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .risk-evaluation {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+

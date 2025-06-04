@@ -1,42 +1,80 @@
 /* Navbar Styling */
-.navbar {
-  background-color: #468B73; /* Color de fondo similar */
-  padding: 1px 40px;
+ .navbar {
+  background-color: #468B73;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  width: 100%;
+   font-family: 'Inter', sans-serif;
 }
 
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 80px;
-  margin-right: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex-wrap: nowrap; /* No permite que los elementos bajen de línea */
 }
 
 .navbar-logo {
-  height: 80px;
+  height: 60px; /* ajustado para móviles */
   width: auto;
+  flex-shrink: 0;
 }
 
 .navbar-links {
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  align-items: center;
+  overflow-x: auto; /* permite scroll horizontal si no cabe */
+  -webkit-overflow-scrolling: touch; /* suaviza scroll en iOS */
 }
 
 .navbar-link {
   border-radius: 15px;
   color: white;
   text-decoration: none;
-  font-size: 18px;
-  padding: 8px 20px;
+  font-size: 16px;
+  padding: 8px 16px;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0; /* evita que se encojan */
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .btn-valoration {
   background-color: #225946;
   color: white;
   text-decoration: none;
-  font-size: 18px;
-  padding: 8px 20px;
+  font-size: 16px;
+  padding: 8px 16px;
   border-radius: 15px;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-valoration:hover {
+  background-color: #1b4d3e;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .navbar-logo {
+    height: 50px;
+  }
+
+  .navbar-link, .btn-valoration {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .navbar-links {
+    gap: 12px;
+  }
 }

@@ -1,7 +1,19 @@
-<div class="container">
-  <h2>CONOZCA EL NIVEL DE RIESGO DE SU PACIENTE</h2>
-  <p>Realice una evaluación hoy y fortalezca la salud para el futuro.</p>
+<section class="risk-evaluation">
+  <div class="content">
+    <h2 class="main-title">
+      Conozca el nivel de <span class="highlight">riesgo</span> de su paciente
+    </h2>
+    <p class="description">
+      Realice una evaluación hoy y fortalezca la salud para un futuro más confiable.
+    </p>
 
-  <button *ngIf="estaLogueado" [routerLink]="['/formulario']">Evaluar</button>
-  <button *ngIf="!estaLogueado" [routerLink]="['/registro']">Registrarse</button>
-</div>
+    <div class="buttons">
+      <button class="btn primary" *ngIf="estaLogueado" [routerLink]="['/formulario']" aria-label="Evaluar nivel de riesgo">
+        Evaluar
+      </button>
+      <button class="btn register" *ngIf="!estaLogueado" [routerLink]="['/registro']" aria-label="Registrarse para evaluar">
+        Registrarse
+      </button>
+    </div>
+  </div>
+</section>

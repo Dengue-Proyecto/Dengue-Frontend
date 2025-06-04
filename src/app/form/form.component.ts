@@ -108,7 +108,7 @@ export class FormComponent implements OnInit {
               precision_promedio: response.precision_promedio,
               recall_promedio: response.recall_promedio,
               tiempo_promedio: response.tiempo_promedio,
-              recomendacion: response.recomendacion
+              interpretacion: response.interpretacion
             }
           });
         }, (error) => {

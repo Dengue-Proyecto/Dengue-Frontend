@@ -17,15 +17,16 @@ import {RegisterModule} from './register/register.module';
 import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from './auth.interceptor';
 import {EvaluationsModule} from './evaluations/evaluations.module';
+import { MarkdownModule } from 'ngx-markdown';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ResultComponent,
     FooterComponent,
     LandingComponent,
+    ResultComponent,
     Result1Component,
     LoginComponent,
   ],
@@ -40,7 +41,8 @@ import {EvaluationsModule} from './evaluations/evaluations.module';
     HttpClientModule,
     NgOptimizedImage,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MarkdownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

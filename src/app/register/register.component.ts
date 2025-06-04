@@ -11,7 +11,6 @@ import {Router} from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-
 export class RegisterComponent {
 
   usuario = {
@@ -26,7 +25,11 @@ export class RegisterComponent {
   buscando: boolean = false;
   errorCMP: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  alertMessage: string = '';
+  showAlert: boolean = false;
+  alertSuccess: boolean = false; // <-- Controla el color de la alerta
+
+  constructor(private http: HttpClient, public router: Router) {}
 
   buscarPorCMP(cmpNum: string): Observable<DatosCMP> {
     let params = new HttpParams().set('cmp_num', cmpNum);
@@ -35,7 +38,7 @@ export class RegisterComponent {
 
   buscarDatos() {
     if (!/^\d{6}$/.test(this.usuario.numeroColegiatura)) {
-      alert('Ingrese un número de colegiatura válido de 6 dígitos');
+      this.mostrarAlerta('Ingrese un número de colegiatura válido de 6 dígitos', false);
       return;
     }
 
@@ -51,7 +54,7 @@ export class RegisterComponent {
         this.errorCMP = false;
       },
       error: () => {
-        alert('No se encontraron datos para ese número de colegiatura. Puede ingresar los datos manualmente.');
+        this.mostrarAlerta('No se encontraron datos para ese número de colegiatura. Puede ingresar los datos manualmente.', false);
         this.buscando = false;
         this.errorCMP = true; // activa campos manuales
         this.usuario.nombres = '';
@@ -63,8 +66,22 @@ export class RegisterComponent {
 
   onSubmit() {
     const u = this.usuario;
+
+    // Validación correo simple con regex
+    const correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(u.correo);
+
     if (!u.nombres || !u.apellidoPaterno || !u.apellidoMaterno || !u.correo || !u.contrasena || !/^\d{6}$/.test(u.numeroColegiatura)) {
-      alert('Por favor, complete correctamente todos los campos antes de enviar.');
+      this.mostrarAlerta('Por favor, complete correctamente todos los campos antes de enviar.', false);
+      return;
+    }
+
+    if (!correoValido) {
+      this.mostrarAlerta('Ingresa un correo válido.', false);
+      return;
+    }
+
+    if (u.contrasena.length < 5) {
+      this.mostrarAlerta('La contraseña debe tener al menos 5 caracteres.', false);
       return;
     }
 
@@ -80,11 +97,13 @@ export class RegisterComponent {
     this.http.post(`${environment.apiUrl}/usuario/registrar_usuario`, datosRegistro)
       .subscribe({
         next: () => {
-          alert('Registro exitoso.');
-          this.router.navigate(['/iniciar']);
+          this.mostrarAlerta('Registro exitoso.', true);  // <-- Mensaje de éxito
+          setTimeout(() => {
+            this.router.navigate(['/iniciar']);
+          }, 1200);
         },
-        error: (err) => {
-          alert('Ocurrió un error al registrar: ' + (err.error?.detail || err.message || 'Intenta nuevamente.'));
+        error: () => {
+          this.mostrarAlerta('Ocurrió un error al registrar. Intenta nuevamente.', false);  // <-- Mensaje de error
         }
       });
   }
@@ -92,16 +111,29 @@ export class RegisterComponent {
   soloNumeros(event: KeyboardEvent): void {
     const charCode = event.key.charCodeAt(0);
     if (charCode < 48 || charCode > 57) {
-      event.preventDefault(); // Bloquea letras y símbolos
+      event.preventDefault();
     }
   }
 
   evitarPegadoInvalido(event: ClipboardEvent): void {
     const textoPegado = event.clipboardData?.getData('text') || '';
-    const esNumerico = /^\d{1,6}$/.test(textoPegado); // Solo números, máximo 6
+    const esNumerico = /^\d{1,6}$/.test(textoPegado);
 
     if (!esNumerico) {
-      event.preventDefault(); // Cancela pegado si no es válido
+      event.preventDefault();
     }
+  }
+
+  irLogin() {
+    this.router.navigate(['/iniciar']);
+  }
+
+  mostrarAlerta(mensaje: string, success: boolean = false) {
+    this.alertMessage = mensaje;
+    this.alertSuccess = success;
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, 5000);
   }
 }

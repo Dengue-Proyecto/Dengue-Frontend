@@ -1,18 +1,31 @@
 <div class="login-container">
-  <h2>Inicia Sesión</h2>
+  <div class="left-panel">
+    <h2>Inicia Sesión</h2>
 
-  <form (ngSubmit)="iniciarSesion()" #formulario="ngForm">
-    <label>Nro. de Colegiatura:</label>
-    <input type="text" name="numero_colegiatura" [(ngModel)]="datosLogin.numero_colegiatura" required maxlength="6" minlength="6" (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"/>
+    <form (ngSubmit)="iniciarSesion()" #formulario="ngForm">
+      <label>Nro. de Colegiatura:</label>
+      <input type="text" name="numero_colegiatura" [(ngModel)]="datosLogin.numero_colegiatura" required maxlength="6" minlength="6" (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"/>
 
-    <label>Contraseña:</label>
-    <input type="password" name="contrasena" [(ngModel)]="datosLogin.contrasena" required />
+      <label>Contraseña:</label>
+      <input type="password" name="contrasena" [(ngModel)]="datosLogin.contrasena" required />
 
-    <button type="submit">Iniciar sesión</button>
-  </form>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+  </div>
 
-  <p class="register-text">
-    No tienes una cuenta.
-    <a href="/registro">Regístrate</a>
-  </p>
+  <div class="right-panel">
+    <div class="curve-shape">
+      <h1>¡Bienvenido!</h1>
+      <p>¿No tienes una cuenta?</p>
+      <button (click)="irRegistrar()" class="btn-registrar">Regístrate</button>
+    </div>
+  </div>
+
+  <!-- ALERTA LATERAL INFERIOR DERECHA -->
+  <div class="alert-popup-bottom" *ngIf="showAlert">
+    <div class="alert-content-bottom">
+      <p>{{ alertMessage }}</p>
+      <button class="close-btn" aria-label="Cerrar alerta" (click)="cerrarAlerta()">×</button>
+    </div>
+  </div>
 </div>

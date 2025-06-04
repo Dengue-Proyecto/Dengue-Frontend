@@ -1,50 +1,76 @@
-<div class="form-container">
-  <h2>Regístrate</h2>
-  <form (ngSubmit)="onSubmit()" #registroForm="ngForm" novalidate>
-    <div class="form-grid">
-      <div>
-        <label>Nro. de Colegiatura:</label>
-        <div class="colegiatura">
-          <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura"
-                 required pattern="[0-9]*" inputmode="numeric" maxlength="6" minlength="6"
-                 (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"
-                 #colegiatura="ngModel">
-          <button type="button" (click)="buscarDatos()" [disabled]="buscando">Buscar</button>
-        </div>
-        <div *ngIf="colegiatura.invalid && (colegiatura.dirty || colegiatura.touched)" class="error">
-          El número de colegiatura debe tener 6 dígitos numéricos.
-        </div>
-      </div>
-      <div>
-        <label>Nombres:</label>
-        <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP">
-      </div>
-      <div>
-        <label>Apellido paterno:</label>
-        <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP">
-      </div>
-      <div>
-        <label>Apellido materno:</label>
-        <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP">
-      </div>
-      <div>
-        <label>Correo electrónico:</label>
-        <input type="email" name="correo" [(ngModel)]="usuario.correo" required #correo="ngModel">
-        <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="error">
-          <div *ngIf="correo.errors?.['required']">El correo es obligatorio.</div>
-          <div *ngIf="correo.errors?.['email']">Formato de correo inválido.</div>
-        </div>
-      </div>
-      <div>
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" [(ngModel)]="usuario.contrasena" required minlength="5" #contrasena="ngModel">
-        <div *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)" class="error">
-          <div *ngIf="contrasena.errors?.['required']">La contraseña es obligatoria.</div>
-          <div *ngIf="contrasena.errors?.['minlength']">Debe tener al menos 5 caracteres.</div>
-        </div>
-      </div>
+<div class="register-container">
+  <div class="left-panel">
+    <div class="curve-shape">
+      <h1>Únete Hoy</h1>
+      <p>¿Ya tienes una cuenta?</p>
+      <button (click)="irLogin()" class="btn-login">Iniciar Sesión</button>
     </div>
-    <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
-  </form>
-  <p class="login-link">¿Ya tienes una cuenta? <a href="/iniciar">Inicia sesión</a></p>
+  </div>
+
+  <div class="right-panel">
+    <h2>Registrarse</h2>
+
+    <form (ngSubmit)="onSubmit()" #registroForm="ngForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nro. de Colegiatura:</label>
+          <div class="colegiatura">
+            <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura"
+                   required pattern="[0-9]*" inputmode="numeric" maxlength="6" minlength="6"
+                   (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"
+                   #colegiatura="ngModel">
+            <button type="button" (click)="buscarDatos()" [disabled]="buscando">Buscar</button>
+          </div>
+          <div *ngIf="colegiatura.invalid && (colegiatura.dirty || colegiatura.touched)" class="error">
+            El número de colegiatura debe tener 6 dígitos numéricos.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombres:</label>
+          <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP">
+        </div>
+
+        <div class="form-group">
+          <label>Apellido paterno:</label>
+          <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP">
+        </div>
+
+        <div class="form-group">
+          <label>Apellido materno:</label>
+          <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP">
+        </div>
+
+        <div class="form-group">
+          <label>Correo electrónico:</label>
+          <input type="email" name="correo" [(ngModel)]="usuario.correo" required #correo="ngModel">
+          <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="error">
+            <div *ngIf="correo.errors?.['required']">El correo es obligatorio.</div>
+            <div *ngIf="correo.errors?.['email']">Formato de correo inválido.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña:</label>
+          <input type="password" name="contrasena" [(ngModel)]="usuario.contrasena" required minlength="5" #contrasena="ngModel">
+          <div *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)" class="error">
+            <div *ngIf="contrasena.errors?.['required']">La contraseña es obligatoria.</div>
+            <div *ngIf="contrasena.errors?.['minlength']">Debe tener al menos 5 caracteres.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ALERTA -->
+  <div *ngIf="showAlert" [ngClass]="{'alert-popup-bottom': true, 'alert-success': alertSuccess}">
+    <div class="alert-content-bottom">
+      {{ alertMessage }}
+      <button (click)="showAlert = false" class="close-btn">&times;</button>
+    </div>
+  </div>
 </div>

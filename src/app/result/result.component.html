@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" id="content-to-pdf">
   <h1 class="text-center">RESULTADOS DE LA EVALUACIÓN</h1>
-  <h2 class="text-center">Comparativa de Modelos</h2>
 
-  <!-- Tabla de Resultados por Modelo -->
+  <!-- 1pagina: Tabla de Resultados por Modelo -->
+  <h2 class="text-center">Comparativa de Modelos</h2>
   <table class="table table-bordered table-striped">
     <thead>
     <tr>
@@ -45,9 +45,8 @@
     </tbody>
   </table>
 
-  <!-- Métricas por modelo -->
+  <!-- 2da pagina: Métricas por Modelo -->
   <h2 class="text-center mt-4">Métricas por Modelo</h2>
-
   <div class="metrics-grid">
     <div *ngFor="let modelo of metricas | keyvalue" class="metric-card model-metric-card">
       <h4 class="text-capitalize">{{ nombreModelos[modelo.key] || modelo.key }}</h4>
@@ -63,9 +62,8 @@
     </div>
   </div>
 
-  <!-- Métricas Generales -->
+  <!-- 2da pagina tambien Métricas Generales -->
   <h3 class="text-center">Métricas Generales</h3>
-
   <div class="metrics-container">
     <div class="metric-card bg-primary">
       <h4>Precisión Promedio</h4>
@@ -81,21 +79,23 @@
     </div>
   </div>
 
-  <!-- Conclusión -->
+  <!-- 3era pagina: Conclusión -->
   <div class="conclusion">
-    <h3 class="text-center">Conclusión</h3>
+    <h3 class="text-center">Resultado:</h3>
     <p class="text-center">
-      El modelo con mejor precisión es <strong>Random Forest</strong> con un 98.90% de precisión.
+      El modelo con mejor precisión es <strong>Random Forest</strong> con una probabilidad del {{ probabilidad_random_forest_pct }}%
+      y un nivel de riesgo  <strong>{{ riesgo_random_forest }}</strong>.
     </p>
-    <p class="">
-      <strong>Recomendación:</strong>
-    </p>
-    <p class="recomendacion-text" [innerHTML]="recomendacion"></p>
+    <div *ngIf="interpretacion">
+      <h3>Interpretación:</h3>
+      <div [innerHTML]="limpiarInterpretacion()"></div>
+    </div>
   </div>
 
+  <!-- (ocultar botones cuando se de click al descargar pdf)Botones -->
   <div class="text-center mt-4">
     <a class="btn btn-secondary" routerLink="/formulario">Volver a evaluar</a>
     <a class="btn btn-secondary" routerLink="/evaluaciones">Ver evaluaciones</a>
+    <button class="btn-secondary" (click)="descargarPDF()">Descargar PDF</button>
   </div>
-
 </div>
