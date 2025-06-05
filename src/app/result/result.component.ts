@@ -94,9 +94,7 @@ export class ResultComponent implements OnInit {
       .replace(/\n/g, '<br>');  // Reemplaza saltos de línea (\n) por <br>
   }
 
-  // Función para descargar el PDF
   descargarPDF() {
-    // Seleccionar el contenido que queremos convertir a PDF
     const content = document.getElementById('content-to-pdf') as HTMLElement;
 
     if (!content) {
@@ -104,36 +102,40 @@ export class ResultComponent implements OnInit {
       return;
     }
 
-    // Ocultar los botones mientras generamos el PDF
+    // Ocultar los botones
     const buttons = document.querySelectorAll('button, a');
     buttons.forEach((button: any) => button.style.display = 'none');
 
-    // Configuración de opciones para html2pdf
+    // Escalar el contenido visualmente (temporal)
+    content.style.transform = 'scale(0.8)';
+    content.style.transformOrigin = 'top left';
+    content.style.width = '125%';
+
     const opt = {
-      margin: 11,
+      margin: 6,
       filename: 'resultados_evaluacion.pdf',
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 4 },
+      html2canvas: { scale: 2 }, // menor escala = contenido más pequeño
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Usamos html2pdf para generar el PDF del contenido
     html2pdf()
-      .from(content) // Seleccionamos el contenido HTML para convertirlo a PDF
-      .set(opt) // Aplicamos la configuración de opciones
+      .from(content)
+      .set(opt)
       .toPdf()
       .get('pdf')
       .then((pdf: jsPDF) => {
-        console.log('PDF generado correctamente');
         pdf.save('resultados_evaluacion.pdf');
-
-        // Restaurar los botones después de que se haya generado el PDF
+        // Restaurar botones
         buttons.forEach((button: any) => button.style.display = 'inline');
+        // Restaurar escala
+        content.style.transform = '';
+        content.style.transformOrigin = '';
+        content.style.width = '';
       })
-      .catch((error: any) => {  // Aquí definimos el error como 'any'
+      .catch((error: any) => {
         console.error('Error generando el PDF:', error);
       });
-
   }
 
 }
