@@ -1,7 +1,7 @@
 .contenedor {
   max-width: 1200px;
   margin: 20px auto;
-  font-family: "PT Serif", serif;
+  font-family: 'Open Sans', sans-serif;
   text-align: center;
 }
 
@@ -9,7 +9,7 @@ h2 {
   font-size: 35px;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-weight: normal;
+  font-family: 'Inter', sans-serif;
 }
 
 table {
@@ -110,10 +110,10 @@ tbody tr:nth-child(odd) td {
   border: 1px solid #ccc;
   min-width: 140px;
   box-sizing: border-box;
-  font-family: "PT Serif", serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .filtros select {
   cursor: pointer;
-  font-family: "PT Serif", serif;
+  font-family: 'Open Sans', sans-serif;
 }

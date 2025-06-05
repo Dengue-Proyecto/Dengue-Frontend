@@ -78,7 +78,7 @@ html, body {
   border: none;
   box-shadow: 0 5px 15px rgba(34, 89, 70, 0.2);
   user-select: none;
-  font-family: "PT Serif", serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: #225946;
   color: white;
 }
@@ -99,7 +99,6 @@ html, body {
   padding: 12px 32px;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Inter', sans-serif;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(70, 139, 115, 0.6);
