@@ -28,17 +28,20 @@
 
         <div class="form-group">
           <label>Nombres:</label>
-          <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP">
+          <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP" required
+                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">
           <label>Apellido paterno:</label>
-          <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP">
+          <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP" required
+                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">
           <label>Apellido materno:</label>
-          <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP">
+          <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP" required
+                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">

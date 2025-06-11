@@ -19,6 +19,11 @@ export class AuthService {
     this._estaLogueado.next(!!token);
   }
 
+  // Método para acceder al valor actual de la autenticación
+  get estaLogueado(): boolean {
+    return this._estaLogueado.getValue();
+  }
+
   login(token: string) {
     localStorage.setItem('token', token);
     this._estaLogueado.next(true);

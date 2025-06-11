@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {DatosCMP} from '../models/datos-cmp';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import {Router} from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   usuario = {
     nombres: '',
@@ -29,7 +30,14 @@ export class RegisterComponent {
   showAlert: boolean = false;
   alertSuccess: boolean = false; // <-- Controla el color de la alerta
 
-  constructor(private http: HttpClient, public router: Router) {}
+  constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    // Verifica si el usuario ya está logueado
+    if (this.authService.estaLogueado) {  // Accede directamente al valor de BehaviorSubject
+      this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+    }
+  }
 
   buscarPorCMP(cmpNum: string): Observable<DatosCMP> {
     let params = new HttpParams().set('cmp_num', cmpNum);
@@ -67,7 +75,15 @@ export class RegisterComponent {
   onSubmit() {
     const u = this.usuario;
 
-    // Validación correo simple con regex
+    // Validación de caracteres no permitidos en nombres y apellidos
+    const letrasRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+
+    if (!letrasRegex.test(u.nombres) || !letrasRegex.test(u.apellidoPaterno) || !letrasRegex.test(u.apellidoMaterno)) {
+      this.mostrarAlerta('Los nombres y apellidos solo deben contener letras y espacios.', false);
+      return;
+    }
+
+    // Continuar con las validaciones ya existentes y el registro
     const correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(u.correo);
 
     if (!u.nombres || !u.apellidoPaterno || !u.apellidoMaterno || !u.correo || !u.contrasena || !/^\d{6}$/.test(u.numeroColegiatura)) {
@@ -97,13 +113,17 @@ export class RegisterComponent {
     this.http.post(`${environment.apiUrl}/usuario/registrar_usuario`, datosRegistro)
       .subscribe({
         next: () => {
-          this.mostrarAlerta('Registro exitoso.', true);  // <-- Mensaje de éxito
+          this.mostrarAlerta('Registro exitoso.', true);
           setTimeout(() => {
             this.router.navigate(['/iniciar']);
           }, 1200);
         },
-        error: () => {
-          this.mostrarAlerta('Ocurrió un error al registrar. Intenta nuevamente.', false);  // <-- Mensaje de error
+        error: (err) => {
+          if (err.status === 400 && err.error.detail === 'Usuario ya registrado') {
+            this.mostrarAlerta('La cuenta ya existe.', false);
+          } else {
+            this.mostrarAlerta('Ocurrió un error al registrar. Intenta nuevamente.', false);
+          }
         }
       });
   }
@@ -115,11 +135,36 @@ export class RegisterComponent {
     }
   }
 
+  soloLetras(event: KeyboardEvent): void {
+    const charCode = event.key.charCodeAt(0);
+    const char = event.key;
+
+    // Permite solo letras (a-z, A-Z), espacios y letras acentuadas
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+
+    // Si el carácter no es válido, previene su ingreso
+    if (!regex.test(char)) {
+      event.preventDefault();
+    }
+  }
+
   evitarPegadoInvalido(event: ClipboardEvent): void {
     const textoPegado = event.clipboardData?.getData('text') || '';
     const esNumerico = /^\d{1,6}$/.test(textoPegado);
 
     if (!esNumerico) {
+      event.preventDefault();
+    }
+  }
+
+  evitarPegadoConNumeros(event: ClipboardEvent): void {
+    const textoPegado = event.clipboardData?.getData('text') || '';
+
+    // Verifica si el texto pegado contiene números
+    const contieneNumeros = /\d/.test(textoPegado);
+
+    // Si el texto pegado contiene números, previene el pegado
+    if (contieneNumeros) {
       event.preventDefault();
     }
   }

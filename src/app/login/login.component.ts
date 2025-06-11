@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {AuthService} from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   datosLogin = {
     numero_colegiatura: '',
     contrasena: ''
@@ -20,6 +20,13 @@ export class LoginComponent {
   alertMessage: string = '';   // mensaje de alerta
 
   constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    // Verifica si el usuario ya está logueado
+    if (this.authService.estaLogueado) {  // Accede directamente al valor de BehaviorSubject
+      this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+    }
+  }
 
   iniciarSesion() {
     this.showAlert = false; // limpia alerta anterior
