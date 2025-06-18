@@ -152,4 +152,11 @@
     </div>
 
   </form>
+
+  <!-- ALERTA -->
+  <div *ngIf="showAlert" [ngClass]="{'alert-popup-bottom': true, 'alert-success': alertSuccess}">
+    <div class="alert-content-bottom">
+      {{ alertMessage }}
+    </div>
+  </div>
 </div>

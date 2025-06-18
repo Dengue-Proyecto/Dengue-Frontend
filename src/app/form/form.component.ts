@@ -18,6 +18,10 @@ export class FormComponent implements OnInit {
   diasDeFiebre: number[] = [];  // Lista para los días de fiebre
   tiempoInicio: number = 0;
 
+  alertMessage: string = '';
+  showAlert: boolean = false;
+  alertSuccess: boolean = false; // Controla el color de la alerta (puede ser un mensaje de éxito o error)
+
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
@@ -61,6 +65,15 @@ export class FormComponent implements OnInit {
     }
   }
 
+  mostrarAlerta(mensaje: string, success: boolean = false) {
+    this.alertMessage = mensaje;
+    this.alertSuccess = success;
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false; // Se cierra la alerta después de 5 segundos
+    }, 5000);
+  }
+
   enviarFormulario() {
     if (this.form.valid) {
       const tiempoFinal = Date.now();
@@ -90,7 +103,7 @@ export class FormComponent implements OnInit {
         .subscribe((response: any) => {
           console.log('Respuesta del backend:', response);
 
-          this.router.navigate(['/resultado1'], {
+          this.router.navigate(['/resultado'], {
             state: {
               riesgo_lineal: response.riesgo_lineal,
               riesgo_poli: response.riesgo_poli,
@@ -115,6 +128,8 @@ export class FormComponent implements OnInit {
           console.error('Error en la solicitud:', error);
         });
     } else {
+      this.form.markAllAsTouched(); // Resalta los campos vacíos
+      this.mostrarAlerta('Responda todas las preguntas antes de continuar.'); // Muestra la alerta
       console.log('Formulario inválido');
     }
   }

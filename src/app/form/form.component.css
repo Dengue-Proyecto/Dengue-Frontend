@@ -95,6 +95,62 @@ select {
   width: 80px;
 }
 
+/* Alerta general */
+.alert-popup-bottom {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 350px;
+  width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  z-index: 10000;
+  animation: slideInUp 0.4s ease forwards;
+  font-family: 'PT Serif', serif;
+  font-weight: 700;
+  /* Por defecto, fondo rojo para error */
+  background-color: #f8d7da;
+  border-left: 6px solid #b00020;
+  color: #b00020;
+}
+
+/* Alerta éxito - variante verde */
+.alert-success {
+  background-color: #d4edda; /* verde claro */
+  border-left: 6px solid #2e7d32; /* verde oscuro */
+  color: #2e7d32; /* texto verde oscuro */
+}
+
+.alert-content-bottom {
+  padding: 15px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  font-family: 'PT Serif', serif;
+}
+
+/* Botón cerrar alerta */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+  font-family: 'PT Serif', serif;
+  color: inherit; /* para que herede color de texto */
+}
+
+.close-btn:hover {
+  color: #555; /* más neutro para hover */
+}
+
 /* Responsividad */
 
 /* Tablets y pantallas medianas */
