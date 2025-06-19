@@ -19,6 +19,7 @@ export class EvaluationsComponent implements OnInit {
   riesgoFiltro: string = '';
   evaluacionesFiltradas: any[] = [];
   minFechaFin: string = '';
+  fechaMaxima: string = '';
 
   // Usar la URL base de environment
   private apiUrl = `${environment.apiUrl}/mis_evaluaciones`;
@@ -35,6 +36,22 @@ export class EvaluationsComponent implements OnInit {
     'diarrea': 'Diarrea',
     'dias_de_fiebre': 'Días con fiebre',
   };
+
+  constructor(private http: HttpClient) {
+    this.establecerFechaMaxima();
+  }
+
+  ngOnInit() {
+    this.cargarEvaluaciones();
+  }
+
+  establecerFechaMaxima() {
+    const hoy = new Date();
+    const ano = hoy.getFullYear();
+    const mes = (hoy.getMonth() + 1).toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+    this.fechaMaxima = `${ano}-${mes}-${dia}`;
+  }
 
   ajustarFechaHasta() {
     this.minFechaFin = this.fechaInicio; // deshabilita fechas anteriores en "Hasta"
@@ -75,7 +92,7 @@ export class EvaluationsComponent implements OnInit {
     this.paginaActual = 1;
 
     if (this.evaluacionesFiltradas.length === 0) {
-      this.filasPaginadas = []; // así activa el else y muestra el mensaje
+      this.filasPaginadas = [];
     } else {
       this.cambiarPagina(1);
     }
@@ -85,6 +102,7 @@ export class EvaluationsComponent implements OnInit {
     this.fechaInicio = '';
     this.fechaFin = '';
     this.riesgoFiltro = '';
+    this.minFechaFin = '';
     this.evaluacionesFiltradas = [...this.filas];
 
     this.totalPaginas = Math.ceil(this.filas.length / this.registrosPorPagina);
@@ -92,17 +110,11 @@ export class EvaluationsComponent implements OnInit {
     this.filasPaginadas = this.filas.slice(0, this.registrosPorPagina);
   }
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.cargarEvaluaciones();
-  }
-
   cargarEvaluaciones() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: data => {
         this.filas = data;
-        this.evaluacionesFiltradas = [...data]; // <== copia para filtros
+        this.evaluacionesFiltradas = [...data];
         this.totalPaginas = Math.ceil(data.length / this.registrosPorPagina);
         this.cambiarPagina(1);
       },

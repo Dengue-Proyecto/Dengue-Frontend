@@ -4,12 +4,12 @@
   <div class="filtros">
     <label>
       Desde:
-      <input type="date" [(ngModel)]="fechaInicio" (change)="ajustarFechaHasta()">
+      <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
     </label>
 
     <label>
       Hasta:
-      <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin">
+      <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
     </label>
 
     <label>
