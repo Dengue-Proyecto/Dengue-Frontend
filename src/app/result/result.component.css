@@ -197,6 +197,47 @@
   font-weight: 500;
 }
 
+.matrices-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.matrix-card {
+  background-color: #468B73;
+  color: white;
+  width: 280px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.matrix-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.matrix-card h4 {
+  margin-bottom: 15px;
+  font-weight: 700;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 8px;
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.matrix-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 .conclusion {
   text-align: left; /* Asegura que todo el contenido dentro de la clase conclusion esté alineado a la izquierda */
   margin: 0 10px; /* Añade un pequeño margen de 10px a los lados para que no se vea tan pegado a los bordes */
@@ -224,6 +265,10 @@
   }
 
   .model-metric-card {
+    width: 90%;
+  }
+
+  .matrix-card {
     width: 90%;
   }
 }
