@@ -77,6 +77,8 @@
       <h4>Tiempo Promedio de Inferencia</h4>
       <p>{{ tiempo_promedio }} s</p>
     </div>
+  </div>
+    <div class="metrics-container">
     <div class="metric-card bg-primary">
       <h4>Porcentaje de datos faltantes antes del Procesamiento</h4>
       <p>0.06%</p>
@@ -85,9 +87,13 @@
       <h4>Porcentaje de datos faltantes despues del Procesamiento</h4>
       <p>0.00%</p>
     </div>
+    <div class="metric-card bg-danger">
+      <h4>Coef. de correlación de la 2da carga del PCA</h4>
+      <p>0.87</p>
+    </div>
   </div>
 
-    <h2 class="text-center mt-4">Métricas por Modelo</h2>
+    <h2 class="text-center mt-4">Matriz de Confusión por Modelo</h2>
     <div class="matrices-container">
       <div class="matrix-card">
         <h4>SVM Lineal</h4>
