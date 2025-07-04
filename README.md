@@ -3,10 +3,8 @@
 <div align="center">
   <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular" width="60" height="60"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript" width="60" height="60"/>
-  <img src="https://www.chartjs.org/img/chartjs-logo.svg" alt="Chart.js" width="60" height="60"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" width="60" height="60"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS3" width="60" height="60"/>
-  <img src="https://material.angular.io/assets/img/angular-material-logo.svg" alt="Angular Material" width="60" height="60"/>
 </div>
 
 <br>
@@ -29,7 +27,6 @@ Una aplicación web desarrollada en Angular para la evaluación de riesgo de den
 - **RxJS 7.8.0** - Programación reactiva y manejo de observables
 
 ### UI/UX
-- **Angular Material** - Componentes UI con tema Azure Blue
 - **CSS3** - Estilos personalizados y responsive design
 - **HTML5** - Estructura semántica moderna
 
@@ -89,20 +86,6 @@ ng test --code-coverage
 
 # Ejecutar tests en modo watch
 ng test --watch
-```
-
-## 🎨 Personalización
-
-### Angular Material Theme
-```css
-/* src/styles.css */
-@import '@angular/material/prebuilt-themes/azure-blue.css';
-
-.custom-theme {
-  --primary-color: #2196f3;
-  --accent-color: #ff4081;
-  --warn-color: #f44336;
-}
 ```
 
 ## 👥 Equipo de Desarrollo
