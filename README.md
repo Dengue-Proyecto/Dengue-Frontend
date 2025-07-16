@@ -1,59 +1,103 @@
-# DengueFrontend
+# Dengue Frontend 🦟📊
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+<div align="center">
+  <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular" width="60" height="60"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript" width="60" height="60"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" width="60" height="60"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS3" width="60" height="60"/>
+</div>
 
-## Development server
+<br>
 
-To start a local development server, run:
+Una aplicación web desarrollada en Angular para la evaluación de riesgo de dengue, análisis y gestión de datos relacionados con el dengue. El sistema proporciona herramientas avanzadas de visualización de datos, generación de reportes y análisis estadístico para apoyar la toma de decisiones en salud pública.
+
+## 🎯 Características Principales
+
+- **📋 Gestión de Información**: Sistema completo para el registro y seguimiento de casos
+- **📄 Generación de Reportes**: Exportación de datos en formato PDF con jsPDF
+- **📱 Responsive Design**: Adaptable a dispositivos móviles y desktop
+- **🔍 Análisis Estadístico**: Herramientas para análisis de tendencias y patrones
+
+## 🚀 Tecnologías
+
+### Frontend Core
+- **Angular 19.2.0** - Framework principal para SPA
+- **TypeScript 5.7.2** - Lenguaje de programación tipado
+- **Angular CLI 19.2.7** - Herramientas de desarrollo
+- **RxJS 7.8.0** - Programación reactiva y manejo de observables
+
+### UI/UX
+- **CSS3** - Estilos personalizados y responsive design
+- **HTML5** - Estructura semántica moderna
+
+### Visualización y Reportes
+- **HTML2Canvas 1.4.1** - Captura de elementos DOM
+- **HTML2PDF.js 0.10.3** - Conversión HTML a PDF
+- **jsPDF 3.0.1** - Generación de documentos PDF
+- **ngx-markdown 19.1.1** - Renderizado de contenido Markdown
+
+### Testing
+- **Jasmine 5.6.0** - Framework de testing
+- **Karma 6.4.0** - Test runner
+- **TypeScript 5.7.2** - Tipado estático para mejor testing
+
+## 📋 Prerrequisitos
+
+- **Node.js** (versión 18 o superior)
+- **npm** o **yarn**
+- **Angular CLI** 19.2.7 o superior
+
+## 🛠️ Instalación
+
+### Configuración del Entorno
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/Dengue-Proyecto/Dengue-Frontend.git
+
+# Navegar al directorio del proyecto
+cd Dengue-Frontend
+
+# Instalar dependencias
+npm install
+```
+
+### Ejecución en Desarrollo
+
+```bash
+# Ejecutar servidor de desarrollo
+npm start
+# o
 ng serve
+
+# La aplicación estará disponible en http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🧪 Testing
 
 ```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
+# Ejecutar tests unitarios
+npm test
+# o
 ng test
+
+# Ejecutar tests con coverage
+ng test --code-coverage
+
+# Ejecutar tests en modo watch
+ng test --watch
 ```
 
-## Running end-to-end tests
+## 👥 Equipo de Desarrollo
 
-For end-to-end (e2e) testing, run:
+- **Desarrollador**: [AngeloSanchez28](https://github.com/AngeloSanchez28)
+- **Desarrollador**: [Mabeelu-LL](https://github.com/Mabeelu-LL)
 
-```bash
-ng e2e
-```
+## 🏥 Sobre el Proyecto
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Este proyecto forma parte de una iniciativa para combatir el dengue mediante tecnicas de Machine Learning, proporcionando herramientas digitales para el monitoreo y análisis de datos epidemiológicos que apoyen las decisiones en salud pública.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<div align="center">
+  <br><br>
+  <i>Desarrollado con ❤️ por Angelo Sánchez y Mabel León</i>
+</div>
