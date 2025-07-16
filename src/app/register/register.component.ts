@@ -32,10 +32,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // Verifica si el usuario ya está logueado
     if (this.authService.estaLogueado) {  // Accede directamente al valor de BehaviorSubject
-      this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+      try {
+        await this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+      } catch (error) {
+        console.error('Error al navegar a inicio:', error);
+      }
     }
   }
 
@@ -61,7 +65,8 @@ export class RegisterComponent implements OnInit {
         this.buscando = false;
         this.errorCMP = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('Error al buscar datos CMP:', error);
         this.mostrarAlerta('No se encontraron datos para ese número de colegiatura. Puede ingresar los datos manualmente.', false);
         this.buscando = false;
         this.errorCMP = true; // activa campos manuales
@@ -114,11 +119,17 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: () => {
           this.mostrarAlerta('Registro exitoso.', true);
-          setTimeout(() => {
-            this.router.navigate(['/iniciar']);
+          setTimeout(async () => {
+            try {
+              await this.router.navigate(['/iniciar']);
+            } catch (error) {
+              console.error('Error al navegar al login:', error);
+              this.mostrarAlerta('Registro exitoso pero error al navegar. Vaya al login manualmente.', false);
+            }
           }, 1200);
         },
         error: (err) => {
+          console.error('Error en registro:', err);
           if (err.status === 400 && err.error.detail === 'Usuario ya registrado') {
             this.mostrarAlerta('La cuenta ya existe.', false);
           } else {
@@ -136,7 +147,6 @@ export class RegisterComponent implements OnInit {
   }
 
   soloLetras(event: KeyboardEvent): void {
-    const charCode = event.key.charCodeAt(0);
     const char = event.key;
 
     // Permite solo letras (a-z, A-Z), espacios y letras acentuadas
@@ -169,8 +179,12 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  irLogin() {
-    this.router.navigate(['/iniciar']);
+  async irLogin() {
+    try {
+      await this.router.navigate(['/iniciar']);
+    } catch (error) {
+      console.error('Error al navegar al login:', error);
+    }
   }
 
   mostrarAlerta(mensaje: string, success: boolean = false) {

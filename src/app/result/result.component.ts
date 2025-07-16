@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { jsPDF } from 'jspdf';
 
@@ -48,7 +47,7 @@ export class ResultComponent implements OnInit {
   // Variables para la interpretación generada por Gemini
   interpretacion!: string;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     // Usar history.state directamente

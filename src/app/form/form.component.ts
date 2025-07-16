@@ -48,11 +48,6 @@ export class FormComponent implements OnInit {
     this.tiempoInicio = Date.now();
   }
 
-  calcularTiempoEvaluacion(): number {
-    const ahora = Date.now();
-    return Math.floor((ahora - this.tiempoInicio) / 1000); // segundos
-  }
-
   siguiente() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -100,36 +95,45 @@ export class FormComponent implements OnInit {
       console.log('Datos del formulario:', formDataWithBooleans);
 
       this.http.post(`${environment.apiUrl}/evaluar_riesgo`, formDataWithBooleans)
-        .subscribe((response: any) => {
-          console.log('Respuesta del backend:', response);
+        .subscribe({
+          next: async (response: any) => {
+            console.log('Respuesta del backend:', response);
 
-          this.router.navigate(['/resultado'], {
-            state: {
-              riesgo_lineal: response.riesgo_lineal,
-              riesgo_poli: response.riesgo_poli,
-              riesgo_rbf: response.riesgo_rbf,
-              riesgo_sigmoid: response.riesgo_sigmoid,
-              riesgo_random_forest: response.riesgo_random_forest,
-              riesgo_xgboost: response.riesgo_xgboost,
-              probabilidad_lineal_pct: response.probabilidad_lineal_pct,
-              probabilidad_poli_pct: response.probabilidad_poli_pct,
-              probabilidad_rbf_pct: response.probabilidad_rbf_pct,
-              probabilidad_sigmoid_pct: response.probabilidad_sigmoid_pct,
-              probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
-              probabilidad_xgboost_pct: response.probabilidad_xgboost_pct,
-              metricas: response.metricas,
-              precision_promedio: response.precision_promedio,
-              recall_promedio: response.recall_promedio,
-              tiempo_promedio: response.tiempo_promedio,
-              interpretacion: response.interpretacion
+            try {
+              await this.router.navigate(['/resultado'], {
+                state: {
+                  riesgo_lineal: response.riesgo_lineal,
+                  riesgo_poli: response.riesgo_poli,
+                  riesgo_rbf: response.riesgo_rbf,
+                  riesgo_sigmoid: response.riesgo_sigmoid,
+                  riesgo_random_forest: response.riesgo_random_forest,
+                  riesgo_xgboost: response.riesgo_xgboost,
+                  probabilidad_lineal_pct: response.probabilidad_lineal_pct,
+                  probabilidad_poli_pct: response.probabilidad_poli_pct,
+                  probabilidad_rbf_pct: response.probabilidad_rbf_pct,
+                  probabilidad_sigmoid_pct: response.probabilidad_sigmoid_pct,
+                  probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
+                  probabilidad_xgboost_pct: response.probabilidad_xgboost_pct,
+                  metricas: response.metricas,
+                  precision_promedio: response.precision_promedio,
+                  recall_promedio: response.recall_promedio,
+                  tiempo_promedio: response.tiempo_promedio,
+                  interpretacion: response.interpretacion
+                }
+              });
+            } catch (navigationError) {
+              console.error('Error en la navegación:', navigationError);
+              this.mostrarAlerta('Error al navegar al resultado. Intente nuevamente.');
             }
-          });
-        }, (error) => {
-          console.error('Error en la solicitud:', error);
+          },
+          error: (error) => {
+            console.error('Error en la solicitud:', error);
+            this.mostrarAlerta('Error al procesar la evaluación. Intente nuevamente.');
+          }
         });
     } else {
-      this.form.markAllAsTouched(); // Resalta los campos vacíos
-      this.mostrarAlerta('Responda todas las preguntas antes de continuar.'); // Muestra la alerta
+      this.form.markAllAsTouched();
+      this.mostrarAlerta('Responda todas las preguntas antes de continuar.');
       console.log('Formulario inválido');
     }
   }

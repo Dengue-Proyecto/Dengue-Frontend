@@ -12,7 +12,6 @@ export const authGuard: CanActivateFn = () => {
     return true;
   } else {
     // Si no está logueado, redirige al login
-    router.navigate(['/inicio']);
-    return false;
+    return router.createUrlTree(['/inicio']);
   }
 };

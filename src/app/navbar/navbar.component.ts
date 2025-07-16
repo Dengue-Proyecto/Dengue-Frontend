@@ -14,14 +14,19 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.authService.estaLogueado$.subscribe(logueado => {
-      this.estaLogueado = logueado;
+    this.authService.estaLogueado$.subscribe({
+      next: (logueado) => {
+        this.estaLogueado = logueado;
+      }
     });
   }
 
-  logout() {
+  async logout() {
     this.authService.logout();
-    this.router.navigate(['/inicio']);
-
+    try {
+      await this.router.navigate(['/inicio']);
+    } catch (error) {
+      console.error('Error al navegar al inicio:', error);
+    }
   }
 }

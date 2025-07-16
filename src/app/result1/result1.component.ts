@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -14,7 +13,7 @@ export class Result1Component implements OnInit {
   // Variables para mostrar los resultados
   riesgo_random_forest!: string;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     // Usar history.state directamente

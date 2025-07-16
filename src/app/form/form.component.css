@@ -1,11 +1,8 @@
 .form-container {
-  padding-top: 0;
   max-width: 1300px;
   margin: 0 auto;
-  padding-bottom: 16px;
   box-sizing: border-box;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 15px 16px;
 }
 
 .form-header h1 {

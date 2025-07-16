@@ -21,10 +21,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // Verifica si el usuario ya está logueado
     if (this.authService.estaLogueado) {  // Accede directamente al valor de BehaviorSubject
-      this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+      try {
+        await this.router.navigate(['/inicio']);  // Cambia esta ruta por la que corresponda en tu aplicación
+      } catch (error) {
+        console.error('Error al navegar a inicio:', error);
+      }
     }
   }
 
@@ -32,16 +36,26 @@ export class LoginComponent implements OnInit {
     this.showAlert = false; // limpia alerta anterior
     this.http.post(`${environment.apiUrl}/usuario/login`, this.datosLogin)
       .subscribe({
-        next: (respuesta: any) => {
+        next: async (respuesta: any) => {
           this.authService.login(respuesta.access_token);
-          this.router.navigate(['/formulario']);
+          try {
+            await this.router.navigate(['/formulario']);
+          } catch (error) {
+            console.error('Error al navegar al formulario:', error);
+            this.alertMessage = "Error al acceder al formulario";
+            this.showAlert = true;
+            setTimeout(() => {
+              this.showAlert = false;
+            }, 5000);
+          }
         },
         error: (error) => {
+          console.error('Error en login:', error);
           this.alertMessage = "Credenciales inválidas";
           this.showAlert = true;
           setTimeout(() => {
             this.showAlert = false;
-          }, 5000); // oculta después de 5 segundos
+          }, 5000);
         }
       });
   }
@@ -66,7 +80,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  irRegistrar() {
-    this.router.navigate(['/registro']);
+  async irRegistrar() {
+    try {
+      await this.router.navigate(['/registro']);
+    } catch (error) {
+      console.error('Error al navegar al registro:', error);
+    }
   }
 }
