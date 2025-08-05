@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {FormComponent} from './form/form.component';
-import {ResultComponent} from './result/result.component';
-import {LandingComponent} from './landing/landing.component';
-import {Result1Component} from './result1/result1.component';
-import {RegisterComponent} from './register/register.component';
-import {LoginComponent} from './login/login.component';
-import {EvaluationsComponent} from './evaluations/evaluations.component';
-import {authGuard} from './auth.guard';
+import {FormComponent} from './features/form/form.component';
+import {ResultComponent} from './features/result/result.component';
+import {LandingComponent} from './features/landing/landing.component';
+import {Result1Component} from './features/result1/result1.component';
+import {RegisterComponent} from './features/register/register.component';
+import {LoginComponent} from './features/login/login.component';
+import {EvaluationsComponent} from './features/evaluations/evaluations.component';
+import {authGuard} from './core/auth/auth.guard';
 
 
 const routes: Routes = [

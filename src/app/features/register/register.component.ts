@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {DatosCMP} from '../models/datos-cmp';
+import {environment} from '../../../environments/environment';
+import {DatosCMP} from '../../shared/models/datos-cmp';
 import {Router} from '@angular/router';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-register',
