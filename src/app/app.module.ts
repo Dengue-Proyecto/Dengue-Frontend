@@ -2,51 +2,52 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FormModule} from './features/form/form.module';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from '@angular/router';
-import { ResultComponent } from './features/result/result.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import {NgOptimizedImage} from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { LandingComponent } from './features/landing/landing.component';
-import { Result1Component } from './features/result1/result1.component';
-import {RegisterModule} from './features/register/register.module';
-import { LoginComponent } from './features/login/login.component';
-import {AuthInterceptor} from './core/auth/auth.interceptor';
-import {EvaluationsModule} from './features/evaluations/evaluations.module';
 import { MarkdownModule } from 'ngx-markdown';
-
+// Core module
+import { CoreModule } from './core/core.module';
+// Feature modules
+import { FormModule } from './features/form/form.module';
+import { RegisterModule } from './features/register/register.module';
+import { LoginModule } from './features/login/login.module';
+import { LandingModule } from './features/landing/landing.module';
+import { ResultModule } from './features/result/result.module';
+import { Result1Module } from './features/result1/result1.module';
+import { EvaluationsModule } from './features/evaluations/evaluations.module';
+// Shared module
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    LandingComponent,
-    ResultComponent,
-    Result1Component,
-    LoginComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormModule,
-    RegisterModule,
-    EvaluationsModule,
+    FormsModule,
     RouterModule,
     HttpClientModule,
-    NgOptimizedImage,
     CommonModule,
-    FormsModule,
+    // Core module (singleton services)
+    CoreModule,
+    // Feature modules
+    FormModule,
+    RegisterModule,
+    LoginModule,
+    LandingModule,
+    ResultModule,
+    Result1Module,
+    EvaluationsModule,
+    // Shared module
+    SharedModule,
+    // Third party modules
     MarkdownModule.forRoot()
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
