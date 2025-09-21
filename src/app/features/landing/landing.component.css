@@ -8,7 +8,7 @@ html, body {
 }
 
 .risk-evaluation {
-  min-height: 87.75dvh; ; /* altura menor para evitar scroll */
+  min-height: 100vh;
   width: 100vw;
   /* Degradado de blanco (izquierda) a verde #83A69A (derecha) */
   background: linear-gradient(270deg, #83A69A 0%, #ffffff 100%);
@@ -139,4 +139,3 @@ html, body {
     padding-bottom: 2rem;
   }
 }
-

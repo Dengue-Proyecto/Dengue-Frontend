@@ -14,7 +14,7 @@ html, body {
 /* Contenedor principal */
 .login-container {
   display: flex;
-  min-height: 87.75vh; /* mínimo alto, no fijo */
+  min-height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
@@ -33,8 +33,6 @@ html, body {
   font-family: 'Open Sans', sans-serif;
   min-height: auto; /* que crezca con el contenido */
 }
-
-
 
 /* Limitar ancho máximo del formulario y centrar */
 .left-panel form {
@@ -105,21 +103,6 @@ input:disabled {
   background-color: #1b4d3e;
 }
 
-/* Texto de registro */
-.register-text {
-  margin-top: 34px;
-  font-size: 16px;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.register-text a {
-  color: #000;
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: 600;
-}
-
 /* Panel derecho - curva */
 .right-panel {
   flex: 1;
@@ -130,7 +113,7 @@ input:disabled {
   overflow: hidden;
   padding: 0;
   box-sizing: border-box;
-  height: 87.75vh;
+  height: 100vh;
   font-family: 'Inter', sans-serif; /* Fuente para textos destacados */
 }
 
@@ -267,10 +250,11 @@ input:disabled {
   }
 
   .curve-shape {
-    border-radius: 0;
-    padding: 2rem 1rem 1rem 1rem;
-    margin-top: 1rem;
+    border-radius: 25px; /* Mantener bordas redondeadas más sutiles en lugar de 0 */
+    padding: 2.5rem 1.5rem 2rem 1.5rem; /* Mejor padding */
+    margin: 1rem 1rem 0 1rem; /* Agregar márgenes laterales */
     height: auto; /* para que no fuerce altura fija */
+    box-shadow: 0 4px 15px rgba(131, 166, 154, 0.3); /* Sombra sutil */
   }
 
   .curve-shape h1 {
@@ -327,7 +311,7 @@ input:disabled {
     margin: 0;
     padding-left: 1rem;
     padding-right: 1rem;
-    border-radius: 0;
+    border-radius: 25px; /* Bordes redondeados sutiles */
   }
 
   .curve-shape h1 {

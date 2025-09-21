@@ -13,7 +13,7 @@ html, body {
 /* Contenedor principal */
 .register-container {
   display: flex;
-  height: 87.75vh;  /* Altura fija */
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
   margin: 0;
@@ -32,7 +32,7 @@ html, body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  height: 87.75vh;              /* misma altura */
+  height: 100vh;
   box-sizing: border-box;
 }
 
@@ -102,7 +102,7 @@ html, body {
   box-sizing: border-box;
   overflow-y: visible;
   margin: 0;
-  height: 87.75vh;
+  height: 100vh; /* Cambiado de 87.75vh a 100vh */
   font-family: 'Open Sans', sans-serif; /* Fuente para texto principal */
 }
 
@@ -300,9 +300,10 @@ input:disabled {
   }
 
   .curve-shape {
-    border-radius: 0;
-    padding: 2rem 1rem 1rem 1rem;
-    margin-top: 1rem;
+    border-radius: 25px; /* Mantener bordas redondeadas más sutiles en lugar de 0 */
+    padding: 2.5rem 1.5rem 2rem 1.5rem; /* Mejor padding */
+    margin: 1rem 1rem 0 1rem; /* Agregar márgenes laterales */
+    box-shadow: 0 4px 15px rgba(131, 166, 154, 0.3); /* Sombra sutil */
   }
 
   .curve-shape h1 {
@@ -339,6 +340,12 @@ input:disabled {
 
 /* Movil pequeño */
 @media (max-width: 480px) {
+  .curve-shape {
+    border-radius: 25px; /* Bordes redondeados sutiles también para móviles pequeños */
+    margin: 0.5rem;
+    padding: 2rem 1rem;
+  }
+
   .curve-shape h1 {
     font-size: 2rem;
   }
