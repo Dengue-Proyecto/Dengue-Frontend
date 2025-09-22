@@ -17,9 +17,16 @@ export class EvaluationsComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   riesgoFiltro: string = '';
+  sintomasFiltro: string = ''; // Nuevo filtro para cantidad de síntomas
   evaluacionesFiltradas: any[] = [];
   minFechaFin: string = '';
   fechaMaxima: string = '';
+
+  // Nuevas propiedades para paginación avanzada
+  opcionesFilasPorPagina: number[] = [5, 10, 25, 50];
+
+  // Para hacer Math disponible en el template
+  Math = Math;
 
   // Usar la URL base de environment
   private apiUrl = `${environment.apiUrl}/mis_evaluaciones`;
@@ -54,15 +61,16 @@ export class EvaluationsComponent implements OnInit {
   }
 
   ajustarFechaHasta() {
-    this.minFechaFin = this.fechaInicio; // deshabilita fechas anteriores en "Hasta"
+    this.minFechaFin = this.fechaInicio;
     if (this.fechaFin && this.fechaFin < this.minFechaFin) {
-      this.fechaFin = this.minFechaFin; // corrige si estaba antes de la fecha mínima
+      this.fechaFin = this.minFechaFin;
     }
   }
 
   aplicarFiltros() {
     this.evaluacionesFiltradas = [...this.filas];
 
+    // Filtro por fechas
     if (this.fechaInicio && this.fechaFin) {
       function fechaLocalString(fecha: Date): string {
         const ano = fecha.getFullYear();
@@ -84,8 +92,26 @@ export class EvaluationsComponent implements OnInit {
       });
     }
 
+    // Filtro por riesgo
     if (this.riesgoFiltro) {
       this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => eva.riesgo === this.riesgoFiltro);
+    }
+
+    // Filtro por cantidad de síntomas
+    if (this.sintomasFiltro) {
+      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => {
+        const cantidad = eva.cantidad_sintomas;
+        switch (this.sintomasFiltro) {
+          case '1-2':
+            return cantidad >= 1 && cantidad <= 2;
+          case '3-4':
+            return cantidad >= 3 && cantidad <= 4;
+          case '5+':
+            return cantidad >= 5;
+          default:
+            return true;
+        }
+      });
     }
 
     this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
@@ -102,12 +128,13 @@ export class EvaluationsComponent implements OnInit {
     this.fechaInicio = '';
     this.fechaFin = '';
     this.riesgoFiltro = '';
+    this.sintomasFiltro = '';
     this.minFechaFin = '';
     this.evaluacionesFiltradas = [...this.filas];
 
-    this.totalPaginas = Math.ceil(this.filas.length / this.registrosPorPagina);
+    this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
     this.paginaActual = 1;
-    this.filasPaginadas = this.filas.slice(0, this.registrosPorPagina);
+    this.cambiarPagina(1);
   }
 
   cargarEvaluaciones() {
@@ -178,5 +205,66 @@ export class EvaluationsComponent implements OnInit {
       hour12: false
     };
     return new Date(fechaUtc).toLocaleString('es-PE', opciones);
+  }
+
+  // Método para cambiar filas por página
+  cambiarFilasPorPagina(nuevasFilas: any) {
+    // Convertir a número para asegurar el tipo correcto
+    const filasNum = Number(nuevasFilas);
+    this.registrosPorPagina = filasNum;
+
+    // Recalcular totales
+    this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
+
+    // Ajustar la página actual si es necesario
+    if (this.paginaActual > this.totalPaginas) {
+      this.paginaActual = this.totalPaginas || 1;
+    }
+
+    // Aplicar la paginación
+    this.cambiarPagina(this.paginaActual);
+  }
+
+  // Método para obtener array de números de página visibles
+  obtenerPaginasVisibles(): number[] {
+    const paginas: number[] = [];
+    const maxPaginas = 5; // Máximo de números de página a mostrar
+
+    if (this.totalPaginas <= maxPaginas) {
+      // Si hay pocas páginas, mostrar todas
+      for (let i = 1; i <= this.totalPaginas; i++) {
+        paginas.push(i);
+      }
+    } else {
+      // Lógica para páginas con puntos suspensivos
+      if (this.paginaActual <= 3) {
+        // Mostrar las primeras páginas
+        paginas.push(1, 2, 3, 4);
+        if (this.totalPaginas > 4) {
+          paginas.push(-1); // -1 representa "..."
+          paginas.push(this.totalPaginas);
+        }
+      } else if (this.paginaActual >= this.totalPaginas - 2) {
+        // Mostrar las últimas páginas
+        paginas.push(1);
+        if (this.totalPaginas > 4) {
+          paginas.push(-1); // -1 representa "..."
+        }
+        for (let i = this.totalPaginas - 3; i <= this.totalPaginas; i++) {
+          if (i > 1) paginas.push(i);
+        }
+      } else {
+        // Mostrar páginas alrededor de la actual
+        paginas.push(1);
+        paginas.push(-1);
+        paginas.push(this.paginaActual - 1);
+        paginas.push(this.paginaActual);
+        paginas.push(this.paginaActual + 1);
+        paginas.push(-1);
+        paginas.push(this.totalPaginas);
+      }
+    }
+
+    return paginas;
   }
 }

@@ -1,71 +1,142 @@
+<!-- evaluations.component.html -->
 <div class="contenedor">
   <h2>Registro de Evaluaciones</h2>
 
-  <div class="filtros">
-    <label>
-      Desde:
-      <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
-    </label>
+  <!-- Sección de filtros mejorada -->
+  <div class="filters-section">
+    <header class="filters-header">Filtros</header>
 
-    <label>
-      Hasta:
-      <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
-    </label>
+    <div class="filtros">
+      <div class="filter-group">
+        <label>Desde:</label>
+        <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
+      </div>
 
-    <label>
-      Riesgo:
-      <select [(ngModel)]="riesgoFiltro">
-        <option value="">Todos</option>
-        <option value="bajo">Bajo</option>
-        <option value="medio">Medio</option>
-        <option value="alto">Alto</option>
-      </select>
-    </label>
+      <div class="filter-group">
+        <label>Hasta:</label>
+        <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
+      </div>
 
-    <button (click)="aplicarFiltros()">Filtrar</button>
-    <button (click)="limpiarFiltros()">Limpiar filtros</button>
+      <div class="filter-group">
+        <label>Nivel de Riesgo:</label>
+        <select [(ngModel)]="riesgoFiltro">
+          <option value="">Todos</option>
+          <option value="bajo">Bajo</option>
+          <option value="medio">Medio</option>
+          <option value="alto">Alto</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Cantidad de Síntomas:</label>
+        <select [(ngModel)]="sintomasFiltro">
+          <option value="">Todos</option>
+          <option value="1-2">1-2 síntomas</option>
+          <option value="3-4">3-4 síntomas</option>
+          <option value="5+">5+ síntomas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-buttons">
+      <button class="btn-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
+      <button class="btn-primary" (click)="aplicarFiltros()">Aplicar filtros</button>
+    </div>
   </div>
 
   <div *ngIf="filasPaginadas.length > 0; else sinResultados">
-    <table>
-      <thead>
-      <tr>
-        <th>N°</th>
-        <th>Fecha y hora</th>
-        <th>Riesgo</th>
-        <th>Síntomas identificados</th>
-        <th>Cantidad de Síntomas</th>
-        <th>Tiempo de Evaluación</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let fila of filasPaginadas; let i = index">
-        <td>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</td>
-        <td>{{ convertirFecha(fila.fecha) }}</td>
-        <td>{{ fila.riesgo }}</td>
-        <td>
-          <ul>
-            <li *ngFor="let sintoma of fila.sintomas_identificados">{{ formatearSintoma(sintoma) }}</li>
-          </ul>
-        </td>
-        <td>{{ fila.cantidad_sintomas }}</td>
-        <td>{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <!-- Sección de tabla mejorada -->
+    <div class="table-section">
+      <div class="table-header">
+        <div>Registro de Evaluaciones</div>
+      </div>
 
-    <div class="paginacion">
-      <button (click)="anterior()" [disabled]="paginaActual === 1">Anterior</button>
-      <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-      <button (click)="siguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+      <div class="table-container">
+        <table>
+          <thead>
+          <tr>
+            <th>N°</th>
+            <th>Fecha y hora</th>
+            <th>Riesgo</th>
+            <th>Síntomas identificados</th>
+            <th>Cantidad de síntomas</th>
+            <th>Tiempo de evaluación </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let fila of filasPaginadas; let i = index"
+              [class.follow-up-needed]="fila.riesgo === 'alto'">
+            <td><strong>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</strong></td>
+            <td>
+              <div class="fecha-completa">{{ convertirFecha(fila.fecha) }}</div>
+            </td>
+            <td>
+                <span class="risk-badge" [ngClass]="'risk-' + fila.riesgo">
+                  {{ fila.riesgo.toUpperCase() }}
+                </span>
+            </td>
+            <td>
+              <ul class="symptoms-list">
+                <li *ngFor="let sintoma of fila.sintomas_identificados">
+                  {{ formatearSintoma(sintoma) }}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <span class="symptoms-count">{{ fila.cantidad_sintomas }}</span>
+            </td>
+            <td class="evaluation-time">{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación mejorada -->
+      <div class="pagination-section">
+        <div class="pagination-left">
+          <span class="pagination-info">
+            Mostrando {{ (paginaActual - 1) * registrosPorPagina + 1 }}-{{ Math.min(paginaActual * registrosPorPagina, evaluacionesFiltradas.length) }} de {{ evaluacionesFiltradas.length }} registros
+          </span>
+          <span class="separator">|</span>
+          <span class="rows-per-page">
+            Filas por página:
+            <select [(ngModel)]="registrosPorPagina" (ngModelChange)="cambiarFilasPorPagina($event)" class="rows-select">
+              <option *ngFor="let opcion of opcionesFilasPorPagina" [value]="opcion">{{ opcion }}</option>
+            </select>
+          </span>
+        </div>
+
+        <div class="pagination-right">
+          <div class="pagination-controls">
+            <button class="pagination-btn" (click)="anterior()" [disabled]="paginaActual === 1">
+              ‹ Anterior
+            </button>
+
+            <div class="page-numbers">
+              <button
+                *ngFor="let pagina of obtenerPaginasVisibles()"
+                class="page-btn"
+                [class.active]="pagina === paginaActual"
+                [class.ellipsis]="pagina === -1"
+                [disabled]="pagina === -1"
+                (click)="pagina !== -1 ? cambiarPagina(pagina) : null">
+                {{ pagina === -1 ? '...' : pagina }}
+              </button>
+            </div>
+
+            <button class="pagination-btn" (click)="siguiente()" [disabled]="paginaActual === totalPaginas">
+              Siguiente ›
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Mostrar si no hay resultados -->
   <ng-template #sinResultados>
     <div class="sin-resultados">
-      No hay evaluaciones que coincidan con los filtros seleccionados.
+      No hay evaluaciones o no hay evaluaciones que coincidan con los filtros seleccionados.
     </div>
   </ng-template>
-
 </div>
