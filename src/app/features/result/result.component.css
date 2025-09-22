@@ -5,7 +5,15 @@
   padding: 0 15px;
 }
 
- h2, h3, .conclusion {
+h1 {
+  font-size: 32px;
+  color: #343a40;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2, h3, .conclusion {
   text-align: center;
   color: #343a40;
   font-weight: bold;
@@ -19,6 +27,7 @@
   justify-content: space-around;
   margin-top: 20px;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 /* Estilo para cada tarjeta */
@@ -27,15 +36,16 @@
   border-radius: 8px;
   padding: 25px;
   text-align: center;
-  width: 22%; /* Un tamaño fijo */
-  min-width: 220px; /* Mínimo tamaño para que se vea bien en pantallas pequeñas */
+  width: 22%;
+  min-width: 220px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
+  flex: 1;
 }
 
 .metric-card:hover {
-  transform: scale(1.05); /* Efecto de hover */
+  transform: scale(1.05);
 }
 
 .metric-card h4 {
@@ -58,12 +68,35 @@
 .bg-danger { background-color:#468B73; }
 
 /* Tabla de Resultados */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .table {
   width: 100%;
-  margin-top: 40px;
+  min-width: 600px; /* Ancho mínimo para evitar compresión excesiva */
+  margin: 0;
   border-collapse: collapse;
   font-size: 16px;
-  text-align: center;
+  background-color: white;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden; /* Para que el border-radius se aplique correctamente */
+}
+
+.table-bordered thead,
+.table-bordered tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 /* Encabezado de la tabla */
@@ -71,97 +104,50 @@
   background-color: #468B73;
   color: white;
   font-weight: bold;
-  padding: 10px;
+  padding: 15px 12px;
   text-align: center;
+  border: 1px solid #ddd;
+  white-space: nowrap; /* Evita que el texto del header se rompa */
 }
 
 /* Celdas de la tabla */
 .table td {
-  padding: 10px;
+  padding: 12px 15px;
   border: 1px solid #ddd;
-}
-
-/* Estilo para la conclusión */
-.conclusion {
-  font-size: 18px;
-  background-color: #f8f9fa;
-  padding: 20px;
-  margin-top: 30px;
-  border-radius: 8px;
-}
-
-/* Estilo para el botón de volver a intentar */
-.btn-secondary {
-  background-color: #468B73;
-  color: white;
-  border: none;
-  padding: 10px 32px;
-  font-size: 20px;
-  border-radius: 15px;
-  text-decoration: none;
-  margin-right: 40px;
-  cursor: pointer;
-  font-family: "PT Serif", serif;
-}
-
-.text-center {
   text-align: center;
-  margin-top: 20px;
+  word-wrap: break-word; /* Permite que el texto largo se ajuste */
+  max-width: 200px; /* Limita el ancho máximo de las celdas */
 }
 
-/* Ocultar los botones al generar el PDF */
-.hide-when-pdf {
-  display: block;
+/* Primera columna (nombres de modelos) más ancha */
+.table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  max-width: 300px;
+  min-width: 250px;
 }
 
-/* Aplicar solo cuando se descarga el PDF */
-#content-to-pdf.pdfto-hide .hide-when-pdf {
-  display: none;
+/* Columnas de riesgo y probabilidad más estrechas */
+.table td:nth-child(2),
+.table td:nth-child(3) {
+  min-width: 120px;
+  max-width: 150px;
+  font-weight: 600;
 }
 
-/* Para que las métricas y resultados tengan un formato adecuado */
-.metrics-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-.metric-card {
-  width: 250px;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.table-bordered {
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-
-.table-bordered th, .table-bordered td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
-}
-
-
-/* Contenedor de métricas por modelo (flex) */
+/* Contenedor de métricas por modelo */
 .metrics-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
   margin-top: 20px;
+  padding: 10px;
 }
 
 /* Tarjeta de cada modelo */
 .model-metric-card {
-  background-color: #468B73; /* verde oscuro acorde a tu diseño */
+  background-color: #468B73;
   color: white;
   width: 260px;
   padding: 20px 15px;
@@ -175,28 +161,27 @@
   box-shadow: 0 8px 20px rgb(0 0 0 / 0.25);
 }
 
-/* Título dentro de la tarjeta */
 .model-metric-card h4 {
   margin-bottom: 12px;
   font-weight: 700;
-  border-bottom: 2px solid #ffffff; /* verde claro para contraste */
+  border-bottom: 2px solid #ffffff;
   padding-bottom: 8px;
   margin-top: 0;
 }
 
-/* Lista sin estilo predeterminado */
 .model-metric-card ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Items de la lista */
 .model-metric-card ul li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 500;
+  font-size: 14px;
 }
 
+/* Contenedor de matrices de confusión */
 .matrices-container {
   display: flex;
   flex-wrap: wrap;
@@ -237,39 +222,248 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
+/* Estilo para la conclusión */
 .conclusion {
-  text-align: left; /* Asegura que todo el contenido dentro de la clase conclusion esté alineado a la izquierda */
-  margin: 0 10px; /* Añade un pequeño margen de 10px a los lados para que no se vea tan pegado a los bordes */
+  font-size: 18px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 8px;
+  text-align: left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .conclusion h3 {
-  margin-bottom: 10px; /* Opcional: espaciado debajo del título */
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .conclusion p {
-
-  line-height: 1.6em; /* Opcional: mejora la legibilidad de los párrafos */
+  line-height: 1.6em;
+  text-align: center;
 }
 
 .conclusion div {
-  margin-top: 15px; /* Opcional: espaciado entre los bloques de contenido */
+  margin-top: 15px;
 }
 
+/* BOTONES RESPONSIVE - LA PARTE PRINCIPAL QUE FALTABA */
+.text-center {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
 
-/* Responsive: apila en pantallas pequeñas */
-@media (max-width: 600px) {
+/* Contenedor de botones mejorado */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.btn-secondary {
+  background-color: #468B73;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  text-align: center;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background-color: #3c7a65;
+  transform: translateY(-2px);
+}
+
+/* Ocultar los botones al generar el PDF */
+.hide-when-pdf {
+  display: block;
+}
+
+#content-to-pdf.pdfto-hide .hide-when-pdf {
+  display: none;
+}
+
+/* MEDIA QUERIES RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  h2, h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  /* Métricas en móvil */
+  .metrics-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .metric-card {
+    width: 90%;
+    min-width: unset;
+    padding: 20px;
+  }
+
+  .metric-card h4 {
+    font-size: 18px;
+  }
+
+  .metric-card p {
+    font-size: 16px;
+  }
+
+  /* Tabla responsive */
+  .table-container {
+    margin: 10px 0;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 8px;
+    min-width: 120px;
+  }
+
+  /* Grid de métricas por modelo */
   .metrics-grid {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
 
   .model-metric-card {
     width: 90%;
+    padding: 15px;
+  }
+
+  .model-metric-card ul li {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* Matrices en móvil */
+  .matrices-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
 
   .matrix-card {
     width: 90%;
   }
+
+  /* Conclusión en móvil */
+  .conclusion {
+    padding: 15px;
+    font-size: 16px;
+    margin: 20px 5px;
+  }
+
+  /* BOTONES EN MÓVIL - SOLUCIÓN PRINCIPAL */
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    max-width: 280px;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-right: 0; /* Eliminar el margin problemático */
+  }
+
+  .text-center .btn-secondary {
+    margin-right: 0 !important; /* Override del margin problemático */
+    display: block;
+    margin-bottom: 15px;
+  }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 5px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  h2, h3 {
+    font-size: 18px;
+  }
+
+  .metric-card {
+    padding: 15px;
+  }
+
+  .metric-card h4 {
+    font-size: 16px;
+  }
+
+  .metric-card p {
+    font-size: 14px;
+  }
+
+  .table-container {
+    margin: 10px 0;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 5px;
+    font-size: 12px;
+    min-width: 100px;
+  }
+
+  .model-metric-card {
+    padding: 12px;
+  }
+
+  .model-metric-card h4 {
+    font-size: 16px;
+  }
+
+  .model-metric-card ul li {
+    font-size: 12px;
+  }
+
+  .conclusion {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .btn-secondary {
+    padding: 12px 15px;
+    font-size: 15px;
+    min-width: unset;
+  }
+}

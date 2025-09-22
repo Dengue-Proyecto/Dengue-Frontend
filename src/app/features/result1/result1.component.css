@@ -1,42 +1,125 @@
 .result-container {
   text-align: center;
   justify-content: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .result-header h2 {
-  font-size: 52px;
+  font-size: clamp(28px, 5vw, 52px);
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
 }
 
 .result-body h3 {
-  font-size: 86px;
+  font-size: clamp(36px, 8vw, 86px);
   font-weight: bold;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #225946;
+  line-height: 1.2;
 }
 
 .result-body p {
-  font-size: 32px;
-  padding-left: 430px;
-  padding-right: 430px;
+  font-size: clamp(16px, 3vw, 32px);
+  padding: 0 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+  color: #666;
+  font-family: "Open Sans", sans-serif;
 }
 
 /* Estilo para los botones */
 .button {
-  background-color: #225946; /* verde oscuro */
+  background-color: #225946;
   color: white;
   border: none;
-  padding: 10px 32px;
+  padding: 12px 24px;
   border-radius: 15px;
-  font-size: 20px;
+  font-size: clamp(14px, 2.5vw, 20px);
   cursor: pointer;
-  font-family: "PT Serif", serif;
-  margin-right: 40px; /* Espacio entre los botones */
+  font-family: "Open Sans", sans-serif;
+  margin: 10px 8px;
+  min-width: 140px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.button:hover {
+  background-color: #1a4037;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(34, 89, 70, 0.3);
 }
 
 .button-container {
-  margin-top: 20px; /* Espacio entre el párrafo y los botones */
+  margin-top: 40px;
   margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
-.button:last-child {
-  margin-right: 0; /* El último botón no tiene margen a la derecha */
+/* Responsivo para tablets */
+@media (max-width: 768px) {
+  .result-container {
+    padding: 15px;
+  }
+
+  .result-header h2 {
+    margin-bottom: 20px;
+  }
+
+  .result-body h3 {
+    margin-bottom: 15px;
+  }
+
+  .result-body p {
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+
+  .button-container {
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button {
+    width: 80%;
+    max-width: 280px;
+    margin: 8px 0;
+    padding: 15px 20px;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 480px) {
+  .result-container {
+    padding: 10px;
+  }
+
+  .result-body p {
+    padding: 0 10px;
+    font-size: 18px !important;
+    line-height: 1.4;
+  }
+
+  .button {
+    width: 90%;
+    max-width: none;
+    margin: 6px 0;
+    padding: 16px 20px;
+    font-size: 16px !important;
+  }
+
+  .button-container {
+    margin-top: 25px;
+    gap: 10px;
+  }
 }

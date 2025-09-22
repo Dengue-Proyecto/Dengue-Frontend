@@ -9,47 +9,49 @@
 
   <!-- 1pagina: Tabla de Resultados por Modelo -->
   <h2 class="text-center">Comparativa de Modelos</h2>
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>Modelo</th>
-      <th>Riesgo de Dengue</th>
-      <th>Probabilidad</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>Máquinas de Vectores de Soporte (SVM Lineal)</td>
-      <td>{{ riesgo_lineal }}</td>
-      <td>{{ probabilidad_lineal_pct }}%</td>
-    </tr>
-    <tr>
-      <td>Máquinas de Vectores de Soporte (SVM Polinómico)</td>
-      <td>{{ riesgo_poli }}</td>
-      <td>{{ probabilidad_poli_pct }}%</td>
-    </tr>
-    <tr>
-      <td>Máquinas de Vectores de Soporte (SVM RBF)</td>
-      <td>{{ riesgo_rbf }}</td>
-      <td>{{ probabilidad_rbf_pct }}%</td>
-    </tr>
-    <tr>
-      <td>Máquinas de Vectores de Soporte (SVM Sigmoid)</td>
-      <td>{{ riesgo_sigmoid }}</td>
-      <td>{{ probabilidad_sigmoid_pct }}%</td>
-    </tr>
-    <tr>
-      <td>Bosque Aleatorio (Random Forest)</td>
-      <td>{{ riesgo_random_forest }}</td>
-      <td>{{ probabilidad_random_forest_pct }}%</td>
-    </tr>
-    <tr>
-      <td>XGboost (Extreme Gradient Boosting)</td>
-      <td>{{ riesgo_xgboost }}</td>
-      <td>{{ probabilidad_xgboost_pct }}%</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Riesgo de Dengue</th>
+        <th>Probabilidad</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Máquinas de Vectores de Soporte (SVM Lineal)</td>
+        <td>{{ riesgo_lineal }}</td>
+        <td>{{ probabilidad_lineal_pct }}%</td>
+      </tr>
+      <tr>
+        <td>Máquinas de Vectores de Soporte (SVM Polinómico)</td>
+        <td>{{ riesgo_poli }}</td>
+        <td>{{ probabilidad_poli_pct }}%</td>
+      </tr>
+      <tr>
+        <td>Máquinas de Vectores de Soporte (SVM RBF)</td>
+        <td>{{ riesgo_rbf }}</td>
+        <td>{{ probabilidad_rbf_pct }}%</td>
+      </tr>
+      <tr>
+        <td>Máquinas de Vectores de Soporte (SVM Sigmoid)</td>
+        <td>{{ riesgo_sigmoid }}</td>
+        <td>{{ probabilidad_sigmoid_pct }}%</td>
+      </tr>
+      <tr>
+        <td>Bosque Aleatorio (Random Forest)</td>
+        <td>{{ riesgo_random_forest }}</td>
+        <td>{{ probabilidad_random_forest_pct }}%</td>
+      </tr>
+      <tr>
+        <td>XGboost (Extreme Gradient Boosting)</td>
+        <td>{{ riesgo_xgboost }}</td>
+        <td>{{ probabilidad_xgboost_pct }}%</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- 2da pagina: Métricas por Modelo -->
   <h2 class="text-center mt-4">Métricas por Modelo</h2>
@@ -142,8 +144,10 @@
 
   <!-- (ocultar botones cuando se de click al descargar pdf)Botones -->
   <div class="text-center mt-4">
-    <a class="btn btn-secondary" routerLink="/formulario">Volver a evaluar</a>
-    <a class="btn btn-secondary" routerLink="/evaluaciones">Ver evaluaciones</a>
-    <button class="btn-secondary" (click)="descargarPDF()">Descargar PDF</button>
+    <div class="buttons-container">
+      <a class="btn-secondary" routerLink="/formulario">Volver a evaluar</a>
+      <a class="btn-secondary" routerLink="/evaluaciones">Ver evaluaciones</a>
+      <button class="btn-secondary" (click)="descargarPDF()">Descargar PDF</button>
+    </div>
   </div>
 </div>

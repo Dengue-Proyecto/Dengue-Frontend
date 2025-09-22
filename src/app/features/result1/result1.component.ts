@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -13,7 +14,7 @@ export class Result1Component implements OnInit {
   // Variables para mostrar los resultados
   riesgo_random_forest!: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     // Usar history.state directamente
@@ -22,8 +23,15 @@ export class Result1Component implements OnInit {
     if (state) {
       console.log('Datos recibidos en ResultComponent:', state);  // Verifica los datos recibidos
       this.riesgo_random_forest = state.riesgo_random_forest;
-
     }
+  }
+
+  volverEvaluar() {
+    this.router.navigate(['/form']);
+  }
+
+  verEvaluaciones() {
+    this.router.navigate(['/evaluations']);
   }
 
   descargarPDF() {
@@ -35,54 +43,19 @@ export class Result1Component implements OnInit {
         const pdf = new jsPDF('p', 'mm', 'a4');
 
         const pageWidth = pdf.internal.pageSize.getWidth();
-        const headerImg = 'header.png'; // o base64
-        const headerImage = new Image();
-        headerImage.src = headerImg;
+        const pageHeight = pdf.internal.pageSize.getHeight();
 
-        headerImage.onload = () => {
-          const headerMaxWidth = pageWidth * 0.9;
-          const ratio = headerImage.height / headerImage.width;
-          const headerHeight = headerMaxWidth * ratio;
-          const headerX = (pageWidth - headerMaxWidth) / 2;
-          const headerY = 10;
+        // Agregar el contenido capturado
+        const imgWidth = pageWidth - 20; // margen de 10mm a cada lado
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-          //  Header
-          pdf.addImage(headerImage, 'PNG', headerX, headerY, headerMaxWidth, headerHeight);
+        pdf.addImage(contentImg, 'PNG', 10, 20, imgWidth, imgHeight);
 
-          // Contenido HTML
-          const contentY = headerY + headerHeight + 10;
-          const imgProps = pdf.getImageProperties(contentImg);
-          const contentWidth = pageWidth * 0.8;
-          const contentHeight = (imgProps.height * contentWidth) / imgProps.width;
-          const contentX = (pageWidth - contentWidth) / 2;
-
-          pdf.addImage(contentImg, 'PNG', contentX, contentY, contentWidth, contentHeight);
-
-          // Fecha y hora
-          const now = new Date();
-          const fechaHora = now.toLocaleString('es-PE', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-          });
-
-          // Calcular posición Y después del contenido
-          const fechaY = contentY + contentHeight + 20;
-
-          // Fecha y hora debajo del contenido
-          pdf.setFontSize(11);
-          pdf.setTextColor(80);
-          pdf.text(`Fecha y hora: ${fechaHora}`, 15, fechaY);
-
-          // Descargar
-          pdf.save('resultado.pdf');
-        };
+        // Guardar el PDF
+        pdf.save('evaluacion-dengue.pdf');
+      }).catch(error => {
+        console.error('Error al generar PDF:', error);
       });
     }
   }
-
 }
