@@ -1,10 +1,12 @@
 /* Navbar Styling */
- .navbar {
+.navbar {
   background-color: #468B73;
   padding: 10px 20px;
   box-sizing: border-box;
   width: 100%;
-   font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  z-index: 1000;
 }
 
 .navbar-container {
@@ -13,21 +15,62 @@
   justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
-  flex-wrap: nowrap; /* No permite que los elementos bajen de línea */
+  position: relative;
 }
 
 .navbar-logo {
-  height: 60px; /* ajustado para móviles */
+  height: 60px;
   width: auto;
   flex-shrink: 0;
+  z-index: 1001;
 }
 
+/* Botón hamburguesa - oculto en desktop */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+
+/* Menú de navegación */
 .navbar-links {
   display: flex;
   gap: 20px;
   align-items: center;
-  overflow-x: auto; /* permite scroll horizontal si no cabe */
-  -webkit-overflow-scrolling: touch; /* suaviza scroll en iOS */
+}
+
+.nav-items {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .navbar-link {
@@ -39,7 +82,6 @@
   cursor: pointer;
   white-space: nowrap;
   transition: background-color 0.3s ease;
-  flex-shrink: 0; /* evita que se encojan */
 }
 
 .navbar-link:hover {
@@ -52,30 +94,134 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 16px;
-  padding: 8px 16px;
+  padding: 12px 20px;
   border-radius: 15px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-valoration:hover {
   background-color: #1b4d3e;
+  transform: translateY(-1px);
 }
 
-/* Responsive tweaks */
-@media (max-width: 480px) {
+/* Overlay para móvil */
+.mobile-overlay {
+  display: none;
+}
+
+/* Media Queries para Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
   .navbar-logo {
     height: 50px;
   }
 
-  .navbar-link, .btn-valoration {
-    font-size: 14px;
-    padding: 6px 10px;
+  /* Mostrar botón hamburguesa */
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* Ocultar menú en móvil por defecto */
+  .navbar-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: #468B73;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 80px 20px 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    gap: 0;
+    z-index: 999;
+  }
+
+  .navbar-links.mobile-open {
+    right: 0;
+  }
+
+  .nav-items {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .btn-valoration {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 5px;
+  }
+
+  /* Overlay activo */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 998;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .navbar-logo {
+    height: 45px;
+  }
+
+  .mobile-menu-toggle {
+    width: 28px;
+    height: 22px;
   }
 
   .navbar-links {
-    gap: 12px;
+    width: 260px;
+    padding: 70px 15px 15px;
+  }
+
+  .btn-valoration {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+}
+
+/* Animación suave para el contenido */
+@media (max-width: 768px) {
+  .navbar-links .nav-items {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.1s;
+  }
+
+  .navbar-links.mobile-open .nav-items {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

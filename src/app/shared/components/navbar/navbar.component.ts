@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   estaLogueado = false;
+  mobileMenuOpen = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -19,6 +20,21 @@ export class NavbarComponent implements OnInit {
         this.estaLogueado = logueado;
       }
     });
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    // Prevenir scroll del body cuando el menú está abierto
+    if (this.mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  closeMobileMenu() {
+    this.mobileMenuOpen = false;
+    document.body.style.overflow = 'auto';
   }
 
   async logout() {
