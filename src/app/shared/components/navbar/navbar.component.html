@@ -4,28 +4,29 @@
       <img src="/logo1.png" alt="Logo" class="navbar-logo" />
     </a>
 
-    <!-- Botón hamburguesa para móviles -->
-    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen">
+    <!-- Opciones siempre visibles cuando no hay sesión (en móvil también) -->
+    <div *ngIf="!estaLogueado" class="always-visible-links">
+      <a routerLink="/iniciar" class="btn-valoration">Iniciar Sesión</a>
+      <a routerLink="/registro" class="btn-valoration">Registrarse</a>
+    </div>
+
+    <!-- Botón hamburguesa para móviles (solo cuando hay sesión) -->
+    <button *ngIf="estaLogueado" class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <!-- Menú desktop y móvil -->
-    <div class="navbar-links" [class.mobile-open]="mobileMenuOpen">
-      <div *ngIf="!estaLogueado" class="nav-items">
-        <a routerLink="/iniciar" class="btn-valoration" (click)="closeMobileMenu()">Iniciar Sesión</a>
-        <a routerLink="/registro" class="btn-valoration" (click)="closeMobileMenu()">Registrarse</a>
-      </div>
-
-      <div *ngIf="estaLogueado" class="nav-items">
+    <!-- Menú desktop y móvil (solo para usuarios logueados) -->
+    <div *ngIf="estaLogueado" class="navbar-links" [class.mobile-open]="mobileMenuOpen">
+      <div class="nav-items">
         <a routerLink="/formulario" class="btn-valoration" (click)="closeMobileMenu()">Evaluar</a>
         <a routerLink="/evaluaciones" class="btn-valoration" (click)="closeMobileMenu()">Ver evaluaciones</a>
         <a (click)="logout(); closeMobileMenu()" class="btn-valoration">Cerrar sesión</a>
       </div>
     </div>
 
-    <!-- Overlay para cerrar menú en móvil -->
-    <div class="mobile-overlay" [class.active]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
+    <!-- Overlay para cerrar menú en móvil (solo cuando hay sesión) -->
+    <div *ngIf="estaLogueado" class="mobile-overlay" [class.active]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
   </div>
 </nav>

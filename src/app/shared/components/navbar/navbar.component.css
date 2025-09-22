@@ -25,6 +25,13 @@
   z-index: 1001;
 }
 
+/* Opciones siempre visibles cuando no hay sesión */
+.always-visible-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
 /* Botón hamburguesa - oculto en desktop */
 .mobile-menu-toggle {
   display: none;
@@ -124,6 +131,17 @@
     height: 50px;
   }
 
+  /* Estilos para opciones siempre visibles en móvil */
+  .always-visible-links {
+    gap: 10px;
+  }
+
+  .always-visible-links .btn-valoration {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
   /* Mostrar botón hamburguesa */
   .mobile-menu-toggle {
     display: flex;
@@ -196,6 +214,17 @@
     height: 45px;
   }
 
+  /* Estilos para opciones siempre visibles en pantallas muy pequeñas */
+  .always-visible-links {
+    gap: 8px;
+  }
+
+  .always-visible-links .btn-valoration {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
   .mobile-menu-toggle {
     width: 28px;
     height: 22px;
@@ -206,9 +235,18 @@
     padding: 70px 15px 15px;
   }
 
-  .btn-valoration {
+  .navbar-links .btn-valoration {
     padding: 12px 15px;
     font-size: 15px;
+  }
+}
+
+/* Estilos adicionales para muy pantallas pequeñas */
+@media (max-width: 360px) {
+  .always-visible-links .btn-valoration {
+    padding: 6px 10px;
+    font-size: 12px;
+    min-width: 80px;
   }
 }
 
