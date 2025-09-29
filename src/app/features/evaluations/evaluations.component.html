@@ -38,9 +38,25 @@
       </div>
     </div>
 
-    <div class="filter-buttons">
-      <button class="btn-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
-      <button class="btn-primary" (click)="aplicarFiltros()">Aplicar filtros</button>
+    <!-- Nueva sección para los botones en la parte inferior -->
+    <div class="filter-bottom-section">
+      <div class="vistas-buttons">
+        <button class="btn-view"
+                [class.active]="vistaActual === 'todos'"
+                (click)="cambiarVista('todos')">
+          Todos los registros
+        </button>
+        <button class="btn-view"
+                [class.active]="vistaActual === 'pendientes'"
+                (click)="cambiarVista('pendientes')">
+          Registros pendientes
+        </button>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="btn-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
+        <button class="btn-primary" (click)="aplicarFiltros()">Aplicar filtros</button>
+      </div>
     </div>
   </div>
 
@@ -58,9 +74,11 @@
             <th>N°</th>
             <th>Fecha y hora</th>
             <th>Riesgo</th>
+            <th>Riesgo real</th>
             <th>Síntomas identificados</th>
             <th>Cantidad de síntomas</th>
-            <th>Tiempo de evaluación </th>
+            <th>Tiempo de evaluación</th>
+            <th>Acciones</th>
           </tr>
           </thead>
           <tbody>
@@ -76,6 +94,16 @@
                 </span>
             </td>
             <td>
+              <span *ngIf="fila.riesgo_real"
+                    class="risk-badge"
+                    [ngClass]="'risk-' + fila.riesgo_real">
+                {{ fila.riesgo_real.toUpperCase() }}
+              </span>
+              <span *ngIf="!fila.riesgo_real" class="risk-pending">
+                PENDIENTE
+              </span>
+            </td>
+            <td>
               <ul class="symptoms-list">
                 <li *ngFor="let sintoma of fila.sintomas_identificados">
                   {{ formatearSintoma(sintoma) }}
@@ -86,6 +114,16 @@
               <span class="symptoms-count">{{ fila.cantidad_sintomas }}</span>
             </td>
             <td class="evaluation-time">{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
+            <td class="actions-cell">
+              <button *ngIf="!fila.riesgo_real"
+                      class="btn-action"
+                      (click)="asignarRiesgoReal(fila)">
+                Asignar Riesgo
+              </button>
+              <span *ngIf="fila.riesgo_real" class="action-completed">
+                Riesgo Asignado
+              </span>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -139,4 +177,43 @@
       No hay evaluaciones o no hay evaluaciones que coincidan con los filtros seleccionados.
     </div>
   </ng-template>
+</div>
+
+<!-- Modal para asignar riesgo real -->
+<div *ngIf="mostrarModal" class="modal-overlay" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Asignar Riesgo Real</h3>
+      <button class="modal-close" (click)="cerrarModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Evaluación:</strong> {{ evaluacionSeleccionada?.fecha | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+      <p><strong>Riesgo predicho:</strong>
+        <span class="risk-badge" [ngClass]="'risk-' + evaluacionSeleccionada?.riesgo">
+          {{ evaluacionSeleccionada?.riesgo?.toUpperCase() }}
+        </span>
+      </p>
+
+      <div class="form-group">
+        <label for="riesgoReal">Seleccione el riesgo real:</label>
+        <select id="riesgoReal" [(ngModel)]="riesgoRealSeleccionado" class="form-control">
+          <option value="">Seleccione...</option>
+          <option value="bajo">Bajo</option>
+          <option value="medio">Medio</option>
+          <option value="alto">Alto</option>
+          <!-- Dependiendo como sea el análisis, se pueden usar estos valores:
+          <option value="medio">Negativo</option>
+          <option value="alto">Positivo</option>-->
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-primary"
+              (click)="guardarRiesgoReal()"
+              [disabled]="!riesgoRealSeleccionado">
+        Guardar
+      </button>
+    </div>
+  </div>
 </div>

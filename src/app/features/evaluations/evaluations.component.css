@@ -86,11 +86,50 @@ h2 {
   font-family: 'Open Sans', sans-serif;
 }
 
+/* Nueva sección inferior para botones */
+.filter-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+.vistas-buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.btn-view {
+  background-color: #ffffff;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-view:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.btn-view.active {
+  background-color: #468B73;
+  color: white;
+  border-color: #468B73;
+  font-weight: bold;
+}
+
 .filter-buttons {
   display: flex;
   gap: 15px;
-  justify-content: center;
-  padding-bottom: 25px;
+  align-items: center;
 }
 
 .btn-primary {
@@ -219,7 +258,20 @@ tbody td ul {
   border: 2px solid #c8e6c9;
 }
 
-/* Contador de síntomas */
+.risk-pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 2px solid #ffeaa7;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+  min-width: 70px;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+}
+
 .symptoms-count {
   background: #e9ecef;
   padding: 6px 10px;
@@ -240,6 +292,36 @@ tbody td ul {
 .fecha-completa {
   font-size: 0.9rem;
   line-height: 1.4;
+}
+
+.actions-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.btn-action {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-action:hover {
+  background-color: #138496;
+}
+
+.action-completed {
+  color: #28a745;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
 }
 
 /* Paginación mejorada */
@@ -382,6 +464,113 @@ tbody td ul {
   border: 2px dashed #dee2e6;
 }
 
+/* Estilos para modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.modal-body {
+  padding: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.modal-body p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-top: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #468B73;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background-color: #f8f9fa;
+  border-radius: 0 0 12px 12px;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
   .contenedor {
@@ -406,10 +595,43 @@ tbody td ul {
     padding: 20px;
   }
 
-  .filter-buttons {
-    flex-direction: column;
+  /* Sección inferior en móvil - 2x2 centrado */
+  .filter-bottom-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .vistas-buttons {
+    grid-column: 1 / -1; /* Ocupa ambas columnas */
+    display: flex;
     gap: 10px;
-    padding: 0 20px 20px 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-view {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .filter-buttons {
+    grid-column: 1 / -1; /* Ocupa ambas columnas */
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filter-buttons button {
+    flex: 1;
+    min-width: 0;
   }
 
   /* Tabla en móvil */
@@ -424,7 +646,7 @@ tbody td ul {
 
   table {
     font-size: 13px;
-    min-width: 900px; /* Aumentar para mejor legibilidad en móvil */
+    min-width: 900px;
   }
 
   thead th {
@@ -449,6 +671,12 @@ tbody td ul {
     min-width: 60px;
   }
 
+  .risk-pending {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    min-width: 60px;
+  }
+
   .symptoms-count {
     font-size: 0.8rem;
     padding: 4px 8px;
@@ -459,6 +687,15 @@ tbody td ul {
   }
 
   .evaluation-time {
+    font-size: 0.8rem;
+  }
+
+  .btn-action {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .action-completed {
     font-size: 0.8rem;
   }
 
@@ -510,6 +747,33 @@ tbody td ul {
     padding: 6px;
     font-size: 0.8rem;
   }
+
+  /* Modal en móvil */
+  .modal-content {
+    width: 95%;
+    margin: 10px;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .modal-footer {
+    padding: 15px;
+    flex-direction: column;
+  }
+
+  .modal-footer button {
+    width: 100%;
+  }
 }
 
 /* Estilos adicionales para pantallas muy pequeñas */
@@ -526,13 +790,31 @@ tbody td ul {
     padding: 15px;
   }
 
-  .filter-buttons {
-    padding: 0 15px 15px 15px;
+  /* Sección inferior en móviles pequeños - botones apilados verticalmente */
+  .filter-bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    align-items: stretch;
   }
 
-  .table-container::after {
-    font-size: 0.65rem;
-    padding: 4px 8px;
+  .vistas-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .btn-view {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
   }
 
   table {
@@ -552,4 +834,21 @@ tbody td ul {
     height: 28px;
     font-size: 0.75rem;
   }
-}
+
+  .modal-content {
+    width: 98%;
+    margin: 5px;
+  }
+
+  .modal-header {
+    padding: 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    padding: 12px;
+  }
+

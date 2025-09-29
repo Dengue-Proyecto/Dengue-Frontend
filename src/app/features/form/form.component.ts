@@ -100,7 +100,7 @@ export class FormComponent implements OnInit {
             console.log('Respuesta del backend:', response);
 
             try {
-              await this.router.navigate(['/resultado'], {
+              await this.router.navigate(['/resultado1'], {
                 state: {
                   riesgo_lineal: response.riesgo_lineal,
                   riesgo_poli: response.riesgo_poli,

@@ -17,10 +17,16 @@ export class EvaluationsComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   riesgoFiltro: string = '';
-  sintomasFiltro: string = ''; // Nuevo filtro para cantidad de síntomas
+  sintomasFiltro: string = '';
   evaluacionesFiltradas: any[] = [];
   minFechaFin: string = '';
   fechaMaxima: string = '';
+
+  // Nuevas propiedades para vista y modal
+  vistaActual: string = 'todos'; // 'todos' o 'pendientes'
+  mostrarModal: boolean = false;
+  evaluacionSeleccionada: any = null;
+  riesgoRealSeleccionado: string = '';
 
   // Nuevas propiedades para paginación avanzada
   opcionesFilasPorPagina: number[] = [5, 10, 25, 50];
@@ -67,8 +73,18 @@ export class EvaluationsComponent implements OnInit {
     }
   }
 
+  cambiarVista(vista: string) {
+    this.vistaActual = vista;
+    this.aplicarFiltros();
+  }
+
   aplicarFiltros() {
     this.evaluacionesFiltradas = [...this.filas];
+
+    // Filtro por vista (todos vs pendientes)
+    if (this.vistaActual === 'pendientes') {
+      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => !eva.riesgo_real);
+    }
 
     // Filtro por fechas
     if (this.fechaInicio && this.fechaFin) {
@@ -130,6 +146,7 @@ export class EvaluationsComponent implements OnInit {
     this.riesgoFiltro = '';
     this.sintomasFiltro = '';
     this.minFechaFin = '';
+    this.vistaActual = 'todos';
     this.evaluacionesFiltradas = [...this.filas];
 
     this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
@@ -147,6 +164,51 @@ export class EvaluationsComponent implements OnInit {
       },
       error: err => {
         console.error('Error cargando evaluaciones', err);
+      }
+    });
+  }
+
+  // Métodos para el modal de riesgo real
+  asignarRiesgoReal(evaluacion: any) {
+    this.evaluacionSeleccionada = evaluacion;
+    this.riesgoRealSeleccionado = '';
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
+    this.evaluacionSeleccionada = null;
+    this.riesgoRealSeleccionado = '';
+  }
+
+  guardarRiesgoReal() {
+    if (!this.evaluacionSeleccionada || !this.riesgoRealSeleccionado) {
+      return;
+    }
+
+    const payload = {
+      riesgo_real: this.riesgoRealSeleccionado
+    };
+
+    // Aquí harías la llamada HTTP para actualizar el riesgo real
+    const putUrl = `${environment.apiUrl}/evaluacion/${this.evaluacionSeleccionada.id}`;
+
+    this.http.put(putUrl, payload).subscribe({
+      next: (response) => {
+        // Actualizar localmente el registro
+        const index = this.filas.findIndex(f => f.id === this.evaluacionSeleccionada.id);
+        if (index !== -1) {
+          this.filas[index].riesgo_real = this.riesgoRealSeleccionado;
+        }
+
+        this.cerrarModal();
+        this.aplicarFiltros(); // Reaplicar filtros para actualizar la vista
+
+        console.log('Riesgo real actualizado exitosamente');
+      },
+      error: (err) => {
+        console.error('Error al actualizar riesgo real:', err);
+        // Aquí podrías mostrar un mensaje de error al usuario
       }
     });
   }
