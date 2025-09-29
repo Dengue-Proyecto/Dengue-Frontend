@@ -27,11 +27,11 @@ export class Result1Component implements OnInit {
   }
 
   volverEvaluar() {
-    this.router.navigate(['/form']);
+    this.router.navigate(['/formulario']);
   }
 
   verEvaluaciones() {
-    this.router.navigate(['/evaluations']);
+    this.router.navigate(['/evaluaciones']);
   }
 
   descargarPDF() {
