@@ -158,7 +158,7 @@
     <!-- Footer del formulario: paginación -->
     <div class="form-footer">
       <div class="pagination">
-        <button type="button" (click)="anterior()" [disabled]="currentPage === 1">← Anterior</button>
+        <button type="button" (click)="anterior()" [disabled]="currentPage === 1">Anterior</button>
 
         <!-- Indicador de pasos -->
         <div class="step-indicator">
@@ -166,7 +166,7 @@
           <div class="step" [class.active]="currentPage === 2" [class.completed]="currentPage > 2">2</div>
         </div>
 
-        <button *ngIf="currentPage < totalPages" type="button" (click)="siguiente()" [disabled]="currentPage === totalPages">Siguiente →</button>
+        <button *ngIf="currentPage < totalPages" type="button" (click)="siguiente()" [disabled]="currentPage === totalPages">Siguiente</button>
         <button *ngIf="currentPage === totalPages" type="button" (click)="enviarFormulario()">Enviar</button>
       </div>
     </div>
