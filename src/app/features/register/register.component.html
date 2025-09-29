@@ -13,7 +13,7 @@
     <form (ngSubmit)="onSubmit()" #registroForm="ngForm" novalidate>
       <div class="form-grid">
         <div class="form-group">
-          <label>Nro. de Colegiatura:</label>
+          <label>Nro. de Colegiatura: <span class="required">*</span></label>
           <div class="colegiatura">
             <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura"
                    required pattern="[0-9]*" inputmode="numeric" maxlength="6" minlength="6"
@@ -27,25 +27,25 @@
         </div>
 
         <div class="form-group">
-          <label>Nombres:</label>
+          <label>Nombres: <span class="required">*</span></label>
           <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP" required
                  pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">
-          <label>Apellido paterno:</label>
+          <label>Apellido paterno: <span class="required">*</span></label>
           <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP" required
                  pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">
-          <label>Apellido materno:</label>
+          <label>Apellido materno: <span class="required">*</span></label>
           <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP" required
                  pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
         </div>
 
         <div class="form-group">
-          <label>Correo electrónico:</label>
+          <label>Correo electrónico: <span class="required">*</span></label>
           <input type="email" name="correo" [(ngModel)]="usuario.correo" required #correo="ngModel">
           <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="error">
             <div *ngIf="correo.errors?.['required']">El correo es obligatorio.</div>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="form-group">
-          <label>Contraseña:</label>
+          <label>Contraseña: <span class="required">*</span></label>
           <input type="password" name="contrasena" [(ngModel)]="usuario.contrasena" required minlength="5" #contrasena="ngModel">
           <div *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)" class="error">
             <div *ngIf="contrasena.errors?.['required']">La contraseña es obligatoria.</div>

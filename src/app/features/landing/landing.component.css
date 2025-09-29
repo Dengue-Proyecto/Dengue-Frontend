@@ -1,14 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&display=swap');
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-}
-
 .risk-evaluation {
-  min-height: 100vh;
+  min-height: calc(100vh - 84px); /* SOLO CAMBIAR min-height */
   width: 100vw;
   /* Degradado de blanco (izquierda) a verde #83A69A (derecha) */
   background: linear-gradient(270deg, #83A69A 0%, #ffffff 100%);
@@ -24,7 +17,6 @@ html, body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }
-
 
 .risk-evaluation .content {
   max-width: 700px; /* contenido más ancho para mejor lectura */

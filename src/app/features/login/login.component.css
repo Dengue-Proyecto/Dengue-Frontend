@@ -1,50 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&family=Open+Sans&display=swap');
 
-/* Reset global */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto; /* barra vertical general para toda la página */
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
 /* Contenedor principal */
 .login-container {
   display: flex;
-  min-height: 100vh;
-  width: 100vw;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   align-items: stretch;
-  overflow: visible; /* No scrollbar interno */
+  font-family: 'Inter', sans-serif;
+  height: calc(100vh - 84px);
 }
 
 /* Panel izquierdo - formulario */
 .left-panel {
   flex: 1;
   background: white;
-  padding: 6rem 3rem 2rem 3rem;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
-  overflow: visible; /* no barra vertical interna */
+  overflow-y: hidden;
+  margin: 0;
+  height: 100%;
   font-family: 'Open Sans', sans-serif;
-  min-height: auto; /* que crezca con el contenido */
 }
 
 /* Limitar ancho máximo del formulario y centrar */
 .left-panel form {
-  max-width: 400px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Título */
 .left-panel h2 {
-  margin-bottom: 2rem;
   font-weight: 700;
   font-size: 2rem;
   color: #222;
@@ -60,6 +52,11 @@ html, body {
   color: #333;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
+}
+
+.required {
+  color: #d32f2f;
+  margin-left: 3px;
 }
 
 /* Inputs */
@@ -108,13 +105,11 @@ input:disabled {
   flex: 1;
   background: transparent;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start; /* contenido arriba */
+  align-items: stretch;        /* contenido llena verticalmente */
   overflow: hidden;
-  padding: 0;
   box-sizing: border-box;
-  height: 100vh;
-  font-family: 'Inter', sans-serif; /* Fuente para textos destacados */
+  height: 100%;
 }
 
 /* Caja curva */
@@ -249,6 +244,10 @@ input:disabled {
     padding: 3rem 2rem 2rem 2rem;
   }
 
+  .left-panel form {
+    max-width: 100%;
+  }
+
   .curve-shape {
     border-radius: 25px; /* Mantener bordas redondeadas más sutiles en lugar de 0 */
     padding: 2.5rem 1.5rem 2rem 1.5rem; /* Mejor padding */
@@ -305,6 +304,11 @@ input:disabled {
 
 /* Responsive para móviles pequeños */
 @media (max-width: 480px) {
+
+  .left-panel {
+    padding: 2rem 1.5rem;
+  }
+
   .curve-shape {
     width: 100%;
     max-width: 100%;
@@ -350,6 +354,7 @@ input:disabled {
 
   .left-panel button[type="submit"] {
     font-size: 14px;
+    margin-top: 20px;
     min-width: 120px;
     max-width: 160px;
     padding: 8px 0;

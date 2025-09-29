@@ -1,25 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&family=Open+Sans&display=swap');
 
-/* Reset global */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif; /* Fuente general del landing */
-}
-
 /* Contenedor principal */
 .register-container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
   overflow: hidden;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   align-items: stretch;
+  font-family: 'Inter', sans-serif; /* Fuente general del landing */
+  height: calc(100vh - 84px);
 }
 
 /* Panel izquierdo */
@@ -30,10 +20,8 @@ html, body {
   justify-content: flex-start; /* contenido arriba */
   align-items: stretch;        /* contenido llena verticalmente */
   overflow: hidden;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
   box-sizing: border-box;
+  height: 100%;
 }
 
 /* Caja curva */
@@ -51,7 +39,6 @@ html, body {
   padding: 3rem 2rem 0.5rem 2rem;
   box-sizing: border-box;
   text-align: center;
-  margin: 0;
   font-family: 'Inter', sans-serif; /* Fuente para textos destacados */
 }
 
@@ -96,13 +83,16 @@ html, body {
 
 /* Panel derecho */
 .right-panel {
-  flex: 1.3;
+  flex: 1;
   background-color: white;
-  padding: 3rem 4rem;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
-  overflow-y: visible;
+  overflow-y: auto;
   margin: 0;
-  height: 100vh; /* Cambiado de 87.75vh a 100vh */
+  height: 100%; /* CAMBIAR DE 100vh a 100% */
   font-family: 'Open Sans', sans-serif; /* Fuente para texto principal */
 }
 
@@ -121,7 +111,11 @@ html, body {
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem 3rem;
   margin-top: 1rem;
+}
 
+.required {
+  color: #d32f2f;
+  margin-left: 3px;
 }
 
 .form-group {
