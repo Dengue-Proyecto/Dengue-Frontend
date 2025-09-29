@@ -213,6 +213,41 @@ input:disabled {
   background-color: #1b4d3e;
 }
 
+/* Contenedor para el input de contraseña con el ojo */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #225946;
+}
+
+.toggle-password svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* Alerta general */
 .alert-popup-bottom {
   position: fixed;

@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   buscando: boolean = false;
   errorCMP: boolean = false;
-
+  mostrarContrasena: boolean = false;
   alertMessage: string = '';
   showAlert: boolean = false;
   alertSuccess: boolean = false; // <-- Controla el color de la alerta
@@ -165,6 +165,10 @@ export class RegisterComponent implements OnInit {
     if (!esNumerico) {
       event.preventDefault();
     }
+  }
+
+  toggleMostrarContrasena() {
+    this.mostrarContrasena = !this.mostrarContrasena;
   }
 
   evitarPegadoConNumeros(event: ClipboardEvent): void {

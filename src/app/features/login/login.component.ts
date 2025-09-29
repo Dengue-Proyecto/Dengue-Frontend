@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   showAlert: boolean = false;  // controla visibilidad alerta
   alertMessage: string = '';   // mensaje de alerta
+  mostrarContrasena: boolean = false;
 
   constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
 
@@ -78,6 +79,10 @@ export class LoginComponent implements OnInit {
     if (!esNumerico || textoPegado.length !== 6) {
       event.preventDefault();
     }
+  }
+
+  toggleMostrarContrasena() {
+    this.mostrarContrasena = !this.mostrarContrasena;
   }
 
   async irRegistrar() {
