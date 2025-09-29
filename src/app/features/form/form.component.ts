@@ -13,14 +13,18 @@ import {environment} from '../../../environments/environment';
 export class FormComponent implements OnInit {
   form!: FormGroup;
   currentPage = 1;
-  totalPages = 2;  // Tres páginas para dividir las preguntas
+  totalPages = 2;
   edades: number[] = [];
-  diasDeFiebre: number[] = [];  // Lista para los días de fiebre
+  diasDeFiebre: number[] = [];
   tiempoInicio: number = 0;
+
+  // Variables para la barra de progreso
+  totalPreguntas = 11;
+  preguntasRespondidas = 0;
 
   alertMessage: string = '';
   showAlert: boolean = false;
-  alertSuccess: boolean = false; // Controla el color de la alerta (puede ser un mensaje de éxito o error)
+  alertSuccess: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {}
 
@@ -42,10 +46,28 @@ export class FormComponent implements OnInit {
     this.edades = Array.from({ length: 99 }, (_, i) => i + 1);
     this.diasDeFiebre = Array.from({ length: 15 }, (_, i) => i);
     this.iniciarEvaluacion();
+
+    // Suscribirse a cambios del formulario para actualizar progreso
+    this.form.valueChanges.subscribe(() => {
+      this.actualizarProgreso();
+    });
   }
 
   iniciarEvaluacion() {
     this.tiempoInicio = Date.now();
+  }
+
+  // Nueva función para actualizar el progreso
+  actualizarProgreso() {
+    this.preguntasRespondidas = 0;
+
+    // Contar preguntas respondidas
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (control?.value !== null && control?.value !== '') {
+        this.preguntasRespondidas++;
+      }
+    });
   }
 
   siguiente() {
@@ -65,7 +87,7 @@ export class FormComponent implements OnInit {
     this.alertSuccess = success;
     this.showAlert = true;
     setTimeout(() => {
-      this.showAlert = false; // Se cierra la alerta después de 5 segundos
+      this.showAlert = false;
     }, 5000);
   }
 

@@ -1,157 +1,176 @@
 <div class="form-container">
-  <div class="form-header">
-    <h1>Evaluación del Riesgo de Dengue</h1>
-    <h2>Responda honestamente las siguientes preguntas.</h2>
+  <!-- Header con título principal -->
+
+  <!-- Contenedor principal del formulario -->
+  <div class="form-wrapper">
+    <!-- Header del formulario: subtítulo y barra de progreso -->
+    <header class="form-header-section">
+      <h2>Evaluación del Riesgo de Dengue</h2>
+
+      <!-- Barra de progreso -->
+      <div class="progress-container">
+        <div class="progress-bar" [style.width.%]="(preguntasRespondidas / totalPreguntas) * 100"></div>
+      </div>
+    </header>
+
+    <!-- Cuerpo del formulario: preguntas -->
+    <div class="form-body">
+      <form [formGroup]="form">
+        <!-- Pregunta 1 a 5 -->
+        <div *ngIf="currentPage === 1">
+
+          <!-- Pregunta 1 -->
+          <div class="question" [class.answered]="form.get('edad')?.value">
+            <div class="question-number">1</div>
+            <div class="question-content">
+              <label for="edad">¿Cuál es la edad del paciente?</label>
+              <select id="edad" formControlName="edad">
+                <option *ngFor="let edad of edades" [value]="edad">{{ edad }} años</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pregunta 2 -->
+          <div class="question" [class.answered]="form.get('genero')?.value">
+            <div class="question-number">2</div>
+            <div class="question-content">
+              <label for="generoMasculino">¿Qué género eres?</label>
+              <div class="options">
+                <input type="radio" id="generoMasculino" formControlName="genero" value="Masculino" /> Masculino
+                <input type="radio" id="generoFemenino" formControlName="genero" value="Femenino" /> Femenino
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 3 -->
+          <div class="question" [class.answered]="form.get('diasDeFiebre')?.value !== null">
+            <div class="question-number">3</div>
+            <div class="question-content">
+              <label for="diasDeFiebre">¿Cuántos días de fiebre ha tenido el paciente?</label>
+              <select id="diasDeFiebre" formControlName="diasDeFiebre">
+                <option *ngFor="let dia of diasDeFiebre" [value]="dia">{{ dia }} días</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pregunta 4 -->
+          <div class="question" [class.answered]="form.get('dolorCabezaSevero')?.value">
+            <div class="question-number">4</div>
+            <div class="question-content">
+              <label for="dolorCabezaSeveroSi">¿Tienes dolor de cabeza?</label>
+              <div class="options">
+                <input type="radio" id="dolorCabezaSeveroSi" formControlName="dolorCabezaSevero" value="Si" /> Sí
+                <input type="radio" id="dolorCabezaSeveroNo" formControlName="dolorCabezaSevero" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 5 -->
+          <div class="question" [class.answered]="form.get('dolorDetrasOjos')?.value">
+            <div class="question-number">5</div>
+            <div class="question-content">
+              <label for="dolorDetrasOjosSi">¿Tienes dolor detrás de los ojos?</label>
+              <div class="options">
+                <input type="radio" id="dolorDetrasOjosSi" formControlName="dolorDetrasOjos" value="Si" /> Sí
+                <input type="radio" id="dolorDetrasOjosNo" formControlName="dolorDetrasOjos" value="No" /> No
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pregunta 6 a 11 (segunda página) -->
+        <div *ngIf="currentPage === 2">
+
+          <!-- Pregunta 6 -->
+          <div class="question" [class.answered]="form.get('dolorArticularMuscular')?.value">
+            <div class="question-number">6</div>
+            <div class="question-content">
+              <label for="dolorArticularMuscularSi">¿Tienes dolor muscular?</label>
+              <div class="options">
+                <input type="radio" id="dolorArticularMuscularSi" formControlName="dolorArticularMuscular" value="Si" /> Sí
+                <input type="radio" id="dolorArticularMuscularNo" formControlName="dolorArticularMuscular" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 7 -->
+          <div class="question" [class.answered]="form.get('saborMetalicoBoca')?.value">
+            <div class="question-number">7</div>
+            <div class="question-content">
+              <label for="saborMetalicoBocaSi">¿Tienes sabor metálico en la boca?</label>
+              <div class="options">
+                <input type="radio" id="saborMetalicoBocaSi" formControlName="saborMetalicoBoca" value="Si" /> Sí
+                <input type="radio" id="saborMetalicoBocaNo" formControlName="saborMetalicoBoca" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 8 -->
+          <div class="question" [class.answered]="form.get('perdidaApetito')?.value">
+            <div class="question-number">8</div>
+            <div class="question-content">
+              <label for="perdidaApetitoSi">¿Tienes pérdida de apetito?</label>
+              <div class="options">
+                <input type="radio" id="perdidaApetitoSi" formControlName="perdidaApetito" value="Si" /> Sí
+                <input type="radio" id="perdidaApetitoNo" formControlName="perdidaApetito" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 9 -->
+          <div class="question" [class.answered]="form.get('dolorAbdominal')?.value">
+            <div class="question-number">9</div>
+            <div class="question-content">
+              <label for="dolorAbdominalSi">¿Tienes dolor abdominal?</label>
+              <div class="options">
+                <input type="radio" id="dolorAbdominalSi" formControlName="dolorAbdominal" value="Si" /> Sí
+                <input type="radio" id="dolorAbdominalNo" formControlName="dolorAbdominal" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 10 -->
+          <div class="question" [class.answered]="form.get('nauseasVomitos')?.value">
+            <div class="question-number">10</div>
+            <div class="question-content">
+              <label for="nauseasVomitosSi">¿Tienes náuseas?</label>
+              <div class="options">
+                <input type="radio" id="nauseasVomitosSi" formControlName="nauseasVomitos" value="Si" /> Sí
+                <input type="radio" id="nauseasVomitosNo" formControlName="nauseasVomitos" value="No" /> No
+              </div>
+            </div>
+          </div>
+
+          <!-- Pregunta 11 -->
+          <div class="question" [class.answered]="form.get('diarrea')?.value">
+            <div class="question-number">11</div>
+            <div class="question-content">
+              <label for="diarreaSi">¿Tienes diarrea?</label>
+              <div class="options">
+                <input type="radio" id="diarreaSi" formControlName="diarrea" value="Si" /> Sí
+                <input type="radio" id="diarreaNo" formControlName="diarrea" value="No" /> No
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Footer del formulario: paginación -->
+    <div class="form-footer">
+      <div class="pagination">
+        <button type="button" (click)="anterior()" [disabled]="currentPage === 1">← Anterior</button>
+
+        <!-- Indicador de pasos -->
+        <div class="step-indicator">
+          <div class="step" [class.active]="currentPage === 1" [class.completed]="currentPage > 1">1</div>
+          <div class="step" [class.active]="currentPage === 2" [class.completed]="currentPage > 2">2</div>
+        </div>
+
+        <button *ngIf="currentPage < totalPages" type="button" (click)="siguiente()" [disabled]="currentPage === totalPages">Siguiente →</button>
+        <button *ngIf="currentPage === totalPages" type="button" (click)="enviarFormulario()">Enviar</button>
+      </div>
+    </div>
   </div>
-
-  <form [formGroup]="form">
-    <!-- Pregunta 1 a 5 -->
-    <div *ngIf="currentPage === 1">
-
-      <!-- Pregunta 1 -->
-      <div class="question">
-        <div class="question-number">1</div>
-        <div class="question-content">
-          <label for="edad">¿Cuál es la edad del paciente?</label>
-          <select id="edad" formControlName="edad">
-            <option *ngFor="let edad of edades" [value]="edad">{{ edad }} años</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Pregunta 2 -->
-      <div class="question">
-        <div class="question-number">2</div>
-        <div class="question-content">
-          <label for="generoMasculino">¿Qué género eres?</label>
-          <div class="options">
-            <input type="radio" id="generoMasculino" formControlName="genero" value="Masculino" /> Masculino
-            <input type="radio" id="generoFemenino" formControlName="genero" value="Femenino" /> Femenino
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 3 -->
-      <div class="question">
-        <div class="question-number">3</div>
-        <div class="question-content">
-          <label for="diasDeFiebre">¿Cuántos días de fiebre ha tenido el paciente?</label>
-          <select id="diasDeFiebre" formControlName="diasDeFiebre">
-            <option *ngFor="let dia of diasDeFiebre" [value]="dia">{{ dia }} días</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Pregunta 4 -->
-      <div class="question">
-        <div class="question-number">4</div>
-        <div class="question-content">
-          <label for="dolorCabezaSeveroSi">¿Tienes dolor de cabeza?</label>
-          <div class="options">
-            <input type="radio" id="dolorCabezaSeveroSi" formControlName="dolorCabezaSevero" value="Si" /> Sí
-            <input type="radio" id="dolorCabezaSeveroNo" formControlName="dolorCabezaSevero" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 5 -->
-      <div class="question">
-        <div class="question-number">5</div>
-        <div class="question-content">
-          <label for="dolorDetrasOjosSi">¿Tienes dolor detrás de los ojos?</label>
-          <div class="options">
-            <input type="radio" id="dolorDetrasOjosSi" formControlName="dolorDetrasOjos" value="Si" /> Sí
-            <input type="radio" id="dolorDetrasOjosNo" formControlName="dolorDetrasOjos" value="No" /> No
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pregunta 6 a 10 (segunda página) -->
-    <div *ngIf="currentPage === 2">
-
-      <!-- Pregunta 5 -->
-      <div class="question">
-        <div class="question-number">6</div>
-        <div class="question-content">
-          <label for="dolorArticularMuscularSi">¿Tienes dolor muscular?</label>
-          <div class="options">
-            <input type="radio" id="dolorArticularMuscularSi" formControlName="dolorArticularMuscular" value="Si" /> Sí
-            <input type="radio" id="dolorArticularMuscularNo" formControlName="dolorArticularMuscular" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 7 -->
-      <div class="question">
-        <div class="question-number">7</div>
-        <div class="question-content">
-          <label for="saborMetalicoBocaSi">¿Tienes sabor metálico en la boca?</label>
-          <div class="options">
-            <input type="radio" id="saborMetalicoBocaSi" formControlName="saborMetalicoBoca" value="Si" /> Sí
-            <input type="radio" id="saborMetalicoBocaNo" formControlName="saborMetalicoBoca" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 8 -->
-      <div class="question">
-        <div class="question-number">8</div>
-        <div class="question-content">
-          <label for="perdidaApetitoSi">¿Tienes pérdida de apetito?</label>
-          <div class="options">
-            <input type="radio" id="perdidaApetitoSi" formControlName="perdidaApetito" value="Si" /> Sí
-            <input type="radio" id="perdidaApetitoNo" formControlName="perdidaApetito" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 9 -->
-      <div class="question">
-        <div class="question-number">9</div>
-        <div class="question-content">
-          <label for="dolorAbdominalSi">¿Tienes dolor abdominal?</label>
-          <div class="options">
-            <input type="radio" id="dolorAbdominalSi" formControlName="dolorAbdominal" value="Si" /> Sí
-            <input type="radio" id="dolorAbdominalNo" formControlName="dolorAbdominal" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 10 -->
-      <div class="question">
-        <div class="question-number">10</div>
-        <div class="question-content">
-          <label for="nauseasVomitosSi">¿Tienes náuseas?</label>
-          <div class="options">
-            <input type="radio" id="nauseasVomitosSi" formControlName="nauseasVomitos" value="Si" /> Sí
-            <input type="radio" id="nauseasVomitosNo" formControlName="nauseasVomitos" value="No" /> No
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta 11 -->
-      <div class="question">
-        <div class="question-number">11</div>
-        <div class="question-content">
-          <label for="diarreaSi">¿Tienes diarrea?</label>
-          <div class="options">
-            <input type="radio" id="diarreaSi" formControlName="diarrea" value="Si" /> Sí
-            <input type="radio" id="diarreaNo" formControlName="diarrea" value="No" /> No
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Paginación -->
-    <div class="pagination">
-      <button type="button" (click)="anterior()" [disabled]="currentPage === 1">Anterior</button>
-      <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <button *ngIf="currentPage < totalPages" type="button" (click)="siguiente()" [disabled]="currentPage === totalPages">Siguiente</button>
-      <button *ngIf="currentPage === totalPages" type="button" (click)="enviarFormulario()">Enviar</button>
-    </div>
-
-  </form>
 
   <!-- ALERTA -->
   <div *ngIf="showAlert" [ngClass]="{'alert-popup-bottom': true, 'alert-success': alertSuccess}">
