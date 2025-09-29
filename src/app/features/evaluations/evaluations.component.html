@@ -1,10 +1,9 @@
 <!-- evaluations.component.html -->
 <div class="contenedor">
-  <h2>Registro de Evaluaciones</h2>
 
   <!-- Sección de filtros mejorada -->
   <div class="filters-section">
-    <header class="filters-header">Filtros</header>
+    <header class="filters-header">Registro de Evaluaciones</header>
 
     <div class="filtros">
       <div class="filter-group">
@@ -74,7 +73,7 @@
             <th>N°</th>
             <th>Fecha y hora</th>
             <th>Riesgo</th>
-            <th>Riesgo real</th>
+            <th>Resultado</th>
             <th>Síntomas identificados</th>
             <th>Cantidad de síntomas</th>
             <th>Tiempo de evaluación</th>
@@ -94,12 +93,12 @@
                 </span>
             </td>
             <td>
-              <span *ngIf="fila.riesgo_real"
+              <span *ngIf="fila.resultado"
                     class="risk-badge"
-                    [ngClass]="'risk-' + fila.riesgo_real">
-                {{ fila.riesgo_real.toUpperCase() }}
+                    [ngClass]="'risk-' + fila.resultado">
+                {{ fila.resultado.toUpperCase() }}
               </span>
-              <span *ngIf="!fila.riesgo_real" class="risk-pending">
+              <span *ngIf="!fila.resultado" class="risk-pending">
                 PENDIENTE
               </span>
             </td>
@@ -115,12 +114,12 @@
             </td>
             <td class="evaluation-time">{{ formatearTiempo(fila.tiempo_evaluacion) }}</td>
             <td class="actions-cell">
-              <button *ngIf="!fila.riesgo_real"
+              <button *ngIf="!fila.resultado"
                       class="btn-action"
                       (click)="asignarRiesgoReal(fila)">
-                Asignar Riesgo
+                Asignar resultado
               </button>
-              <span *ngIf="fila.riesgo_real" class="action-completed">
+              <span *ngIf="fila.resultado" class="action-completed">
                 Riesgo Asignado
               </span>
             </td>
@@ -183,7 +182,7 @@
 <div *ngIf="mostrarModal" class="modal-overlay" (click)="cerrarModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h3>Asignar Riesgo Real</h3>
+      <h3>Asignar resultado</h3>
       <button class="modal-close" (click)="cerrarModal()">×</button>
     </div>
     <div class="modal-body">
@@ -195,15 +194,15 @@
       </p>
 
       <div class="form-group">
-        <label for="riesgoReal">Seleccione el riesgo real:</label>
+        <label for="riesgoReal">Seleccione el resultado:</label>
         <select id="riesgoReal" [(ngModel)]="riesgoRealSeleccionado" class="form-control">
           <option value="">Seleccione...</option>
+          <!-- Dependiendo como sea el análisis, se pueden usar estos valores:
           <option value="bajo">Bajo</option>
           <option value="medio">Medio</option>
-          <option value="alto">Alto</option>
-          <!-- Dependiendo como sea el análisis, se pueden usar estos valores:
-          <option value="medio">Negativo</option>
-          <option value="alto">Positivo</option>-->
+          <option value="alto">Alto</option>-->
+          <option value="negativo">Negativo</option>
+          <option value="positivo">Positivo</option>
         </select>
       </div>
     </div>

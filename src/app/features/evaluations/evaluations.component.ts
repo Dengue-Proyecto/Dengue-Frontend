@@ -83,7 +83,7 @@ export class EvaluationsComponent implements OnInit {
 
     // Filtro por vista (todos vs pendientes)
     if (this.vistaActual === 'pendientes') {
-      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => !eva.riesgo_real);
+      this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => !eva.resultado);
     }
 
     // Filtro por fechas
@@ -187,7 +187,7 @@ export class EvaluationsComponent implements OnInit {
     }
 
     const payload = {
-      riesgo_real: this.riesgoRealSeleccionado
+      resultado: this.riesgoRealSeleccionado
     };
 
     // Aquí harías la llamada HTTP para actualizar el riesgo real
@@ -198,7 +198,7 @@ export class EvaluationsComponent implements OnInit {
         // Actualizar localmente el registro
         const index = this.filas.findIndex(f => f.id === this.evaluacionSeleccionada.id);
         if (index !== -1) {
-          this.filas[index].riesgo_real = this.riesgoRealSeleccionado;
+          this.filas[index].resultado = this.riesgoRealSeleccionado;
         }
 
         this.cerrarModal();

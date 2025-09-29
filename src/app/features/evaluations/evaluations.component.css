@@ -7,13 +7,6 @@
   text-align: center;
 }
 
-h2 {
-  font-size: 35px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-family: 'Inter', sans-serif;
-}
-
 /* Sección de filtros mejorada */
 .filters-section {
   background: white;
@@ -28,11 +21,11 @@ h2 {
 .filters-header {
   background-color: #BCCECC;
   padding: 20px;
-  text-align: left;
   border-bottom: 1px solid #dee2e6;
   font-family: 'Inter', sans-serif;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 35px;
+  text-align: center;
 }
 
 .filters-title {
@@ -258,6 +251,18 @@ tbody td ul {
   border: 2px solid #c8e6c9;
 }
 
+.risk-positivo {
+  background: #ffebee;
+  color: #c62828;
+  border: 2px solid #ffcdd2;
+}
+
+.risk-negativo {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 2px solid #c8e6c9;
+}
+
 .risk-pending {
   background: #fff3cd;
   color: #856404;
@@ -300,7 +305,7 @@ tbody td ul {
 }
 
 .btn-action {
-  background-color: #17a2b8;
+  background-color: #468B73;
   color: white;
   border: none;
   border-radius: 6px;
@@ -314,7 +319,7 @@ tbody td ul {
 }
 
 .btn-action:hover {
-  background-color: #138496;
+  background-color: #3c7a65;
 }
 
 .action-completed {
