@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
   alertMessage: string = '';
   showAlert: boolean = false;
   alertSuccess: boolean = false; // <-- Controla el color de la alerta
+  mostrarModalPolitica: boolean = false;
+  mostrarModalFlujo: boolean = false;
 
   constructor(private http: HttpClient, public router: Router, private authService: AuthService) {}
 
@@ -197,6 +199,30 @@ export class RegisterComponent implements OnInit {
     } catch (error) {
       console.error('Error al navegar al login:', error);
     }
+  }
+
+  abrirModalPolitica() {
+    this.mostrarModalPolitica = true;
+    // Prevenir scroll del body cuando el modal está abierto
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModalPolitica() {
+    this.mostrarModalPolitica = false;
+    // Restaurar scroll del body
+    document.body.style.overflow = 'auto';
+  }
+
+  abrirModalFlujo() {
+    this.mostrarModalFlujo = true;
+    // Prevenir scroll del body cuando el modal está abierto
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModalFlujo() {
+    this.mostrarModalFlujo = false;
+    // Restaurar scroll del body
+    document.body.style.overflow = 'auto';
   }
 
   mostrarAlerta(mensaje: string, success: boolean = false) {
