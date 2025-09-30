@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
     apellidoPaterno: '',
     apellidoMaterno: '',
     correo: '',
-    contrasena: ''
+    contrasena: '',
+    aceptaPolitica:false, //taller
+    aceptaFlujo:false, //taller
   };
 
   buscando: boolean = false;
@@ -103,6 +105,12 @@ export class RegisterComponent implements OnInit {
 
     if (u.contrasena.length < 5) {
       this.mostrarAlerta('La contraseña debe tener al menos 5 caracteres.', false);
+      return;
+    }
+
+    // Validación de politicas (taller)
+    if (!this.usuario.aceptaPolitica || !this.usuario.aceptaFlujo) {
+      this.mostrarAlerta('Debe aceptar las políticas para continuar.', false);
       return;
     }
 

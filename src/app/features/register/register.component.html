@@ -75,6 +75,24 @@
         </div>
       </div>
 
+      <!-- PARA TALLER-->
+      <div class="checkbox-group">
+      <div class="checkbox-item">
+        <input type="checkbox" id="checkPolitica" name="checkPolitica" [(ngModel)]="usuario.aceptaPolitica" required>
+        <label for="checkPolitica">
+          Acepto la <a href="#" target="_blank">Política de Tratamiento de Datos Personales</a> <span class="required">*</span>
+        </label>
+      </div>
+
+      <div class="checkbox-item">
+        <input type="checkbox" id="checkFlujo" name="checkFlujo" [(ngModel)]="usuario.aceptaFlujo" required>
+        <label for="checkFlujo">
+          Acepto el <a href="#" target="_blank">Flujo Transfronterizo de Datos</a> <span class="required">*</span>
+        </label>
+      </div>
+    </div>
+      <!-- PARA TALLER-->
+
       <div class="btn-container">
         <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
       </div>
