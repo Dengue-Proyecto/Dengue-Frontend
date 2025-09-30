@@ -13,6 +13,9 @@ export class Result1Component implements OnInit {
 
   // Variables para mostrar los resultados
   riesgo_random_forest!: string;
+  sintomas_identificados: string[] = [];
+  fecha_evaluacion!: string;
+  hora_evaluacion!: string;
 
   constructor(private router: Router) { }
 
@@ -23,6 +26,21 @@ export class Result1Component implements OnInit {
     if (state) {
       console.log('Datos recibidos en ResultComponent:', state);  // Verifica los datos recibidos
       this.riesgo_random_forest = state.riesgo_random_forest;
+      this.sintomas_identificados = state.sintomas_identificados || [];
+
+      // Procesar la fecha y hora
+      if (state.fecha_evaluacion) {
+        const fecha = new Date(state.fecha_evaluacion);
+        this.fecha_evaluacion = fecha.toLocaleDateString('es-PE', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        this.hora_evaluacion = fecha.toLocaleTimeString('es-PE', {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+      }
     }
   }
 

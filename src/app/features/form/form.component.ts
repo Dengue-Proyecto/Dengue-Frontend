@@ -134,7 +134,9 @@ export class FormComponent implements OnInit {
               await this.router.navigate(['/resultado1'], {
                 state: {
                   riesgo_random_forest: response.riesgo_random_forest,
-                  probabilidad_random_forest_pct: response.probabilidad_random_forest_pct
+                  probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
+                  sintomas_identificados: response.sintomas_identificados,
+                  fecha_evaluacion: response.fecha_evaluacion,
                 }
               });
 
