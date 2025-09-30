@@ -1,16 +1,21 @@
+/* Importar fuente al inicio */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
 .result-container {
   text-align: center;
   justify-content: center;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: calc(100vh - 84px); /* SOLO CAMBIAR min-height */
+  min-height: calc(100vh - 84px);
 }
 
 #pdfContent {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .result-header {
@@ -22,7 +27,7 @@
   margin-bottom: 20px;
   color: #333;
   font-weight: bold;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .datetime {
@@ -32,7 +37,7 @@
   display: inline-block;
   color: #6c757d;
   font-size: clamp(14px, 2vw, 18px);
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .result-box {
@@ -56,7 +61,7 @@
 .result-body h3 {
   font-size: clamp(36px, 8vw, 86px);
   font-weight: bold;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   margin: 0;
   line-height: 1.2;
@@ -80,7 +85,7 @@
   margin: 20px auto;
   max-width: 700px;
   text-align: left;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .disclaimer strong {
@@ -96,7 +101,7 @@
   color: #2c3e50;
   font-size: clamp(18px, 3vw, 24px);
   margin-bottom: 20px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -128,7 +133,7 @@
   align-items: center;
   font-size: clamp(13px, 2vw, 16px);
   color: #495057;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .symptom-item::before {
@@ -153,7 +158,7 @@
   border-radius: 8px;
   color: #1976d2;
   font-style: italic;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(14px, 2.5vw, 18px);
   margin: 30px auto;
   max-width: 600px;
@@ -167,7 +172,7 @@
   border-radius: 15px;
   font-size: clamp(14px, 2.5vw, 20px);
   cursor: pointer;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 10px 8px;
   min-width: 140px;
   transition: all 0.3s ease;
