@@ -11,7 +11,7 @@ import {AuthService} from '../../core/auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  datosLogin = {
+    datosLogin = {
     numero_colegiatura: '',
     contrasena: ''
   };
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.http.post(`${environment.apiUrl}/usuario/login`, this.datosLogin)
       .subscribe({
         next: async (respuesta: any) => {
-          this.authService.login(respuesta.access_token);
+          this.authService.login(respuesta);
           try {
             await this.router.navigate(['/formulario']);
           } catch (error) {
