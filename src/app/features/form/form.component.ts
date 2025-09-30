@@ -116,13 +116,31 @@ export class FormComponent implements OnInit {
 
       console.log('Datos del formulario:', formDataWithBooleans);
 
-      this.http.post(`${environment.apiUrl}/evaluar_riesgo`, formDataWithBooleans)
+      //  CAMBIA  MANUALMENTE EL ENDPOINT QUE QUIERES USAR:
+      // Opción 1: Endpoint simple (SIN Gemini) - Usa este para result1
+      const endpoint = `${environment.apiUrl}/evaluar_riesgo_simple`;
+
+      // Opción 2: Endpoint completo (CON Gemini) - Usa este para result
+      // const endpoint = `${environment.apiUrl}/evaluar_riesgo`;
+
+      this.http.post(endpoint, formDataWithBooleans)
         .subscribe({
           next: async (response: any) => {
             console.log('Respuesta del backend:', response);
 
             try {
+              //  CAMBIA LA RUTA DE NAVEGACIÓN:
+              // Para result1 (simple):
               await this.router.navigate(['/resultado1'], {
+                state: {
+                  riesgo_random_forest: response.riesgo_random_forest,
+                  probabilidad_random_forest_pct: response.probabilidad_random_forest_pct
+                }
+              });
+
+              // Para result (completo) - Descomenta esto y comenta lo de arriba:
+              /*
+              await this.router.navigate(['/resultado'], {
                 state: {
                   riesgo_lineal: response.riesgo_lineal,
                   riesgo_poli: response.riesgo_poli,
@@ -143,6 +161,7 @@ export class FormComponent implements OnInit {
                   interpretacion: response.interpretacion
                 }
               });
+              */
             } catch (navigationError) {
               console.error('Error en la navegación:', navigationError);
               this.mostrarAlerta('Error al navegar al resultado. Intente nuevamente.');
