@@ -48,6 +48,11 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private manejarError401(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Si es login, no intentar renovar token - dejar que el componente maneje el error
+    if (this.esRutaLogin(request.url)) {
+      return throwError(() => new HttpErrorResponse({ status: 401 }));
+    }
+
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -92,6 +97,10 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );
     }
+  }
+
+  private esRutaLogin(url: string): boolean {
+    return url.includes('/usuario/login');
   }
 
   private esRutaPublica(url: string): boolean {
