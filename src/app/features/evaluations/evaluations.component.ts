@@ -22,6 +22,11 @@ export class EvaluationsComponent implements OnInit {
   minFechaFin: string = '';
   fechaMaxima: string = '';
 
+  // Propiedades para búsqueda por código
+  codigoBusqueda: string = '';
+  evaluacionBuscada: any = null;
+  errorBusqueda: string = '';
+
   // Nuevas propiedades para vista y modal
   vistaActual: string = 'todos'; // 'todos' o 'pendientes'
   mostrarModal: boolean = false;
@@ -56,6 +61,49 @@ export class EvaluationsComponent implements OnInit {
 
   ngOnInit() {
     this.cargarEvaluaciones();
+  }
+
+  // MÉTODO PARA BUSCAR POR CÓDIGO
+  buscarPorCodigo() {
+    if (!this.codigoBusqueda.trim()) {
+      this.errorBusqueda = 'Por favor ingrese un código de evaluación';
+      return;
+    }
+
+    this.errorBusqueda = '';
+
+    const searchUrl = `${environment.apiUrl}/buscar_evaluacion/${this.codigoBusqueda.trim().toUpperCase()}`;
+
+    this.http.get(searchUrl).subscribe({
+      next: (evaluacion: any) => {
+        // Guardar la evaluación encontrada y mostrarla en la tabla
+        this.evaluacionBuscada = evaluacion;
+        this.filasPaginadas = [evaluacion];
+        this.errorBusqueda = '';
+
+        console.log('Evaluación encontrada:', evaluacion);
+      },
+      error: (error) => {
+        console.error('Error al buscar evaluación:', error);
+        if (error.status === 404) {
+          this.errorBusqueda = 'No se encontró ninguna evaluación con ese código';
+        } else {
+          this.errorBusqueda = 'Error al buscar la evaluación. Intente nuevamente.';
+        }
+        this.evaluacionBuscada = null;
+        this.filasPaginadas = [];
+      }
+    });
+  }
+
+  // MÉTODO PARA LIMPIAR BÚSQUEDA
+  limpiarBusqueda() {
+    this.codigoBusqueda = '';
+    this.evaluacionBuscada = null;
+    this.errorBusqueda = '';
+
+    // Recargar las evaluaciones normales
+    this.aplicarFiltros();
   }
 
   establecerFechaMaxima() {
@@ -195,20 +243,24 @@ export class EvaluationsComponent implements OnInit {
 
     this.http.put(putUrl, payload).subscribe({
       next: (response) => {
-        // Actualizar localmente el registro
-        const index = this.filas.findIndex(f => f.id === this.evaluacionSeleccionada.id);
-        if (index !== -1) {
-          this.filas[index].resultado = this.riesgoRealSeleccionado;
+        console.log('Riesgo real actualizado exitosamente', response);
+
+        // Si había búsqueda activa, volver a buscar para actualizar
+        if (this.evaluacionBuscada) {
+          this.buscarPorCodigo();
+        } else {
+          // Actualizar localmente el registro
+          const index = this.filas.findIndex(f => f.id === this.evaluacionSeleccionada.id);
+          if (index !== -1) {
+            this.filas[index].resultado = this.riesgoRealSeleccionado;
+          }
+          this.aplicarFiltros(); // Reaplicar filtros para actualizar la vista
         }
 
         this.cerrarModal();
-        this.aplicarFiltros(); // Reaplicar filtros para actualizar la vista
-
-        console.log('Riesgo real actualizado exitosamente');
       },
       error: (err) => {
         console.error('Error al actualizar riesgo real:', err);
-        // Aquí podrías mostrar un mensaje de error al usuario
       }
     });
   }

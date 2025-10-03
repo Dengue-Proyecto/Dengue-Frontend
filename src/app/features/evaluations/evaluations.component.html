@@ -5,56 +5,86 @@
   <div class="filters-section">
     <header class="filters-header">Registro de Evaluaciones</header>
 
-    <div class="filtros">
-      <div class="filter-group">
-        <label>Desde:</label>
-        <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
-      </div>
-
-      <div class="filter-group">
-        <label>Hasta:</label>
-        <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
-      </div>
-
-      <div class="filter-group">
-        <label>Nivel de Riesgo:</label>
-        <select [(ngModel)]="riesgoFiltro">
-          <option value="">Todos</option>
-          <option value="bajo">Bajo</option>
-          <option value="medio">Medio</option>
-          <option value="alto">Alto</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label>Cantidad de Síntomas:</label>
-        <select [(ngModel)]="sintomasFiltro">
-          <option value="">Todos</option>
-          <option value="1-2">1-2 síntomas</option>
-          <option value="3-4">3-4 síntomas</option>
-          <option value="5+">5+ síntomas</option>
-        </select>
+    <!-- SECCIÓN DE BÚSQUEDA POR CÓDIGO -->
+    <div class="search-code-section">
+      <div class="search-code-container">
+        <label for="codigoBusqueda">Buscar por código de evaluación:</label>
+        <div class="search-input-group">
+          <input
+            type="text"
+            id="codigoBusqueda"
+            [(ngModel)]="codigoBusqueda"
+            placeholder="Ej: 77095F8D"
+            (keyup.enter)="buscarPorCodigo()"
+            maxlength="8">
+          <button class="btn-search" (click)="buscarPorCodigo()">
+            Buscar
+          </button>
+          <button
+            *ngIf="evaluacionBuscada"
+            class="btn-clear-search"
+            (click)="limpiarBusqueda()">
+            Limpiar búsqueda
+          </button>
+        </div>
+        <div *ngIf="errorBusqueda" class="error-message">
+          {{ errorBusqueda }}
+        </div>
       </div>
     </div>
 
-    <!-- Nueva sección para los botones en la parte inferior -->
-    <div class="filter-bottom-section">
-      <div class="vistas-buttons">
-        <button class="btn-view"
-                [class.active]="vistaActual === 'todos'"
-                (click)="cambiarVista('todos')">
-          Todos los registros
-        </button>
-        <button class="btn-view"
-                [class.active]="vistaActual === 'pendientes'"
-                (click)="cambiarVista('pendientes')">
-          Registros pendientes
-        </button>
+    <!-- Filtros normales (ocultos cuando hay búsqueda activa) -->
+    <div *ngIf="!evaluacionBuscada">
+      <div class="filtros">
+        <div class="filter-group">
+          <label>Desde:</label>
+          <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
+        </div>
+
+        <div class="filter-group">
+          <label>Hasta:</label>
+          <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
+        </div>
+
+        <div class="filter-group">
+          <label>Nivel de Riesgo:</label>
+          <select [(ngModel)]="riesgoFiltro">
+            <option value="">Todos</option>
+            <option value="bajo">Bajo</option>
+            <option value="medio">Medio</option>
+            <option value="alto">Alto</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Cantidad de Síntomas:</label>
+          <select [(ngModel)]="sintomasFiltro">
+            <option value="">Todos</option>
+            <option value="1-2">1-2 síntomas</option>
+            <option value="3-4">3-4 síntomas</option>
+            <option value="5+">5+ síntomas</option>
+          </select>
+        </div>
       </div>
 
-      <div class="filter-buttons">
-        <button class="btn-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
-        <button class="btn-primary" (click)="aplicarFiltros()">Aplicar filtros</button>
+      <div class="filter-bottom-section">
+        <div class="vistas-buttons">
+          <button class="btn-view"
+                  [class.active]="vistaActual === 'todos'"
+                  (click)="cambiarVista('todos')">
+            Todos los registros
+          </button>
+          <button class="btn-view"
+                  [class.active]="vistaActual === 'pendientes'"
+                  (click)="cambiarVista('pendientes')">
+            Registros pendientes
+          </button>
+        </div>
+
+        <div class="filter-buttons">
+          <button class="btn-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
+          <button class="btn-primary" (click)="aplicarFiltros()">Aplicar filtros</button>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +93,7 @@
     <!-- Sección de tabla mejorada -->
     <div class="table-section">
       <div class="table-header">
-        <div>Registro de Evaluaciones</div>
+        <div>{{ evaluacionBuscada ? 'Resultado de búsqueda' : 'Registro de Evaluaciones' }}</div>
       </div>
 
       <div class="table-container">
@@ -71,6 +101,7 @@
           <thead>
           <tr>
             <th>N°</th>
+            <th>Código</th>
             <th>Fecha y hora</th>
             <th>Riesgo</th>
             <th>Resultado</th>
@@ -82,8 +113,12 @@
           </thead>
           <tbody>
           <tr *ngFor="let fila of filasPaginadas; let i = index"
-              [class.follow-up-needed]="fila.riesgo === 'alto'">
-            <td><strong>{{ (paginaActual - 1) * registrosPorPagina + i + 1 }}</strong></td>
+              [class.follow-up-needed]="fila.riesgo === 'alto'"
+              [class.search-result]="evaluacionBuscada">
+            <td><strong>{{ evaluacionBuscada ? 1 : (paginaActual - 1) * registrosPorPagina + i + 1 }}</strong></td>
+            <td>
+              <span class="codigo-badge">{{ fila.codigo_evaluacion }}</span>
+            </td>
             <td>
               <div class="fecha-completa">{{ convertirFecha(fila.fecha) }}</div>
             </td>
@@ -128,8 +163,8 @@
         </table>
       </div>
 
-      <!-- Paginación mejorada -->
-      <div class="pagination-section">
+      <!-- Paginación (oculta cuando hay búsqueda) -->
+      <div *ngIf="!evaluacionBuscada" class="pagination-section">
         <div class="pagination-left">
           <span class="pagination-info">
             Mostrando {{ (paginaActual - 1) * registrosPorPagina + 1 }}-{{ Math.min(paginaActual * registrosPorPagina, evaluacionesFiltradas.length) }} de {{ evaluacionesFiltradas.length }} registros
@@ -173,7 +208,7 @@
   <!-- Mostrar si no hay resultados -->
   <ng-template #sinResultados>
     <div class="sin-resultados">
-      No hay evaluaciones o no hay evaluaciones que coincidan con los filtros seleccionados.
+      {{ evaluacionBuscada ? 'No se encontró ninguna evaluación con ese código.' : 'No hay evaluaciones o no hay evaluaciones que coincidan con los filtros seleccionados.' }}
     </div>
   </ng-template>
 </div>
@@ -186,6 +221,7 @@
       <button class="modal-close" (click)="cerrarModal()">×</button>
     </div>
     <div class="modal-body">
+      <p><strong>Código:</strong> <span class="codigo-badge">{{ evaluacionSeleccionada?.codigo_evaluacion }}</span></p>
       <p><strong>Evaluación:</strong> {{ evaluacionSeleccionada?.fecha | date:'dd/MM/yyyy HH:mm:ss' }}</p>
       <p><strong>Riesgo predicho:</strong>
         <span class="risk-badge" [ngClass]="'risk-' + evaluacionSeleccionada?.riesgo">
@@ -197,10 +233,6 @@
         <label for="riesgoReal">Seleccione el resultado:</label>
         <select id="riesgoReal" [(ngModel)]="riesgoRealSeleccionado" class="form-control">
           <option value="">Seleccione...</option>
-          <!-- Dependiendo como sea el análisis, se pueden usar estos valores:
-          <option value="bajo">Bajo</option>
-          <option value="medio">Medio</option>
-          <option value="alto">Alto</option>-->
           <option value="negativo">Negativo</option>
           <option value="positivo">Positivo</option>
         </select>
