@@ -8,13 +8,19 @@
       </div>
     </div>
 
+    <!--  CÓDIGO DE EVALUACIÓN -->
+    <div class="evaluation-code">
+      <span class="code-label">Código de seguimiento:</span>
+      <span class="code-value">{{ codigo_evaluacion }}</span>
+    </div>
+
     <div class="result-body">
       <div class="result-box" [ngClass]="riesgo_random_forest === 'ALTO' ? 'risk-high' : 'risk-low'">
         <h3>{{ riesgo_random_forest }}</h3>
       </div>
 
       <div class="disclaimer">
-        <strong>Importante:</strong> No olvides que esto es una valoración. En caso de tener dudas es mejor consultar con un médico.
+        <strong>Importante:</strong> Esto es un diagnostico preambulatorio o presuntivo. <strong>Comunica al paciente que guarde el código de seguimiento</strong> para futuras consultas médicas.
       </div>
 
       <div class="symptoms-section" *ngIf="sintomas_identificados.length > 0">

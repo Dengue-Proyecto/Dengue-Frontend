@@ -18,10 +18,6 @@
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.result-header {
-  margin-bottom: 30px;
-}
-
 .result-header h2 {
   font-size: clamp(28px, 5vw, 50px);
   margin-bottom: 20px;
@@ -38,6 +34,36 @@
   color: #6c757d;
   font-size: clamp(14px, 2vw, 18px);
   font-family: 'Open Sans', sans-serif;
+  margin-bottom: 15px;
+}
+
+/* ✅ ESTILOS PARA EL CÓDIGO DE EVALUACIÓN */
+.evaluation-code {
+  background: linear-gradient(135deg, #225946 0%, #2d7557 100%);
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(34, 89, 70, 0.2);
+}
+
+.code-label {
+  color: #b8e6d5;
+  font-size: clamp(13px, 2vw, 16px);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-value {
+  color: #ffffff;
+  font-size: clamp(20px, 3vw, 28px);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 2px;
+  display: block;
 }
 
 .result-box {
@@ -217,6 +243,15 @@
     margin: 20px auto;
   }
 
+  .evaluation-code {
+    padding: 12px 20px;
+  }
+
+  .code-value {
+    font-size: 22px !important;
+    letter-spacing: 1.5px;
+  }
+
   .symptoms-grid {
     grid-template-columns: 1fr;
   }
@@ -248,6 +283,19 @@
   .datetime {
     font-size: 12px !important;
     padding: 10px 15px;
+  }
+
+  .evaluation-code {
+    padding: 10px 18px;
+  }
+
+  .code-label {
+    font-size: 12px !important;
+  }
+
+  .code-value {
+    font-size: 18px !important;
+    letter-spacing: 1px;
   }
 
   .result-box {

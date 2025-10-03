@@ -13,6 +13,7 @@ export class Result1Component implements OnInit {
 
   // Variables para mostrar los resultados
   riesgo_random_forest!: string;
+  codigo_evaluacion!: string; // ✅ AGREGADO
   sintomas_identificados: string[] = [];
   fecha_evaluacion!: string;
   hora_evaluacion!: string;
@@ -26,6 +27,7 @@ export class Result1Component implements OnInit {
     if (state) {
       console.log('Datos recibidos en ResultComponent:', state);  // Verifica los datos recibidos
       this.riesgo_random_forest = state.riesgo_random_forest;
+      this.codigo_evaluacion = state.codigo_evaluacion; //
       this.sintomas_identificados = state.sintomas_identificados || [];
 
       // Procesar la fecha y hora
@@ -99,8 +101,8 @@ export class Result1Component implements OnInit {
         // Agregar el contenido capturado
         pdf.addImage(contentImg, 'PNG', 10, 10, imgWidth, imgHeight);
 
-        // Guardar el PDF
-        pdf.save('evaluacion-dengue.pdf');
+        // Guardar el PDF con el código de evaluación en el nombre
+        pdf.save(`evaluacion-dengue-${this.codigo_evaluacion}.pdf`);
 
         // Restaurar botones
         if (buttons) {

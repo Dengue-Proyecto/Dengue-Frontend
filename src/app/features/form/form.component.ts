@@ -136,6 +136,7 @@ export class FormComponent implements OnInit {
                   riesgo_random_forest: response.riesgo_random_forest,
                   probabilidad_random_forest_pct: response.probabilidad_random_forest_pct,
                   sintomas_identificados: response.sintomas_identificados,
+                  codigo_evaluacion: response.codigo_evaluacion,
                   fecha_evaluacion: response.fecha_evaluacion,
                 }
               });
@@ -161,6 +162,7 @@ export class FormComponent implements OnInit {
                   recall_promedio: response.recall_promedio,
                   tiempo_promedio: response.tiempo_promedio,
                   interpretacion: response.interpretacion
+                  codigo_evaluacion: response.codigo_evaluacion,
                 }
               });
               */
