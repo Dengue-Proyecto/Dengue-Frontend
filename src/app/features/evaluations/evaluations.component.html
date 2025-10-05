@@ -6,30 +6,28 @@
     <header class="filters-header">Registro de Evaluaciones</header>
 
     <!-- SECCIÓN DE BÚSQUEDA POR CÓDIGO -->
+    <!-- Reemplazar la sección de búsqueda en evaluations.component.html -->
     <div class="search-code-section">
       <div class="search-code-container">
         <label for="codigoBusqueda">Buscar por código de evaluación:</label>
         <div class="search-input-group">
-          <input
-            type="text"
-            id="codigoBusqueda"
-            [(ngModel)]="codigoBusqueda"
-            placeholder="Ej: 77095F8D"
-            (keyup.enter)="buscarPorCodigo()"
-            maxlength="8">
-          <button class="btn-search" (click)="buscarPorCodigo()">
-            Buscar
-          </button>
+          <div class="input-with-prefix">
+            <span class="prefix-label">RDD-</span>
+            <input
+              type="text"
+              id="codigoBusqueda"
+              [(ngModel)]="codigoBusqueda"
+              placeholder="Ej: A1B"
+              (input)="buscarEnTiempoReal()"
+              maxlength="3"
+              class="code-input">
+          </div>
           <button
-            *ngIf="evaluacionBuscada"
+            *ngIf="evaluacionBuscada || codigoBusqueda.trim()"
             class="btn-clear-search"
             (click)="limpiarBusqueda()">
             Limpiar búsqueda
           </button>
-        </div>
-        <div *ngIf="errorBusqueda" class="error-message">
-          {{ errorBusqueda }}
-        </div>
       </div>
     </div>
 
@@ -247,4 +245,5 @@
       </button>
     </div>
   </div>
+</div>
 </div>

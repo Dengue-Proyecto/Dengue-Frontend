@@ -64,36 +64,38 @@ export class EvaluationsComponent implements OnInit {
   }
 
   // MÉTODO PARA BUSCAR POR CÓDIGO
-  buscarPorCodigo() {
+  buscarEnTiempoReal() {
+    this.errorBusqueda = '';
+
     if (!this.codigoBusqueda.trim()) {
-      this.errorBusqueda = 'Por favor ingrese un código de evaluación';
+      this.evaluacionBuscada = null;
+      this.aplicarFiltros();
       return;
     }
 
-    this.errorBusqueda = '';
+    const textoBusqueda = this.codigoBusqueda.trim().toUpperCase();
+    const codigoCompleto = `RDD-${textoBusqueda}`;
 
-    const searchUrl = `${environment.apiUrl}/buscar_evaluacion/${this.codigoBusqueda.trim().toUpperCase()}`;
+    // Buscar por el nombre correcto de la propiedad
+    const evaluacionesCoincidentes = this.filas.filter(evaluacion =>
+      evaluacion.codigo_evaluacion && evaluacion.codigo_evaluacion.toUpperCase().startsWith(codigoCompleto)
+    );
 
-    this.http.get(searchUrl).subscribe({
-      next: (evaluacion: any) => {
-        // Guardar la evaluación encontrada y mostrarla en la tabla
-        this.evaluacionBuscada = evaluacion;
-        this.filasPaginadas = [evaluacion];
-        this.errorBusqueda = '';
+    if (evaluacionesCoincidentes.length > 0) {
+      this.filasPaginadas = evaluacionesCoincidentes;
+      this.errorBusqueda = '';
 
-        console.log('Evaluación encontrada:', evaluacion);
-      },
-      error: (error) => {
-        console.error('Error al buscar evaluación:', error);
-        if (error.status === 404) {
-          this.errorBusqueda = 'No se encontró ninguna evaluación con ese código';
-        } else {
-          this.errorBusqueda = 'Error al buscar la evaluación. Intente nuevamente.';
-        }
-        this.evaluacionBuscada = null;
-        this.filasPaginadas = [];
-      }
-    });
+      // Si hay coincidencia exacta, marcarla como seleccionada
+      const coincidenciaExacta = evaluacionesCoincidentes.find(e =>
+        e.codigo_evaluacion.toUpperCase() === codigoCompleto
+      );
+      this.evaluacionBuscada = coincidenciaExacta || null;
+
+    } else {
+      this.errorBusqueda = 'No se encontraron evaluaciones con ese código';
+      this.evaluacionBuscada = null;
+      this.filasPaginadas = [];
+    }
   }
 
   // MÉTODO PARA LIMPIAR BÚSQUEDA
@@ -247,7 +249,7 @@ export class EvaluationsComponent implements OnInit {
 
         // Si había búsqueda activa, volver a buscar para actualizar
         if (this.evaluacionBuscada) {
-          this.buscarPorCodigo();
+          this.buscarEnTiempoReal();
         } else {
           // Actualizar localmente el registro
           const index = this.filas.findIndex(f => f.id === this.evaluacionSeleccionada.id);

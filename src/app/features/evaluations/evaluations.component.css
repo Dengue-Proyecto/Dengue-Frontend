@@ -533,6 +533,7 @@ tbody td ul {
 .modal-body {
   padding: 20px;
   font-family: 'Open Sans', sans-serif;
+  text-align: left;
 }
 
 .modal-body p {
@@ -606,7 +607,7 @@ tbody td ul {
   flex: 1;
   min-width: 200px;
   padding: 10px 15px;
-  border: 2px solid #dee2e6;
+  background-color: #f8f9fa;
   border-radius: 8px;
   font-family: 'Courier New', monospace;
   font-size: 1rem;
@@ -654,6 +655,48 @@ tbody td ul {
   background-color: #5a6268;
 }
 
+.input-with-prefix {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 150px;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.input-with-prefix:focus-within {
+  border-color: #468B73;
+}
+
+.prefix-label {
+  padding-left: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.code-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: none;
+  background-color: white;
+  min-width: 50px;
+}
+
+.code-input::placeholder {
+  text-transform: none;
+  font-weight: normal;
+  color: #6c757d;
+}
+
 .error-message {
   margin-top: 10px;
   padding: 12px 15px;
@@ -676,6 +719,8 @@ tbody td ul {
   font-weight: bold;
   letter-spacing: 1px;
   display: inline-block;
+  white-space: nowrap; /* Evita que se rompa en líneas */
+  min-width: fit-content; /* Asegura que tenga el ancho necesario */
 }
 
 /* Resaltar fila cuando es resultado de búsqueda */
@@ -918,6 +963,22 @@ tr.search-result {
   .btn-clear-search {
     width: 100%;
   }
+
+  .input-with-prefix {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .prefix-label {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+
+  .code-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    min-width: 40px;
+  }
 }
 
 /* Estilos adicionales para pantallas muy pequeñas */
@@ -1006,7 +1067,7 @@ tr.search-result {
 
   .search-input-group input[type="text"] {
     font-size: 0.9rem;
-    padding: 10px 12px;
+    padding: 10px 0px;
   }
 
   .codigo-badge {
