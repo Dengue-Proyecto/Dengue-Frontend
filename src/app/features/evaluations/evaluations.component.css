@@ -66,13 +66,6 @@
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   transition: border-color 0.3s ease;
-  /* Mejorar apariencia en móvil */
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-  appearance: none;
-  background-color: white;
-  line-height: 1.4;
-  cursor: pointer;
 }
 
 .filtros input[type="date"]:focus,
@@ -985,13 +978,6 @@ tr.search-result {
     padding: 10px 12px;
     font-size: 0.9rem;
     min-width: 40px;
-  }
-
-  .filtros input[type="date"] {
-    font-size: 16px; /* Importante para evitar zoom en iOS */
-    border-radius: 8px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
   }
 }
 
