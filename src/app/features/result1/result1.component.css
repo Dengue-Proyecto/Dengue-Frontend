@@ -16,6 +16,68 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   background: #ffffff;
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Estilos para generación de PDF */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Clase especial para aplicar antes de generar PDF */
+.pdf-generating {
+  min-width: 750px !important;
+  width: 750px !important;
+  padding: 30px !important;
+  box-sizing: border-box !important;
+}
+
+.pdf-generating * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pdf-generating .result-header h2 {
+  font-size: 42px !important;
+}
+
+.pdf-generating .datetime {
+  font-size: 16px !important;
+}
+
+.pdf-generating .evaluation-code {
+  padding: 15px 25px !important;
+  margin: 15px auto !important;
+}
+
+.pdf-generating .code-label {
+  font-size: 14px !important;
+}
+
+.pdf-generating .code-value {
+  font-size: 24px !important;
+}
+
+.pdf-generating .result-body h3 {
+  font-size: 70px !important;
+}
+
+.pdf-generating .disclaimer {
+  font-size: 16px !important;
+  padding: 15px 20px !important;
+}
+
+.pdf-generating .symptoms-section h4 {
+  font-size: 22px !important;
+}
+
+.pdf-generating .symptom-item {
+  font-size: 15px !important;
+}
+
+.pdf-generating .no-symptoms {
+  font-size: 16px !important;
+}
+
+.pdf-generating .button-container {
+  display: none !important;
 }
 
 .result-header h2 {

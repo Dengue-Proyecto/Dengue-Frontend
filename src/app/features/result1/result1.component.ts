@@ -55,69 +55,120 @@ export class Result1Component implements OnInit {
   }
 
   async descargarPDF() {
-    const data = document.getElementById('pdfContent');
+    const content = document.getElementById('pdfContent');
+    if (!content) {
+      console.error('No se encontró el elemento pdfContent');
+      return;
+    }
 
-    if (data) {
-      try {
-        // Ocultar botones temporalmente
-        const buttons = data.querySelector('.button-container') as HTMLElement;
-        if (buttons) {
-          buttons.style.display = 'none';
-        }
+    // Guardar estados originales
+    const container = content.parentElement;
+    const originalContainerWidth = container?.style.width || '';
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
 
-        // Esperar a que todas las fuentes y recursos se carguen
-        await document.fonts.ready;
+    try {
+      // Ocultar scroll y aplicar estilos para PDF
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
 
-        // Pequeña espera adicional para asegurar renderizado completo
-        await new Promise(resolve => setTimeout(resolve, 100));
+      // Aplicar clase para generar PDF
+      content.classList.add('pdf-generating');
 
-        const canvas = await html2canvas(data, {
-          scale: 2, // Mayor calidad
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: data.scrollWidth,
-          windowHeight: data.scrollHeight,
-          onclone: (clonedDoc) => {
-            const clonedElement = clonedDoc.getElementById('pdfContent');
-            if (clonedElement) {
-              // Asegurar que los estilos se apliquen correctamente
-              clonedElement.style.minHeight = 'auto';
-              clonedElement.style.padding = '20px';
-            }
-          }
-        });
-
-        const contentImg = canvas.toDataURL('image/png', 1.0);
-        const pdf = new jsPDF('p', 'mm', 'a4');
-
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        // Calcular dimensiones manteniendo aspect ratio
-        const imgWidth = pageWidth - 20; // margen de 10mm a cada lado
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        // Agregar el contenido capturado
-        pdf.addImage(contentImg, 'PNG', 10, 10, imgWidth, imgHeight);
-
-        // Guardar el PDF con el código de evaluación en el nombre
-        pdf.save(`evaluacion-dengue-${this.codigo_evaluacion}.pdf`);
-
-        // Restaurar botones
-        if (buttons) {
-          buttons.style.display = 'flex';
-        }
-
-      } catch (error) {
-        console.error('Error al generar PDF:', error);
-
-        // Restaurar botones en caso de error
-        const buttons = data.querySelector('.button-container') as HTMLElement;
-        if (buttons) {
-          buttons.style.display = 'flex';
-        }
+      // Forzar ancho fijo en el contenedor
+      if (container) {
+        container.style.width = '750px';
+        container.style.maxWidth = '750px';
+        container.style.minWidth = '750px';
       }
+
+      // Esperar a que las fuentes se carguen
+      await document.fonts.ready;
+
+      // Esperar renderizado completo
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Capturar el contenido con html2canvas
+      const canvas = await html2canvas(content, {
+        scale: 2.5, // Alta calidad para móviles
+        useCORS: true,
+        logging: false,
+        width: 750, // Ancho fijo
+        windowWidth: 750, // Ancho de ventana fijo
+        scrollY: -window.scrollY,
+        scrollX: -window.scrollX,
+        backgroundColor: '#ffffff',
+        imageTimeout: 0,
+        removeContainer: true,
+        onclone: (clonedDoc) => {
+          const clonedContent = clonedDoc.getElementById('pdfContent');
+          if (clonedContent) {
+            clonedContent.style.width = '750px';
+            clonedContent.style.minWidth = '750px';
+            clonedContent.style.maxWidth = '750px';
+            clonedContent.style.transform = 'none';
+          }
+        }
+      });
+
+      // Crear PDF en orientación vertical, tamaño carta
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'letter'
+      });
+
+      // Dimensiones de la página
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      // Calcular dimensiones de la imagen manteniendo aspect ratio
+      const imgWidth = pageWidth - 20; // Márgenes de 10mm a cada lado
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Convertir canvas a imagen
+      const imgData = canvas.toDataURL('image/png', 1.0);
+
+      // Si la imagen es más alta que la página, ajustar
+      if (imgHeight > pageHeight - 20) {
+        const scaleFactor = (pageHeight - 20) / imgHeight;
+        const adjustedWidth = imgWidth * scaleFactor;
+        const adjustedHeight = imgHeight * scaleFactor;
+        const xOffset = (pageWidth - adjustedWidth) / 2;
+
+        pdf.addImage(imgData, 'PNG', xOffset, 10, adjustedWidth, adjustedHeight, undefined, 'FAST');
+      } else {
+        // Centrar verticalmente si hay espacio
+        const yOffset = (pageHeight - imgHeight) / 2;
+        pdf.addImage(imgData, 'PNG', 10, yOffset, imgWidth, imgHeight, undefined, 'FAST');
+      }
+
+      // Generar nombre de archivo
+      const filename = `evaluacion-${this.codigo_evaluacion}.pdf`;
+
+      // Guardar el PDF
+      pdf.save(filename);
+
+      console.log('PDF generado exitosamente:', filename);
+
+    } catch (error) {
+      console.error('Error al generar PDF:', error);
+      alert('Hubo un error al generar el PDF. Por favor, intenta nuevamente.');
+    } finally {
+      // Restaurar todos los estilos originales
+      content.classList.remove('pdf-generating');
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+
+      if (container) {
+        container.style.width = originalContainerWidth;
+        container.style.maxWidth = '';
+        container.style.minWidth = '';
+      }
+
+      // Forzar un pequeño scroll para "refrescar" la vista
+      window.scrollBy(0, 1);
+      window.scrollBy(0, -1);
     }
   }
 }
