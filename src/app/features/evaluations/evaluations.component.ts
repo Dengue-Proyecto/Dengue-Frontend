@@ -329,6 +329,13 @@ export class EvaluationsComponent implements OnInit {
     const filasNum = Number(nuevasFilas);
     this.registrosPorPagina = filasNum;
 
+    // Si hay búsqueda activa, no aplicar paginación normal
+    if (this.evaluacionBuscada || this.codigoBusqueda.trim()) {
+      // Para búsquedas, mantener todos los resultados visibles
+      // ya que generalmente son pocos resultados
+      return;
+    }
+
     // Recalcular totales
     this.totalPaginas = Math.ceil(this.evaluacionesFiltradas.length / this.registrosPorPagina);
 
@@ -339,6 +346,28 @@ export class EvaluationsComponent implements OnInit {
 
     // Aplicar la paginación
     this.cambiarPagina(this.paginaActual);
+  }
+
+  // Métodos para obtener información correcta de registros
+  obtenerInicioRegistros(): number {
+    if (this.evaluacionBuscada || this.codigoBusqueda.trim()) {
+      return this.filasPaginadas.length > 0 ? 1 : 0;
+    }
+    return this.evaluacionesFiltradas.length === 0 ? 0 : (this.paginaActual - 1) * this.registrosPorPagina + 1;
+  }
+
+  obtenerFinRegistros(): number {
+    if (this.evaluacionBuscada || this.codigoBusqueda.trim()) {
+      return this.filasPaginadas.length;
+    }
+    return Math.min(this.paginaActual * this.registrosPorPagina, this.evaluacionesFiltradas.length);
+  }
+
+  obtenerTotalRegistros(): number {
+    if (this.evaluacionBuscada || this.codigoBusqueda.trim()) {
+      return this.filasPaginadas.length;
+    }
+    return this.evaluacionesFiltradas.length;
   }
 
   // Método para obtener array de números de página visibles

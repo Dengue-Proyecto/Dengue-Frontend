@@ -164,16 +164,16 @@
       <!-- Paginación (oculta cuando hay búsqueda) -->
       <div *ngIf="!evaluacionBuscada" class="pagination-section">
         <div class="pagination-left">
-          <span class="pagination-info">
-            Mostrando {{ (paginaActual - 1) * registrosPorPagina + 1 }}-{{ Math.min(paginaActual * registrosPorPagina, evaluacionesFiltradas.length) }} de {{ evaluacionesFiltradas.length }} registros
-          </span>
+    <span class="pagination-info">
+      Mostrando {{ obtenerInicioRegistros() }}-{{ obtenerFinRegistros() }} de {{ obtenerTotalRegistros() }} registros
+    </span>
           <span class="separator">|</span>
           <span class="rows-per-page">
-            Filas por página:
-            <select [(ngModel)]="registrosPorPagina" (ngModelChange)="cambiarFilasPorPagina($event)" class="rows-select">
-              <option *ngFor="let opcion of opcionesFilasPorPagina" [value]="opcion">{{ opcion }}</option>
-            </select>
-          </span>
+      Filas por página:
+      <select [(ngModel)]="registrosPorPagina" (ngModelChange)="cambiarFilasPorPagina($event)" class="rows-select">
+        <option *ngFor="let opcion of opcionesFilasPorPagina" [value]="opcion">{{ opcion }}</option>
+      </select>
+    </span>
         </div>
 
         <div class="pagination-right">
