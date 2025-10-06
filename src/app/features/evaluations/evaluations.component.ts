@@ -63,6 +63,23 @@ export class EvaluationsComponent implements OnInit {
     this.cargarEvaluaciones();
   }
 
+  // Agrega esto a tu componente
+  private normalizarFechaParaIOS(fechaString: string): string {
+    if (!fechaString) return fechaString;
+
+    // Reemplazar espacio por 'T' para iOS
+    let fecha = fechaString.replace(' ', 'T');
+
+    // Si no tiene Z ni timezone, agregar Z
+    if (!fecha.includes('Z') && !fecha.includes('+') && !fecha.match(/-\d{2}:\d{2}$/)) {
+      if (fecha.includes('T')) {
+        fecha += 'Z';
+      }
+    }
+
+    return fecha;
+  }
+
   // MÉTODO PARA BUSCAR POR CÓDIGO
   buscarEnTiempoReal() {
     this.errorBusqueda = '';
@@ -199,7 +216,9 @@ export class EvaluationsComponent implements OnInit {
     if (this.fechaInicio || this.fechaFin) {
       this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => {
         try {
-          const fechaEval = new Date(eva.fecha);
+          // AQUÍ está el cambio clave
+          const fechaNormalizada = this.normalizarFechaParaIOS(eva.fecha);
+          const fechaEval = new Date(fechaNormalizada);
           const fechaEvalStr = this.formatearFechaParaComparacion(fechaEval);
 
           let cumpleFechaInicio = true;
@@ -277,8 +296,13 @@ export class EvaluationsComponent implements OnInit {
   cargarEvaluaciones() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: data => {
-        this.filas = data;
-        this.evaluacionesFiltradas = [...data];
+        // Normalizar todas las fechas una sola vez
+        this.filas = data.map(evaluacion => ({
+          ...evaluacion,
+          fecha: this.normalizarFechaParaIOS(evaluacion.fecha)
+        }));
+
+        this.evaluacionesFiltradas = [...this.filas];
         this.totalPaginas = Math.ceil(data.length / this.registrosPorPagina);
         this.cambiarPagina(1);
       },
@@ -384,13 +408,14 @@ export class EvaluationsComponent implements OnInit {
   }
 
   convertirFecha(fechaUtc: string): string {
+    const fechaNormalizada = this.normalizarFechaParaIOS(fechaUtc);
     const opciones: Intl.DateTimeFormatOptions = {
       timeZone: 'America/Lima',
       year: 'numeric', month: '2-digit', day: '2-digit',
       hour: '2-digit', minute: '2-digit', second: '2-digit',
       hour12: false
     };
-    return new Date(fechaUtc).toLocaleString('es-PE', opciones);
+    return new Date(fechaNormalizada).toLocaleString('es-PE', opciones);
   }
 
   // Método para cambiar filas por página
