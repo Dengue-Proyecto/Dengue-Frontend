@@ -42,7 +42,9 @@
   background: linear-gradient(135deg, #225946 0%, #2d7557 100%);
   padding: 15px 25px;
   border-radius: 12px;
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin: 15px auto;
   box-shadow: 0 4px 12px rgba(34, 89, 70, 0.2);
 }
 
