@@ -117,10 +117,62 @@ export class EvaluationsComponent implements OnInit {
   }
 
   ajustarFechaHasta() {
-    this.minFechaFin = this.fechaInicio;
-    if (this.fechaFin && this.fechaFin < this.minFechaFin) {
-      this.fechaFin = this.minFechaFin;
+    // Si no hay fecha de inicio, limpiar restricciones
+    if (!this.fechaInicio) {
+      this.minFechaFin = '';
+      return;
     }
+
+    this.minFechaFin = this.fechaInicio;
+
+    // Si la fecha fin es anterior a la fecha inicio, ajustarla
+    if (this.fechaFin && this.fechaFin < this.fechaInicio) {
+      this.fechaFin = this.fechaInicio;
+    }
+  }
+
+  validarFechaInicio() {
+    if (!this.fechaInicio) return;
+
+    // No permitir fechas futuras
+    if (this.fechaInicio > this.fechaMaxima) {
+      this.fechaInicio = this.fechaMaxima;
+    }
+
+    // Ajustar fecha fin si es necesario
+    this.ajustarFechaHasta();
+  }
+
+  validarFechaFin() {
+    if (!this.fechaFin) return;
+
+    // No permitir fechas futuras
+    if (this.fechaFin > this.fechaMaxima) {
+      this.fechaFin = this.fechaMaxima;
+    }
+
+    // No permitir fechas anteriores a la fecha de inicio
+    if (this.fechaInicio && this.fechaFin < this.fechaInicio) {
+      this.fechaFin = this.fechaInicio;
+    }
+  }
+
+  validarFechas(): boolean {
+    if (this.fechaInicio && this.fechaFin) {
+      return this.fechaInicio <= this.fechaFin &&
+        this.fechaInicio <= this.fechaMaxima &&
+        this.fechaFin <= this.fechaMaxima;
+    }
+
+    if (this.fechaInicio && this.fechaInicio > this.fechaMaxima) {
+      return false;
+    }
+
+    if (this.fechaFin && this.fechaFin > this.fechaMaxima) {
+      return false;
+    }
+
+    return true;
   }
 
   cambiarVista(vista: string) {
@@ -129,6 +181,13 @@ export class EvaluationsComponent implements OnInit {
   }
 
   aplicarFiltros() {
+    // Validar fechas antes de aplicar filtros
+    if (!this.validarFechas()) {
+      console.warn('Fechas inválidas detectadas, corrigiendo...');
+      this.validarFechaInicio();
+      this.validarFechaFin();
+    }
+
     this.evaluacionesFiltradas = [...this.filas];
 
     // Filtro por vista (todos vs pendientes)
@@ -136,23 +195,27 @@ export class EvaluationsComponent implements OnInit {
       this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => !eva.resultado);
     }
 
-    // Filtro por fechas
-    if (this.fechaInicio && this.fechaFin) {
-      function fechaLocalString(fecha: Date): string {
-        const ano = fecha.getFullYear();
-        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
-        const dia = fecha.getDate().toString().padStart(2, '0');
-        return `${ano}-${mes}-${dia}`;
-      }
-
-      const inicioStr = this.fechaInicio;
-      const finStr = this.fechaFin;
-
+    // Filtro por fechas mejorado
+    if (this.fechaInicio || this.fechaFin) {
       this.evaluacionesFiltradas = this.evaluacionesFiltradas.filter(eva => {
         try {
-          const fechaEvalStr = fechaLocalString(new Date(eva.fecha));
-          return fechaEvalStr >= inicioStr && fechaEvalStr <= finStr;
-        } catch {
+          const fechaEval = new Date(eva.fecha);
+          const fechaEvalStr = this.formatearFechaParaComparacion(fechaEval);
+
+          let cumpleFechaInicio = true;
+          let cumpleFechaFin = true;
+
+          if (this.fechaInicio) {
+            cumpleFechaInicio = fechaEvalStr >= this.fechaInicio;
+          }
+
+          if (this.fechaFin) {
+            cumpleFechaFin = fechaEvalStr <= this.fechaFin;
+          }
+
+          return cumpleFechaInicio && cumpleFechaFin;
+        } catch (error) {
+          console.error('Error al procesar fecha:', eva.fecha, error);
           return false;
         }
       });
@@ -188,6 +251,13 @@ export class EvaluationsComponent implements OnInit {
     } else {
       this.cambiarPagina(1);
     }
+  }
+
+  private formatearFechaParaComparacion(fecha: Date): string {
+    const ano = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
   }
 
   limpiarFiltros() {

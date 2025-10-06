@@ -35,13 +35,28 @@
     <div *ngIf="!evaluacionBuscada">
       <div class="filtros">
         <div class="filter-group">
-          <label>Desde:</label>
-          <input type="date" [(ngModel)]="fechaInicio" [max]="fechaMaxima" (change)="ajustarFechaHasta()">
+          <label for="fechaInicio">Desde:</label>
+          <input
+            type="date"
+            id="fechaInicio"
+            [(ngModel)]="fechaInicio"
+            [max]="fechaMaxima"
+            (change)="validarFechaInicio()"
+            (blur)="validarFechaInicio()"
+            placeholder="dd/mm/aaaa">
         </div>
 
         <div class="filter-group">
-          <label>Hasta:</label>
-          <input type="date" [(ngModel)]="fechaFin" [min]="minFechaFin" [max]="fechaMaxima">
+          <label for="fechaFin">Hasta:</label>
+          <input
+            type="date"
+            id="fechaFin"
+            [(ngModel)]="fechaFin"
+            [min]="minFechaFin"
+            [max]="fechaMaxima"
+            (change)="validarFechaFin()"
+            (blur)="validarFechaFin()"
+            placeholder="dd/mm/aaaa">
         </div>
 
         <div class="filter-group">
@@ -49,7 +64,6 @@
           <select [(ngModel)]="riesgoFiltro">
             <option value="">Todos</option>
             <option value="bajo">Bajo</option>
-            <option value="medio">Medio</option>
             <option value="alto">Alto</option>
           </select>
         </div>
