@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&display=swap');
 
 .risk-evaluation {
-  min-height: calc(100vh - 84px); /* SOLO CAMBIAR min-height */
-  width: 100vw;
+  min-height: calc(100vh - 143px); /* SOLO CAMBIAR min-height */
+  width: 100%;
   /* Degradado de blanco (izquierda) a verde #83A69A (derecha) */
   background: linear-gradient(270deg, #83A69A 0%, #ffffff 100%);
   color: #225946; /* texto verde oscuro */
