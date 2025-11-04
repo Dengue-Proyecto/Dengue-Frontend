@@ -214,6 +214,13 @@
   }
 }
 
+@media (max-width: 992px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .footer-content {

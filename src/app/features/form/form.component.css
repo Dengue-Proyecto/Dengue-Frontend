@@ -12,6 +12,11 @@
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
   border: 1px solid #e9ecef;
   overflow: hidden;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Header del formulario */
@@ -23,7 +28,7 @@
 
 .form-header-section h2 {
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
   font-family: 'Inter', sans-serif;
   margin-top:  0;
   margin-bottom: 20px;
@@ -48,7 +53,7 @@
   border-radius: 20px;
   overflow: hidden;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 500px;
 }
 
 .progress-bar {
@@ -69,6 +74,9 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .question:hover {
