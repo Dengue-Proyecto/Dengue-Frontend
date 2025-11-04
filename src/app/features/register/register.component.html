@@ -8,196 +8,51 @@
   </div>
 
   <div class="right-panel">
-    <h2>Registrarse</h2>
+    <h2>¿Necesitas ayuda o quieres registrarte?</h2>
 
-    <form (ngSubmit)="onSubmit()" #registroForm="ngForm" novalidate>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Nro. de Colegiatura: <span class="required">*</span></label>
-          <div class="colegiatura">
-            <input type="text" name="colegiatura" [(ngModel)]="usuario.numeroColegiatura"
-                   required pattern="[0-9]*" inputmode="numeric" maxlength="6" minlength="6"
-                   (keypress)="soloNumeros($event)" (paste)="evitarPegadoInvalido($event)"
-                   #colegiatura="ngModel">
-            <button type="button" (click)="buscarDatos()" [disabled]="buscando">Buscar</button>
-          </div>
-          <div *ngIf="colegiatura.invalid && (colegiatura.dirty || colegiatura.touched)" class="error">
-            El número de colegiatura debe tener 6 dígitos numéricos.
-          </div>
-        </div>
+    <div class="contact-info">
+      <p class="intro-text">
+        Si deseas registrarte en nuestra plataforma o tienes alguna duda sobre el sistema de evaluación de riesgo de dengue,
+        no dudes en contactarnos.
+      </p>
 
-        <div class="form-group">
-          <label>Nombres: <span class="required">*</span></label>
-          <input type="text" name="nombres" [(ngModel)]="usuario.nombres" [disabled]="!errorCMP" required
-                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
-        </div>
-
-        <div class="form-group">
-          <label>Apellido paterno: <span class="required">*</span></label>
-          <input type="text" name="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" [disabled]="!errorCMP" required
-                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
-        </div>
-
-        <div class="form-group">
-          <label>Apellido materno: <span class="required">*</span></label>
-          <input type="text" name="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" [disabled]="!errorCMP" required
-                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" (keypress)="soloLetras($event)" (paste)="evitarPegadoConNumeros($event)">
-        </div>
-
-        <div class="form-group">
-          <label>Correo electrónico: <span class="required">*</span></label>
-          <input type="email" name="correo" [(ngModel)]="usuario.correo" required #correo="ngModel">
-          <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="error">
-            <div *ngIf="correo.errors?.['required']">El correo es obligatorio.</div>
-            <div *ngIf="correo.errors?.['email']">Formato de correo inválido.</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Contraseña: <span class="required">*</span></label>
-          <div class="password-container">
-            <input [type]="mostrarContrasena ? 'text' : 'password'" name="contrasena" [(ngModel)]="usuario.contrasena" required minlength="5" #contrasena="ngModel">
-            <button type="button" class="toggle-password" (click)="toggleMostrarContrasena()">
-              <svg *ngIf="mostrarContrasena" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <svg *ngIf="!mostrarContrasena" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                <line x1="1" y1="1" x2="23" y2="23"></line>
-              </svg>
-            </button>
-          </div>
-          <div *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)" class="error">
-            <div *ngIf="contrasena.errors?.['required']">La contraseña es obligatoria.</div>
-            <div *ngIf="contrasena.errors?.['minlength']">Debe tener al menos 5 caracteres.</div>
-          </div>
-        </div>
+      <div class="contact-section">
+        <h3>Correo de contacto:</h3>
+        <a href="mailto:riesgodedengue@gmail.com" class="email-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          riesgodengue{{ '@' }}gmail.com
+        </a>
       </div>
 
-      <!-- CHECKBOXES CON ENLACES A MODALES -->  <!-- (TALLER)-->
-      <div class="checkbox-group">
-        <div class="checkbox-item">
-          <input type="checkbox" id="checkPolitica" name="checkPolitica" [(ngModel)]="usuario.aceptaPolitica" required>
-          <label for="checkPolitica">
-            Acepto la <a href="javascript:void(0)" (click)="abrirModalPolitica()">Política de Tratamiento de Datos Personales</a> <span class="required">*</span>
-          </label>
-        </div>
-
-        <div class="checkbox-item">
-          <input type="checkbox" id="checkFlujo" name="checkFlujo" [(ngModel)]="usuario.aceptaFlujo" required>
-          <label for="checkFlujo">
-            Acepto el <a href="javascript:void(0)" (click)="abrirModalFlujo()">Flujo Transfronterizo de Datos</a> <span class="required">*</span>
-          </label>
-        </div>
-      </div>  <!-- (TALLER)-->
-
-      <div class="btn-container">
-        <button type="submit" [disabled]="registroForm.invalid" class="btn-registrar">Registrarse</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- ALERTA -->
-  <div *ngIf="showAlert" [ngClass]="{'alert-popup-bottom': true, 'alert-success': alertSuccess}">
-    <div class="alert-content-bottom">
-      {{ alertMessage }}
-      <button (click)="showAlert = false" class="close-btn">&times;</button>
-    </div>
-  </div>
-
-  <!-- MODAL POLÍTICA DE DATOS -->   <!-- (TALLER)-->
-  <div class="modal-overlay" *ngIf="mostrarModalPolitica" (click)="cerrarModalPolitica()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>Política de Tratamiento de Datos Personales (Aún en construcción)</h3>
-        <button class="modal-close" (click)="cerrarModalPolitica()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p><strong>1. Responsable del Tratamiento</strong></p>
-        <p>El responsable del tratamiento de sus datos personales es [Nombre de la Organización], identificada con [NIT/RUC], con domicilio en [Dirección].</p>
-
-        <p><strong>2. Finalidad del Tratamiento</strong></p>
-        <p>Los datos personales que recopilamos serán utilizados para:</p>
-        <ul>
-          <li>Gestionar el registro y acceso a nuestra plataforma</li>
-          <li>Proporcionar servicios de evaluación de riesgo</li>
-          <li>Comunicaciones relacionadas con el servicio</li>
-          <li>Cumplimiento de obligaciones legales</li>
+      <div class="info-section">
+        <h3>Información útil:</h3>
+        <ul class="info-list">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Solicita tu registro enviando tus datos de colegiatura
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Resuelve tus dudas sobre el uso de la plataforma
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Obtén soporte técnico
+          </li>
         </ul>
-
-        <p><strong>3. Datos Recopilados</strong></p>
-        <p>Recopilamos información como: nombres, apellidos, número de colegiatura, correo electrónico y otros datos necesarios para la prestación del servicio.</p>
-
-        <p><strong>4. Derechos del Titular</strong></p>
-        <p>Usted tiene derecho a:</p>
-        <ul>
-          <li>Acceder a sus datos personales</li>
-          <li>Solicitar la corrección de datos inexactos</li>
-          <li>Solicitar la eliminación de sus datos</li>
-          <li>Oponerse al tratamiento de sus datos</li>
-          <li>Solicitar la portabilidad de sus datos</li>
-        </ul>
-
-        <p><strong>5. Seguridad</strong></p>
-        <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra acceso no autorizado, pérdida o destrucción.</p>
-
-        <p><strong>6. Contacto</strong></p>
-        <p>Para ejercer sus derechos o consultas, puede contactarnos en: [correo-ejemplo.com]</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-modal" (click)="cerrarModalPolitica()">Cerrar</button>
       </div>
     </div>
   </div>
-
-  <!-- MODAL FLUJO TRANSFRONTERIZO (TALLER)-->
-  <div class="modal-overlay" *ngIf="mostrarModalFlujo" (click)="cerrarModalFlujo()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>Flujo Transfronterizo de Datos (Aún en construcción)</h3>
-        <button class="modal-close" (click)="cerrarModalFlujo()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p><strong>1. Transferencia Internacional  (Aún en construcción)</strong></p>
-        <p>Sus datos personales pueden ser transferidos y procesados en países distintos al de su residencia. Estas transferencias se realizan cumpliendo con la normativa aplicable de protección de datos.</p>
-
-        <p><strong>2. Países de Destino</strong></p>
-        <p>Los datos pueden ser transferidos a servidores ubicados en:</p>
-        <ul>
-          <li>Estados Unidos</li>
-          <li>Países de la Unión Europea</li>
-          <li>Otros países con niveles adecuados de protección de datos</li>
-        </ul>
-
-        <p><strong>3. Medidas de Protección</strong></p>
-        <p>Para las transferencias internacionales, implementamos:</p>
-        <ul>
-          <li>Cláusulas contractuales estándar aprobadas</li>
-          <li>Certificaciones de privacidad reconocidas</li>
-          <li>Medidas de seguridad técnicas y organizativas</li>
-          <li>Evaluaciones de impacto en la protección de datos</li>
-        </ul>
-
-        <p><strong>4. Finalidad de la Transferencia</strong></p>
-        <p>Las transferencias internacionales se realizan para:</p>
-        <ul>
-          <li>Almacenamiento en servidores en la nube</li>
-          <li>Procesamiento de datos y análisis</li>
-          <li>Servicios de soporte técnico</li>
-          <li>Mejora de nuestros servicios</li>
-        </ul>
-
-        <p><strong>5. Sus Derechos</strong></p>
-        <p>Usted mantiene todos sus derechos sobre sus datos personales, independientemente de dónde se procesen. Puede ejercer sus derechos en cualquier momento contactándonos.</p>
-
-        <p><strong>6. Revocación del Consentimiento</strong></p>
-        <p>Puede revocar su consentimiento para el flujo transfronterizo en cualquier momento, lo que puede limitar algunas funcionalidades del servicio.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-modal" (click)="cerrarModalFlujo()">Cerrar</button>
-      </div>
-    </div>
-  </div>
-  <!-- (TALLER)-->
 </div>
