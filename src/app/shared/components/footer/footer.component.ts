@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +13,7 @@ export class FooterComponent {
   mostrarModalFlujo: boolean = false;
   mostrarModalEliminarCuenta: boolean = false;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router:Router) {}
 
   abrirModalPolitica() {
     this.mostrarModalPolitica = true;
@@ -47,6 +48,8 @@ export class FooterComponent {
   confirmarEliminarCuenta() {
     console.log('Eliminar cuenta confirmado');
     this.cerrarModalEliminarCuenta();
+    this.authService.logout();
+    this.router.navigate(['/inicio']);
     // TODO: Implementar la eliminación de cuenta
   }
 }
