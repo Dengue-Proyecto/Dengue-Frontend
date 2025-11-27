@@ -19,11 +19,30 @@
 
     <!-- Menú desktop y móvil (solo para usuarios logueados) -->
     <div *ngIf="estaLogueado" class="navbar-links" [class.mobile-open]="mobileMenuOpen">
+      <!-- Indicador de usuario (solo visible en móvil cuando el menú está abierto) -->
+      <div class="user-info-mobile">
+        <div class="user-avatar">
+          <span>{{ inicialesUsuario }}</span>
+        </div>
+        <div class="user-details">
+          <span class="user-name">{{ nombreUsuario || 'Usuario' }}</span>
+          <span class="user-label">Médico registrado</span>
+        </div>
+      </div>
+
       <div class="nav-items">
         <a routerLink="/formulario" class="btn-valoration" (click)="closeMobileMenu()">Evaluar</a>
         <a routerLink="/evaluaciones" class="btn-valoration" (click)="closeMobileMenu()">Ver evaluaciones</a>
         <a (click)="logout(); closeMobileMenu()" class="btn-valoration">Cerrar sesión</a>
       </div>
+    </div>
+
+    <!-- Indicador de usuario desktop -->
+    <div *ngIf="estaLogueado" class="user-info-desktop">
+      <div class="user-avatar">
+        <span>{{ inicialesUsuario }}</span>
+      </div>
+      <span class="user-name-desktop">{{ nombreUsuario || 'Usuario' }}</span>
     </div>
 
     <!-- Overlay para cerrar menú en móvil (solo cuando hay sesión) -->

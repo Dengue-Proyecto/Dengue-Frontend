@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
   estaLogueado = false;
   mobileMenuOpen = false;
+  nombreUsuario: string | null = null;
+  inicialesUsuario: string = 'U';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -18,8 +20,19 @@ export class NavbarComponent implements OnInit {
     this.authService.estaLogueado$.subscribe({
       next: (logueado) => {
         this.estaLogueado = logueado;
+        if (logueado) {
+          this.cargarDatosUsuario();
+        } else {
+          this.nombreUsuario = null;
+          this.inicialesUsuario = 'U';
+        }
       }
     });
+  }
+
+  cargarDatosUsuario() {
+    this.nombreUsuario = this.authService.obtenerNombreUsuario();
+    this.inicialesUsuario = this.authService.obtenerInicialesUsuario();
   }
 
   toggleMobileMenu() {

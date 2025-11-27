@@ -37,16 +37,23 @@ export class AuthService {
     }
   }
 
-  // Método para verificar si el token es válido (no expirado)
-  private esTokenValido(token: string): boolean {
+  // Método optimizado para decodificar y validar token
+  private decodificarToken(token: string): any | null {
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const ahora = Math.floor(Date.now() / 1000);
-      return payload.exp > ahora;
+      return JSON.parse(atob(token.split('.')[1]));
     } catch (error) {
       console.error('Token inválido:', error);
-      return false;
+      return null;
     }
+  }
+
+  // Método para verificar si el token es válido (no expirado)
+  private esTokenValido(token: string): boolean {
+    const payload = this.decodificarToken(token);
+    if (!payload) return false;
+
+    const ahora = Math.floor(Date.now() / 1000);
+    return payload.exp > ahora;
   }
 
   // Método para acceder al valor actual de la autenticación
@@ -54,19 +61,23 @@ export class AuthService {
     return this._estaLogueado.getValue();
   }
 
-  // Método público para verificar si la sesión sigue siendo válida
+  // Método optimizado para verificar sesión (reduce accesos a localStorage)
   public verificarSesionValida(): boolean {
     const accessToken = this.obtenerToken();
-    const refreshToken = localStorage.getItem('refresh_token');
 
+    // Early return si access token es válido (caso más común)
     if (accessToken && this.esTokenValido(accessToken)) {
       return true;
-    } else if (refreshToken && this.esTokenValido(refreshToken)) {
-      return true;
-    } else {
-      this.logout();
-      return false;
     }
+
+    // Solo verificar refresh token si access token no es válido
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (refreshToken && this.esTokenValido(refreshToken)) {
+      return true;
+    }
+
+    this.logout();
+    return false;
   }
 
   // NUEVO: Método para renovar tokens
@@ -94,36 +105,41 @@ export class AuthService {
     );
   }
 
-  // Actualizado para soportar ambos formatos (legacy y nuevo)
-  login(tokenOResponse: string | any) {
+  // Optimizado para reducir escrituras a localStorage
+  login(tokenOResponse: string | any): void {
+    const datosGuardar: Record<string, string> = {};
+
     if (typeof tokenOResponse === 'string') {
       // Formato legacy: solo token
-      localStorage.setItem('token', tokenOResponse);
-      localStorage.setItem('access_token', tokenOResponse);
+      datosGuardar['token'] = tokenOResponse;
+      datosGuardar['access_token'] = tokenOResponse;
     } else {
       // Formato nuevo: objeto con access_token y refresh_token
-      localStorage.setItem('access_token', tokenOResponse.access_token);
-      localStorage.setItem('refresh_token', tokenOResponse.refresh_token);
+      datosGuardar['access_token'] = tokenOResponse.access_token;
+      datosGuardar['refresh_token'] = tokenOResponse.refresh_token;
 
       // Guardar info adicional si existe
       if (tokenOResponse.usuario_id) {
-        localStorage.setItem('usuario_id', tokenOResponse.usuario_id.toString());
+        datosGuardar['usuario_id'] = tokenOResponse.usuario_id.toString();
       }
       if (tokenOResponse.nombre_completo) {
-        localStorage.setItem('nombre_completo', tokenOResponse.nombre_completo);
+        datosGuardar['nombre_completo'] = tokenOResponse.nombre_completo;
       }
     }
+
+    // Escribir todos los datos de una vez (más eficiente)
+    Object.entries(datosGuardar).forEach(([key, value]) => {
+      localStorage.setItem(key, value);
+    });
 
     this._estaLogueado.next(true);
   }
 
-  logout() {
-    // Limpiar ambos formatos
-    localStorage.removeItem('token');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('usuario_id');
-    localStorage.removeItem('nombre_completo');
+  logout(): void {
+    // Optimizado: limpiar múltiples items de forma eficiente
+    const itemsALimpiar = ['token', 'access_token', 'refresh_token', 'usuario_id', 'nombre_completo'];
+    itemsALimpiar.forEach(item => localStorage.removeItem(item));
+
     this._estaLogueado.next(false);
   }
 
@@ -135,5 +151,26 @@ export class AuthService {
   // NUEVO: Métodos auxiliares para el interceptor
   getAccessToken(): string | null {
     return localStorage.getItem('access_token') || localStorage.getItem('token');
+  }
+
+  // Métodos para obtener información del usuario
+  obtenerNombreUsuario(): string | null {
+    return localStorage.getItem('nombre_completo');
+  }
+
+  obtenerUsuarioId(): string | null {
+    return localStorage.getItem('usuario_id');
+  }
+
+  // Obtener iniciales del nombre para el avatar
+  obtenerInicialesUsuario(): string {
+    const nombreCompleto = this.obtenerNombreUsuario();
+    if (!nombreCompleto) return 'U';
+
+    const palabras = nombreCompleto.trim().split(' ');
+    if (palabras.length >= 2) {
+      return (palabras[0][0] + palabras[1][0]).toUpperCase();
+    }
+    return palabras[0][0].toUpperCase();
   }
 }

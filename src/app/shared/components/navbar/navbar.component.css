@@ -116,6 +116,52 @@
   transform: translateY(-1px);
 }
 
+/* Estilos del indicador de usuario - Desktop */
+.user-info-desktop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  margin-left: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.user-info-desktop:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #225946 0%, #1b4d3e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.user-name-desktop {
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Estilos del indicador de usuario - Mobile */
+.user-info-mobile {
+  display: none;
+}
+
 /* Overlay para móvil */
 .mobile-overlay {
   display: none;
@@ -147,6 +193,11 @@
     display: flex;
   }
 
+  /* Ocultar indicador desktop en móvil */
+  .user-info-desktop {
+    display: none;
+  }
+
   /* Ocultar menú en móvil por defecto */
   .navbar-links {
     position: fixed;
@@ -163,6 +214,41 @@
     transition: right 0.3s ease;
     gap: 0;
     z-index: 999;
+  }
+
+  /* Mostrar indicador de usuario en menú móvil */
+  .user-info-mobile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+
+  .user-info-mobile .user-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .user-name {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .user-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 400;
   }
 
   .navbar-links.mobile-open {
