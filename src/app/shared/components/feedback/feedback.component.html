@@ -1,0 +1,99 @@
+<!-- Botón flotante para abrir feedback -->
+<button class="feedback-trigger" (click)="abrirModal()" title="Danos tu opinión">
+  <span class="feedback-icon">💬</span>
+</button>
+
+<!-- Modal de Feedback -->
+<div class="feedback-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+  <div class="feedback-modal" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="feedback-header">
+      <h3>Tu opinión nos importa</h3>
+      <button class="close-btn" (click)="cerrarModal()">✕</button>
+    </div>
+
+    <!-- Contenido -->
+    <div class="feedback-content" *ngIf="!enviado">
+      <p class="feedback-subtitle">Ayúdanos a mejorar el rendimiento de la aplicación</p>
+
+      <!-- Pregunta 1: Velocidad de carga -->
+      <div class="feedback-question">
+        <label>¿La aplicación carga rápido en tu dispositivo?</label>
+        <div class="rating-stars">
+          <button *ngFor="let star of [1,2,3,4,5]"
+                  class="star-btn"
+                  [class.active]="feedback.velocidad >= star"
+                  (click)="seleccionarPuntuacion('velocidad', star)">
+            {{ feedback.velocidad >= star ? '★' : '☆' }}
+          </button>
+        </div>
+        <div class="rating-labels">
+          <span>Muy lento</span>
+          <span>Muy rápido</span>
+        </div>
+      </div>
+
+      <!-- Pregunta 2: Consumo de batería -->
+      <div class="feedback-question">
+        <label>¿Has notado consumo alto de batería al usar la app?</label>
+        <div class="rating-stars">
+          <button *ngFor="let star of [1,2,3,4,5]"
+                  class="star-btn"
+                  [class.active]="feedback.facilidad >= star"
+                  (click)="seleccionarPuntuacion('facilidad', star)">
+            {{ feedback.facilidad >= star ? '★' : '☆' }}
+          </button>
+        </div>
+        <div class="rating-labels">
+          <span>Consume mucho</span>
+          <span>Consume poco</span>
+        </div>
+      </div>
+
+      <!-- Pregunta 3: Rendimiento general -->
+      <div class="feedback-question">
+        <label>¿Consideras que el rendimiento general es adecuado?</label>
+        <div class="rating-stars">
+          <button *ngFor="let star of [1,2,3,4,5]"
+                  class="star-btn"
+                  [class.active]="feedback.eficiencia >= star"
+                  (click)="seleccionarPuntuacion('eficiencia', star)">
+            {{ feedback.eficiencia >= star ? '★' : '☆' }}
+          </button>
+        </div>
+        <div class="rating-labels">
+          <span>Muy malo</span>
+          <span>Excelente</span>
+        </div>
+      </div>
+
+      <!-- Comentario opcional -->
+      <div class="feedback-question">
+        <label>Comentarios adicionales (opcional)</label>
+        <textarea
+          [(ngModel)]="feedback.comentario"
+          placeholder="Escribe aquí tus sugerencias..."
+          rows="2"
+          maxlength="200">
+        </textarea>
+      </div>
+
+      <!-- Botón enviar -->
+      <button
+        class="submit-btn"
+        [disabled]="!formularioValido || enviando"
+        (click)="enviarFeedback()">
+        {{ enviando ? 'Enviando...' : 'Enviar opinión' }}
+      </button>
+    </div>
+
+    <!-- Mensaje de éxito -->
+    <div class="feedback-success" *ngIf="enviado">
+      <div class="success-icon">✓</div>
+      <h4>Gracias por tu opinión</h4>
+      <p>Tu feedback nos ayuda a mejorar la eficiencia de la aplicación.</p>
+    </div>
+
+  </div>
+</div>

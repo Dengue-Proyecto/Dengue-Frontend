@@ -1,0 +1,267 @@
+/* ===== BOTÓN FLOTANTE DE FEEDBACK ===== */
+.feedback-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #468B73 0%, #225946 100%);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(70, 139, 115, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.feedback-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(70, 139, 115, 0.5);
+}
+
+.feedback-icon {
+  font-size: 24px;
+}
+
+/* ===== OVERLAY DEL MODAL ===== */
+.feedback-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== MODAL ===== */
+.feedback-modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADER ===== */
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, #468B73 0%, #225946 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+.feedback-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== CONTENIDO ===== */
+.feedback-content {
+  padding: 20px;
+}
+
+.feedback-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+/* ===== PREGUNTAS ===== */
+.feedback-question {
+  margin-bottom: 20px;
+}
+
+.feedback-question label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* ===== RATING STARS ===== */
+.rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.star-btn {
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+
+.star-btn:hover {
+  border-color: #468B73;
+  background: #e8f5e9;
+}
+
+.star-btn.active {
+  background: #e8f5e9;
+  border-color: #468B73;
+  transform: scale(1.05);
+}
+
+.rating-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #999;
+  padding: 0 4px;
+}
+
+/* ===== TEXTAREA ===== */
+.feedback-question textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.feedback-question textarea:focus {
+  outline: none;
+  border-color: #468B73;
+}
+
+.feedback-question textarea::placeholder {
+  color: #aaa;
+}
+
+/* ===== BOTÓN ENVIAR ===== */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #468B73 0%, #225946 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(70, 139, 115, 0.4);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ===== MENSAJE DE ÉXITO ===== */
+.feedback-success {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #225946;
+  font-weight: bold;
+}
+
+.feedback-success h4 {
+  margin: 0 0 8px 0;
+  color: #225946;
+  font-size: 20px;
+}
+
+.feedback-success p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .feedback-trigger {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .feedback-icon {
+    font-size: 20px;
+  }
+
+  .feedback-modal {
+    width: 95%;
+    margin: 10px;
+  }
+
+  .star-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
