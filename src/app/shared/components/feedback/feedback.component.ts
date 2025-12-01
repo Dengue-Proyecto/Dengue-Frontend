@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../core/auth/auth.service';
 
 interface FeedbackData {
   velocidad: number;
@@ -13,12 +12,13 @@ interface FeedbackData {
   selector: 'app-feedback',
   standalone: false,
   templateUrl: './feedback.component.html',
-  styleUrl: './feedback.component.css'
+  styleUrls: ['./feedback.component.css']
 })
-export class FeedbackComponent {
+export class FeedbackComponent implements OnInit {
   mostrarModal = false;
   enviado = false;
   enviando = false;
+  estaLogueado = false;
 
   feedback: FeedbackData = {
     velocidad: 0,
@@ -27,7 +27,15 @@ export class FeedbackComponent {
     comentario: ''
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.estaLogueado$.subscribe({
+      next: (logueado) => {
+        this.estaLogueado = logueado;
+      }
+    });
+  }
 
   abrirModal() {
     this.mostrarModal = true;

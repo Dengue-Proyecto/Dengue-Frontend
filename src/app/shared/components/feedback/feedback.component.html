@@ -1,3 +1,6 @@
+<!-- Solo mostrar si hay sesión iniciada -->
+<ng-container *ngIf="estaLogueado">
+
 <!-- Botón flotante para abrir feedback -->
 <button class="feedback-trigger" (click)="abrirModal()" title="Danos tu opinión">
   <span class="feedback-icon">💬</span>
@@ -97,3 +100,5 @@
 
   </div>
 </div>
+
+</ng-container>
