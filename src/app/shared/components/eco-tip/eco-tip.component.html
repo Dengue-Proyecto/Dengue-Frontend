@@ -1,0 +1,21 @@
+<!-- Botón flotante -->
+<button class="eco-trigger" (click)="abrirConsejo()" title="Consejo verde del día">
+  <span class="eco-icon">🌿</span>
+</button>
+
+<!-- Tooltip/Burbuja del consejo -->
+<div class="eco-bubble" *ngIf="mostrarConsejo">
+  <div class="eco-bubble-content">
+    <button class="eco-close" (click)="cerrarConsejo()">×</button>
+    <div class="eco-header">
+      <span class="eco-header-text">Consejo verde del día</span>
+    </div>
+    <p class="eco-text">{{ consejoActual }}</p>
+    <button class="eco-nuevo" (click)="nuevoConsejo()">
+      <span>↻</span> Otro consejo
+    </button>
+  </div>
+</div>
+
+<!-- Overlay para cerrar al hacer clic fuera -->
+<div class="eco-overlay" *ngIf="mostrarConsejo" (click)="cerrarConsejo()"></div>

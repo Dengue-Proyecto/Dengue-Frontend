@@ -1,0 +1,253 @@
+/* ===== BOTÓN FLOTANTE ===== */
+.eco-trigger {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2d5a47 0%, #1a3d2e 100%);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(45, 90, 71, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.eco-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(45, 90, 71, 0.5);
+}
+
+.eco-trigger:active {
+  transform: scale(0.95);
+}
+
+.eco-icon {
+  font-size: 24px;
+}
+
+/* ===== OVERLAY ===== */
+.eco-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1001;
+}
+
+/* ===== BURBUJA DEL CONSEJO ===== */
+.eco-bubble {
+  position: fixed;
+  bottom: 156px;
+  right: 24px;
+  z-index: 1002;
+  animation: bubbleIn 0.3s ease;
+}
+
+@keyframes bubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.eco-bubble-content {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  width: 280px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* Flecha de la burbuja */
+.eco-bubble-content::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid white;
+}
+
+/* ===== BOTÓN CERRAR ===== */
+.eco-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f0f0f0;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.eco-close:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* ===== HEADER ===== */
+.eco-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.eco-header-icon {
+  font-size: 18px;
+}
+
+.eco-header-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2d5a47;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== TEXTO DEL CONSEJO ===== */
+.eco-text {
+  margin: 0 0 14px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* ===== BOTÓN NUEVO CONSEJO ===== */
+.eco-nuevo {
+  background: none;
+  border: 1px solid #2d5a47;
+  color: #2d5a47;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.eco-nuevo:hover {
+  background: #2d5a47;
+  color: white;
+}
+
+.eco-nuevo span {
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE - TABLETS ===== */
+@media (min-width: 481px) and (max-width: 768px) {
+  .eco-trigger {
+    bottom: 86px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .eco-bubble {
+    bottom: 150px;
+    right: 20px;
+  }
+
+  .eco-bubble-content {
+    width: 260px;
+  }
+}
+
+/* ===== RESPONSIVE - MÓVILES ===== */
+@media (max-width: 480px) {
+  .eco-trigger {
+    bottom: 80px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .eco-icon {
+    font-size: 22px;
+  }
+
+  .eco-bubble {
+    bottom: 140px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .eco-bubble-content {
+    width: auto;
+    padding: 16px;
+  }
+
+  .eco-bubble-content::after {
+    right: 16px;
+  }
+
+  .eco-header-text {
+    font-size: 12px;
+  }
+
+  .eco-text {
+    font-size: 14px;
+  }
+
+  .eco-nuevo {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ===== RESPONSIVE - MÓVILES MUY PEQUEÑOS ===== */
+@media (max-width: 360px) {
+  .eco-trigger {
+    bottom: 72px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .eco-icon {
+    font-size: 20px;
+  }
+
+  .eco-bubble {
+    bottom: 128px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .eco-bubble-content {
+    padding: 14px;
+  }
+}
+
+/* ===== ACCESIBILIDAD ===== */
+@media (prefers-reduced-motion: reduce) {
+  .eco-trigger,
+  .eco-bubble {
+    transition: none;
+    animation: none;
+  }
+}
