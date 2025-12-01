@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
   estaLogueado = false;
   mobileMenuOpen = false;
+  userMenuOpen = false;
   nombreUsuario: string | null = null;
   inicialesUsuario: string = 'U';
 
@@ -48,6 +49,14 @@ export class NavbarComponent implements OnInit {
   closeMobileMenu() {
     this.mobileMenuOpen = false;
     document.body.style.overflow = 'auto';
+  }
+
+  toggleUserMenu() {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  closeUserMenu() {
+    this.userMenuOpen = false;
   }
 
   async logout() {

@@ -17,8 +17,8 @@
       <span></span>
     </button>
 
-    <!-- Menú desktop y móvil (solo para usuarios logueados) -->
-    <div *ngIf="estaLogueado" class="navbar-links" [class.mobile-open]="mobileMenuOpen">
+    <!-- Menú móvil (solo para usuarios logueados) -->
+    <div *ngIf="estaLogueado" class="navbar-links-mobile" [class.mobile-open]="mobileMenuOpen">
       <!-- Indicador de usuario (solo visible en móvil cuando el menú está abierto) -->
       <div class="user-info-mobile">
         <div class="user-avatar">
@@ -37,13 +37,32 @@
       </div>
     </div>
 
-    <!-- Indicador de usuario desktop -->
-    <div *ngIf="estaLogueado" class="user-info-desktop">
-      <div class="user-avatar">
-        <span>{{ inicialesUsuario }}</span>
+    <!-- Indicador de usuario desktop con menú desplegable -->
+    <div *ngIf="estaLogueado" class="user-dropdown-container">
+      <div class="user-info-desktop" (click)="toggleUserMenu()">
+        <div class="user-avatar">
+          <span>{{ inicialesUsuario }}</span>
+        </div>
+        <span class="user-name-desktop">{{ nombreUsuario || 'Usuario' }}</span>
+        <span class="dropdown-arrow" [class.open]="userMenuOpen">▼</span>
       </div>
-      <span class="user-name-desktop">{{ nombreUsuario || 'Usuario' }}</span>
+
+      <!-- Menú desplegable -->
+      <div class="user-dropdown-menu" [class.open]="userMenuOpen">
+        <a routerLink="/formulario" class="dropdown-item" (click)="closeUserMenu()">
+          Evaluar
+        </a>
+        <a routerLink="/evaluaciones" class="dropdown-item" (click)="closeUserMenu()">
+          Ver evaluaciones
+        </a>
+        <a (click)="logout(); closeUserMenu()" class="dropdown-item">
+          Cerrar sesión
+        </a>
+      </div>
     </div>
+
+    <!-- Overlay para cerrar menú de usuario -->
+    <div *ngIf="userMenuOpen" class="user-menu-overlay" (click)="closeUserMenu()"></div>
 
     <!-- Overlay para cerrar menú en móvil (solo cuando hay sesión) -->
     <div *ngIf="estaLogueado" class="mobile-overlay" [class.active]="mobileMenuOpen" (click)="closeMobileMenu()"></div>

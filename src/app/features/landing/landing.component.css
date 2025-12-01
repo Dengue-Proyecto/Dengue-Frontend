@@ -59,8 +59,8 @@
 
 /* Botón Evaluar */
 .btn.primary {
-  flex: 1 1 140px;
-  min-width: 140px;
+  flex: 0 0 auto;
+  min-width: 180px;
   padding: 10px 32px;
   font-size: 20px;
   font-weight: 700;
