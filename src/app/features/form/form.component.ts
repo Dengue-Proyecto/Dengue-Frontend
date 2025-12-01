@@ -12,14 +12,12 @@ import {environment} from '../../../environments/environment';
 })
 export class FormComponent implements OnInit {
   form!: FormGroup;
-  currentPage = 1;
-  totalPages = 2;
   edades: number[] = [];
   diasDeFiebre: number[] = [];
   tiempoInicio: number = 0;
 
   // Variables para la barra de progreso
-  totalPreguntas = 11;
+  totalPreguntas = 12;
   preguntasRespondidas = 0;
 
   alertMessage: string = '';
@@ -40,7 +38,8 @@ export class FormComponent implements OnInit {
       perdidaApetito: ['', Validators.required],
       dolorAbdominal: ['', Validators.required],
       nauseasVomitos: ['', Validators.required],
-      diarrea: ['', Validators.required]
+      diarrea: ['', Validators.required],
+      dengueEnHogar: ['', Validators.required]
     });
 
     this.edades = Array.from({ length: 99 }, (_, i) => i + 1);
@@ -70,18 +69,6 @@ export class FormComponent implements OnInit {
     });
   }
 
-  siguiente() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  anterior() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
   mostrarAlerta(mensaje: string, success: boolean = false) {
     this.alertMessage = mensaje;
     this.alertSuccess = success;
@@ -109,6 +96,7 @@ export class FormComponent implements OnInit {
         dolor_abdominal: formData.dolorAbdominal === 'Si',
         nauseas_vomitos: formData.nauseasVomitos === 'Si',
         diarrea: formData.diarrea === 'Si',
+        dengue_en_hogar: formData.dengueEnHogar === 'Si',
         tiempo_inicial: this.tiempoInicio,
         tiempo_final: tiempoFinal,
         tiempo_evaluacion: tiempoEvaluacionSegundos,
