@@ -21,7 +21,7 @@
 
 /* Header del formulario */
 .form-header-section {
-  background-color: var(--brand-light);
+  background-color: var(--brand-primary-questions);
   border-bottom: 1px solid var(--border-color);
   padding: 20px;
   transition: background-color 0.3s ease;
@@ -172,7 +172,7 @@
   padding: 12px 14px;
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
-  background-color: var(--brand-light);
+  background-color: var(--brand-primary-questions);
   transition: background-color 0.3s ease;
 }
 
