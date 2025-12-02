@@ -19,7 +19,7 @@
 }
 
 .filters-header {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   padding: 20px;
   border-bottom: 1px solid var(--border-color);
@@ -76,7 +76,7 @@
 .filtros input[type="date"]:focus,
 .filtros select:focus {
   outline: none;
-  border-color: var(--brand-primary);
+  border-color: var(--brand-dark);
 }
 
 .filtros select {
@@ -119,9 +119,9 @@
 }
 
 .btn-view.active {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
-  border-color: var(--brand-primary);
+  border-color: var(--brand-dark);
   font-weight: bold;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .btn-primary {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   border: none;
   border-radius: 8px;
@@ -169,7 +169,7 @@
 }
 
 .table-header {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   padding: 20px;
   text-align: left;
@@ -196,7 +196,7 @@ table {
 }
 
 thead th {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   font-weight: bold;
   padding: 15px 12px;
@@ -314,7 +314,7 @@ tbody td ul {
 }
 
 .btn-action {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   border: none;
   border-radius: 6px;
@@ -344,7 +344,7 @@ tbody td ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   border-top: 1px solid var(--border-color);
   font-family: 'Open Sans', sans-serif;
   flex-wrap: wrap;
@@ -396,7 +396,7 @@ tbody td ul {
 }
 
 .pagination-btn {
-  background-color: var(--brand-dark);
+  background-color: var(--brand-primary);
   color: white;
   border: none;
   cursor: pointer;
@@ -408,7 +408,7 @@ tbody td ul {
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
 }
 
 .pagination-btn:disabled {
@@ -447,7 +447,7 @@ tbody td ul {
 }
 
 .page-btn.active {
-  background-color: var(--brand-dark);
+  background-color: var(--brand-primary);
   color: white;
   border-color: var(--brand-dark);
   font-weight: bold;
@@ -580,7 +580,7 @@ tbody td ul {
 
 .form-control:focus {
   outline: none;
-  border-color: var(--brand-primary);
+  border-color: var(--brand-dark);
 }
 
 .modal-footer {
@@ -635,11 +635,11 @@ tbody td ul {
 
 .search-input-group input[type="text"]:focus {
   outline: none;
-  border-color: var(--brand-primary);
+  border-color: var(--brand-dark);
 }
 
 .btn-search {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-dark);
   color: white;
   border: none;
   border-radius: 8px;
