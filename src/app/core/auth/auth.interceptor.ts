@@ -99,16 +99,20 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 
+  // Constantes de rutas a nivel de clase (evitar recrear arrays)
+  private readonly RUTAS_PUBLICAS = ['/usuario/login', '/usuario/registrar_usuario', '/auth/token', '/usuario/consulta_cmp'];
+  private readonly RUTA_LOGIN = '/usuario/login';
+  private readonly RUTA_REFRESH = '/auth/refresh';
+
   private esRutaLogin(url: string): boolean {
-    return url.includes('/usuario/login');
+    return url.includes(this.RUTA_LOGIN);
   }
 
   private esRutaPublica(url: string): boolean {
-    const rutasPublicas = ['/usuario/login', '/usuario/registrar_usuario', '/auth/token', '/usuario/consulta_cmp'];
-    return rutasPublicas.some(ruta => url.includes(ruta));
+    return this.RUTAS_PUBLICAS.some(ruta => url.includes(ruta));
   }
 
   private esRutaRefresh(url: string): boolean {
-    return url.includes('/auth/refresh');
+    return url.includes(this.RUTA_REFRESH);
   }
 }

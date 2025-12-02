@@ -294,8 +294,25 @@ export class EvaluationsComponent implements OnInit {
   }
 
   cargarEvaluaciones() {
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: data => {
+    // MEJORA ARQUITECTÓNICA: Soporte para paginación del backend
+    // Compatible con ambas versiones de API (con y sin paginación)
+    this.http.get<any>(this.apiUrl).subscribe({
+      next: response => {
+        // Detectar si la respuesta incluye paginación (nueva versión) o es array directo (versión anterior)
+        let data: any[];
+
+        if (response && response.evaluaciones && Array.isArray(response.evaluaciones)) {
+          // Nueva versión con paginación
+          data = response.evaluaciones;
+          console.log('API con paginación detectada:', response.paginacion);
+        } else if (Array.isArray(response)) {
+          // Versión anterior sin paginación
+          data = response;
+        } else {
+          console.error('Formato de respuesta no reconocido:', response);
+          data = [];
+        }
+
         // Normalizar todas las fechas una sola vez
         this.filas = data.map(evaluacion => ({
           ...evaluacion,
