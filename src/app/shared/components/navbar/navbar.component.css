@@ -1,12 +1,18 @@
 /* Navbar Styling */
 .navbar {
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   padding: 10px 20px;
   box-sizing: border-box;
   width: 100%;
   font-family: 'Inter', sans-serif;
   position: relative;
   z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+:host-context(body.dark-mode) .navbar {
+  background-color: #1a1a2e;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .navbar-container {
@@ -94,7 +100,7 @@
 }
 
 .btn-valoration {
-  background-color: #225946;
+  background-color: var(--brand-dark);
   color: white;
   text-decoration: none;
   font-weight: 600;
@@ -110,8 +116,24 @@
 }
 
 .btn-valoration:hover {
-  background-color: #1b4d3e;
+  background-color: var(--brand-darker);
   transform: translateY(-1px);
+}
+
+:host-context(body.dark-mode) .btn-valoration {
+  background-color: var(--brand-dark);
+}
+
+:host-context(body.dark-mode) .btn-valoration:hover {
+  background-color: var(--brand-darker);
+}
+
+/* Contenedor derecho del navbar - Usuario + Botón tema */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 
 /* Estilos del indicador de usuario - Desktop con Dropdown */
@@ -128,11 +150,37 @@
   padding: 8px 16px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  margin-left: 20px;
   transition: all 0.3s ease;
   cursor: pointer;
   user-select: none;
   min-width: 180px;
+}
+
+/* Botón de cambio de tema */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .user-info-desktop:hover {
@@ -166,7 +214,7 @@
   transition: all 0.3s ease;
   overflow: hidden;
   padding: 10px;
-  margin-left: 20px;
+  min-width: 100%;
 }
 
 .user-dropdown-menu.open {
@@ -273,9 +321,25 @@
     display: flex;
   }
 
+  /* Contenedor derecho en móvil */
+  .navbar-right {
+    display: none;
+  }
+
   /* Ocultar dropdown en móvil */
   .user-dropdown-container {
     display: none;
+  }
+
+  /* Theme toggle en móvil */
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
   }
 
   /* Mostrar menú móvil */
@@ -286,15 +350,19 @@
     right: -100%;
     width: 280px;
     height: 100vh;
-    background-color: #468B73;
+    background-color: var(--brand-primary);
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
     padding: 80px 20px 20px;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, background-color 0.3s ease;
     gap: 0;
     z-index: 999;
+  }
+
+  :host-context(body.dark-mode) .navbar-links-mobile {
+    background-color: #1a1a2e;
   }
 
   /* Mostrar indicador de usuario en menú móvil */
@@ -410,10 +478,44 @@
 
 /* Estilos adicionales para muy pantallas pequeñas */
 @media (max-width: 360px) {
+  .always-visible-links {
+    gap: 5px;
+  }
+
   .always-visible-links .btn-valoration {
-    padding: 6px 10px;
+    padding: 6px 8px;
+    font-size: 11px;
+    min-width: auto;
+    border-radius: 8px;
+  }
+
+  .always-visible-links .theme-toggle {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .navbar-logo {
+    height: 40px;
+  }
+}
+
+/* iPhone SE y pantallas similares (375px) */
+@media (max-width: 390px) and (min-width: 361px) {
+  .always-visible-links {
+    gap: 6px;
+  }
+
+  .always-visible-links .btn-valoration {
+    padding: 7px 10px;
     font-size: 12px;
-    min-width: 80px;
+    border-radius: 8px;
+  }
+
+  .always-visible-links .theme-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
 }
 

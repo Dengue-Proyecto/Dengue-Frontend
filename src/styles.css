@@ -1,5 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Inter:wght@400;600;700;800&family=Open+Sans&display=swap');
 
+/* ========== VARIABLES DE TEMA ========== */
+:root {
+  /* Colores modo claro */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #6c757d;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+
+  /* Colores de marca */
+  --brand-primary: #468B73;
+  --brand-dark: #225946;
+  --brand-darker: #1b4d3e;
+  --brand-light: #83A69A;
+  --brand-lighter: #b8e6d5;
+
+  /* Estados */
+  --success-bg: #e8f5e9;
+  --success-border: #4caf50;
+  --success-text: #2e7d32;
+  --danger-bg: #ffebee;
+  --danger-border: #d32f2f;
+  --danger-text: #c62828;
+  --warning-bg: #fff3cd;
+  --warning-border: #ffc107;
+  --warning-text: #856404;
+  --info-bg: #e3f2fd;
+  --info-text: #1976d2;
+}
+
+/* ========== MODO OSCURO ========== */
+body.dark-mode {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f3460;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b8b8b8;
+  --text-muted: #8888aa;
+  --border-color: #3a3a5a;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+
+  /* Colores de marca en modo oscuro */
+  --brand-primary: #5aa88e;
+  --brand-dark: #3d7a63;
+  --brand-darker: #2d5a48;
+  --brand-light: #7bc4a8;
+  --brand-lighter: #a8e0c8;
+
+  /* Estados en modo oscuro */
+  --success-bg: #1b3d2f;
+  --success-border: #4caf50;
+  --success-text: #81c784;
+  --danger-bg: #3d1b1b;
+  --danger-border: #ef5350;
+  --danger-text: #ef9a9a;
+  --warning-bg: #3d3a1b;
+  --warning-border: #ffb300;
+  --warning-text: #ffe082;
+  --info-bg: #1b2d3d;
+  --info-text: #64b5f6;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -7,6 +74,9 @@ html, body {
   min-height: 100vh;
   font-family: 'Open Sans', sans-serif;
   overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -18,3 +88,30 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+/* ========== BOTÓN DE TOGGLE TEMA ========== */
+.theme-toggle {
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+body.dark-mode .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+

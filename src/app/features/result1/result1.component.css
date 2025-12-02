@@ -8,17 +8,19 @@
   max-width: 1200px;
   margin: 0 auto;
   min-height: calc(100vh - 143px);
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 #pdfContent {
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  background: #ffffff;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  background: var(--bg-primary);
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Estilos para generación de PDF */
   width: 100%;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ========== ESTILOS PARA ENCABEZADO PDF ========== */
@@ -227,25 +229,27 @@
 .result-header h2 {
   font-size: clamp(28px, 5vw, 50px);
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: bold;
   font-family: 'Open Sans', sans-serif;
+  transition: color 0.3s ease;
 }
 
 .datetime {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   padding: 12px 20px;
   border-radius: 10px;
   display: inline-block;
-  color: #6c757d;
+  color: var(--text-muted);
   font-size: clamp(14px, 2vw, 18px);
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ✅ ESTILOS PARA EL CÓDIGO DE EVALUACIÓN */
 .evaluation-code {
-  background: linear-gradient(135deg, #225946 0%, #2d7557 100%);
+  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-primary) 100%);
   padding: 15px 25px;
   border-radius: 12px;
   display: block;
@@ -255,7 +259,7 @@
 }
 
 .code-label {
-  color: #b8e6d5;
+  color: var(--brand-lighter);
   font-size: clamp(13px, 2vw, 16px);
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
@@ -283,13 +287,13 @@
 }
 
 .result-box.risk-low {
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  border-color: #4caf50;
+  background: var(--success-bg);
+  border-color: var(--success-border);
 }
 
 .result-box.risk-high {
-  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-  border-color: #d32f2f;
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
 }
 
 .result-body h3 {
@@ -302,24 +306,25 @@
 }
 
 .risk-low h3 {
-  color: #2e7d32;
+  color: var(--success-text);
 }
 
 .risk-high h3 {
-  color: #c62828;
+  color: var(--danger-text);
 }
 
 .disclaimer {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
+  background: var(--warning-bg);
+  border-left: 4px solid var(--warning-border);
   padding: 15px 20px;
   border-radius: 8px;
-  color: #856404;
+  color: var(--warning-text);
   font-size: clamp(14px, 2.5vw, 18px);
   margin: 20px auto;
   max-width: 700px;
   text-align: left;
   font-family: 'Open Sans', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .disclaimer strong {
@@ -332,7 +337,7 @@
 }
 
 .symptoms-section h4 {
-  color: #2c3e50;
+  color: var(--text-primary);
   font-size: clamp(18px, 3vw, 24px);
   margin-bottom: 20px;
   font-family: 'Open Sans', sans-serif;
@@ -341,13 +346,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: color 0.3s ease;
 }
 
 .symptoms-section h4::before {
   content: "";
   width: 4px;
   height: 24px;
-  background: #225946;
+  background: var(--brand-dark);
   border-radius: 2px;
 }
 
@@ -359,20 +365,21 @@
 }
 
 .symptom-item {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   padding: 12px 16px;
   border-radius: 8px;
-  border-left: 4px solid #4caf50;
+  border-left: 4px solid var(--success-border);
   display: flex;
   align-items: center;
   font-size: clamp(13px, 2vw, 16px);
-  color: #495057;
+  color: var(--text-secondary);
   font-family: 'Open Sans', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .symptom-item::before {
   content: "✓";
-  background: #4caf50;
+  background: var(--success-border);
   color: white;
   width: 20px;
   height: 20px;
@@ -387,19 +394,20 @@
 }
 
 .no-symptoms {
-  background: #e3f2fd;
+  background: var(--info-bg);
   padding: 20px;
   border-radius: 8px;
-  color: #1976d2;
+  color: var(--info-text);
   font-style: italic;
   font-family: 'Open Sans', sans-serif;
   font-size: clamp(14px, 2.5vw, 18px);
   margin: 30px auto;
   max-width: 600px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .button {
-  background-color: #225946;
+  background-color: var(--brand-dark);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -414,7 +422,7 @@
 }
 
 .button:hover {
-  background-color: #1a4037;
+  background-color: var(--brand-darker);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(34, 89, 70, 0.3);
 }

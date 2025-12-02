@@ -7,22 +7,28 @@
 
 /* Contenedor principal del formulario */
 .form-wrapper {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 12px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 15px var(--shadow-color);
+  border: 1px solid var(--border-color);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Header del formulario */
 .form-header-section {
-  background-color: #BCCECC;
-  border-bottom: 1px solid #dee2e6;
+  background-color: var(--brand-light);
+  border-bottom: 1px solid var(--border-color);
   padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+:host-context(body.dark-mode) .form-header-section {
+  background-color: #0f3460;
 }
 
 .form-header-section h2 {
@@ -31,20 +37,24 @@
   font-family: 'Inter', sans-serif;
   margin-top: 0;
   margin-bottom: 16px;
-  color: black;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .progress-text {
   text-align: center;
   font-size: 14px;
-  color: black;
+  color: var(--text-primary);
   margin: 10px 0 0 0;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 /* Cuerpo del formulario */
 .form-body {
   padding: 24px 20px;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 /* Grid de preguntas */
@@ -56,15 +66,16 @@
 
 /* Footer del formulario */
 .form-footer {
-  border-top: 1px solid #dee2e6;
-  background-color: #f8f9fa;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
   padding: 20px;
   display: flex;
   justify-content: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-enviar {
-  background: linear-gradient(135deg, #468B73 0%, #225946 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
   color: white;
   padding: 14px 48px;
   border: none;
@@ -97,7 +108,7 @@
 }
 
 .progress-bar {
-  background: linear-gradient(90deg, #468B73, #6b8e7d);
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-light));
   height: 100%;
   border-radius: 20px;
   transition: width 0.5s ease;
@@ -109,7 +120,7 @@
   display: flex;
   font-family: 'Open Sans', sans-serif;
   border-radius: 16px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 12px var(--shadow-color);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -117,7 +128,7 @@
 
 .question:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 20px var(--shadow-hover);
 }
 
 /* Preguntas respondidas */
@@ -142,7 +153,7 @@
 .question-number {
   width: 44px;
   min-width: 44px;
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   color: white;
   padding: 10px;
   border-bottom-left-radius: 16px;
@@ -161,7 +172,12 @@
   padding: 12px 14px;
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
-  background-color: #BCCECC;
+  background-color: var(--brand-light);
+  transition: background-color 0.3s ease;
+}
+
+:host-context(body.dark-mode) .question-content {
+  background-color: #0f3460;
 }
 
 label {
@@ -169,7 +185,8 @@ label {
   margin-bottom: 8px;
   display: block;
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .options input {
@@ -182,13 +199,15 @@ label {
   cursor: pointer;
   width: 16px;
   height: 16px;
-  accent-color: #468B73;
+  accent-color: var(--brand-primary);
 }
 
 .options {
   display: flex;
   gap: 12px;
   font-size: 14px;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 select {
@@ -197,7 +216,8 @@ select {
   max-width: 200px;
   padding: 6px 28px 6px 12px;
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   outline: none;
   cursor: pointer;
   appearance: none;
@@ -205,13 +225,13 @@ select {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
-  border: 2px solid #e9ecef;
-  transition: border-color 0.3s ease;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
   font-size: 14px;
 }
 
 select:focus {
-  border-color: #468B73;
+  border-color: var(--brand-primary);
   box-shadow: 0 0 0 3px rgba(70, 139, 115, 0.1);
 }
 

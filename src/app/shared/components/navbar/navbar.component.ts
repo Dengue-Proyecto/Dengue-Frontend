@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../core/auth/auth.service';
+import {ThemeService} from '../../../core/theme/theme.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,8 +15,13 @@ export class NavbarComponent implements OnInit {
   userMenuOpen = false;
   nombreUsuario: string | null = null;
   inicialesUsuario: string = 'U';
+  isDarkMode = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private themeService: ThemeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.authService.estaLogueado$.subscribe({
@@ -29,11 +35,20 @@ export class NavbarComponent implements OnInit {
         }
       }
     });
+
+    // Suscribirse al estado del tema
+    this.themeService.darkMode$.subscribe(isDark => {
+      this.isDarkMode = isDark;
+    });
   }
 
   cargarDatosUsuario() {
     this.nombreUsuario = this.authService.obtenerNombreUsuario();
     this.inicialesUsuario = this.authService.obtenerInicialesUsuario();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleDarkMode();
   }
 
   toggleMobileMenu() {

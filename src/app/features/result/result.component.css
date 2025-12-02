@@ -3,22 +3,26 @@
   max-width: 1200px;
   margin: 30px auto;
   padding: 0 15px;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 h1 {
   font-size: 32px;
-  color: #343a40;
+  color: var(--text-primary);
   font-weight: bold;
   margin-bottom: 30px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 h2, h3, .conclusion {
   text-align: center;
-  color: #343a40;
+  color: var(--text-primary);
   font-weight: bold;
   font-size: 28px;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
 /* Flexbox para las tarjetas de las métricas generales */
@@ -32,7 +36,7 @@ h2, h3, .conclusion {
 
 /* Estilo para cada tarjeta */
 .metric-card {
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
   padding: 25px;
   text-align: center;
@@ -62,10 +66,10 @@ h2, h3, .conclusion {
 }
 
 /* Colores personalizados para cada tarjeta */
-.bg-primary { background-color: #468B73; }
-.bg-success { background-color: #468B73; }
-.bg-warning { background-color: #468B73; }
-.bg-danger { background-color:#468B73; }
+.bg-primary { background-color: var(--brand-primary); }
+.bg-success { background-color: var(--brand-primary); }
+.bg-warning { background-color: var(--brand-primary); }
+.bg-danger { background-color: var(--brand-primary); }
 
 /* Tabla de Resultados */
 .table-container {
@@ -83,11 +87,12 @@ h2, h3, .conclusion {
   margin: 0;
   border-collapse: collapse;
   font-size: 16px;
-  background-color: white;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 .table-bordered {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden; /* Para que el border-radius se aplique correctamente */
 }
@@ -101,22 +106,25 @@ h2, h3, .conclusion {
 
 /* Encabezado de la tabla */
 .table th {
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   color: white;
   font-weight: bold;
   padding: 15px 12px;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   white-space: nowrap; /* Evita que el texto del header se rompa */
 }
 
 /* Celdas de la tabla */
 .table td {
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   text-align: center;
   word-wrap: break-word; /* Permite que el texto largo se ajuste */
   max-width: 200px; /* Limita el ancho máximo de las celdas */
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Primera columna (nombres de modelos) más ancha */
@@ -147,7 +155,7 @@ h2, h3, .conclusion {
 
 /* Tarjeta de cada modelo */
 .model-metric-card {
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   color: white;
   width: 260px;
   padding: 20px 15px;
@@ -191,7 +199,7 @@ h2, h3, .conclusion {
 }
 
 .matrix-card {
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   color: white;
   width: 280px;
   padding: 20px;
@@ -225,13 +233,14 @@ h2, h3, .conclusion {
 /* Estilo para la conclusión */
 .conclusion {
   font-size: 18px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   padding: 20px;
   margin-top: 30px;
   border-radius: 8px;
   text-align: left;
   margin-left: 10px;
   margin-right: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .conclusion h3 {
@@ -242,6 +251,7 @@ h2, h3, .conclusion {
 .conclusion p {
   line-height: 1.6em;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .conclusion div {
@@ -264,10 +274,8 @@ h2, h3, .conclusion {
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 0 20px;
-}
-
 .btn-secondary {
-  background-color: #468B73;
+  background-color: var(--brand-primary);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -284,7 +292,9 @@ h2, h3, .conclusion {
 }
 
 .btn-secondary:hover {
-  background-color: #3c7a65;
+  background-color: var(--brand-dark);
+  transform: translateY(-2px);
+} background-color: #3c7a65;
   transform: translateY(-2px);
 }
 

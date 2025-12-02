@@ -14,7 +14,7 @@
 /* Panel izquierdo - formulario */
 .left-panel {
   flex: 1;
-  background: white;
+  background: var(--bg-primary);
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
 .left-panel h2 {
   font-weight: 700;
   font-size: 2rem;
-  color: #222;
+  color: var(--text-primary);
   text-align: center;
   font-family: 'Inter', sans-serif; /* Fuente para títulos */
 }
@@ -49,7 +49,7 @@
   margin: 22px 0 8px;
   text-align: left;
   font-size: 18px;
-  color: #333;
+  color: var(--text-primary);
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
 }
@@ -63,23 +63,25 @@
 .left-panel input {
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   font-size: 1rem;
   box-sizing: border-box;
   max-width: 100%;
   width: 100%;
   font-family: 'Open Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 input:disabled {
-  background-color: #e8e6e6;
-  color: #666;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 
 /* Botón iniciar sesión */
 .left-panel button[type="submit"] {
-  background-color: #225946;
+  background-color: var(--brand-dark);
   color: white;
   font-size: 18px;
   padding: 12px 0;
@@ -97,6 +99,8 @@ input:disabled {
 }
 
 .left-panel button[type="submit"]:hover {
+  background-color: var(--brand-primary);
+}left-panel button[type="submit"]:hover {
   background-color: #1b4d3e;
 }
 
@@ -184,12 +188,12 @@ input:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666;
+  color: var(--text-secondary);
   transition: color 0.3s ease;
 }
 
 .toggle-password:hover {
-  color: #225946;
+  color: var(--brand-dark);
 }
 
 .toggle-password svg {
@@ -198,9 +202,9 @@ input:disabled {
 }
 
 .btn-registrar:hover {
-  background-color: #225946;
+  background-color: var(--brand-dark);
   color: white;
-  border-color: #225946;
+  border-color: var(--brand-dark);
 }
 
 /* alerta */
@@ -394,4 +398,8 @@ input:disabled {
     max-width: 160px;
     padding: 8px 0;
   }
+}
+
+:host-context(body.dark-mode) .curve-shape {
+  background-color: #2d4a5e;
 }

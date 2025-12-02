@@ -6,7 +6,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2d5a47 0%, #1a3d2e 100%);
+  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-darker) 100%);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(45, 90, 71, 0.4);
@@ -61,12 +61,14 @@
 }
 
 .eco-bubble-content {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 16px;
   padding: 18px;
   width: 280px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px var(--shadow-color);
   position: relative;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Flecha de la burbuja */
@@ -79,7 +81,7 @@
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 12px solid white;
+  border-top: 12px solid var(--bg-primary);
 }
 
 /* ===== BOTÓN CERRAR ===== */
@@ -87,13 +89,13 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #f0f0f0;
+  background: var(--bg-secondary);
   border: none;
   width: 26px;
   height: 26px;
   border-radius: 50%;
   font-size: 16px;
-  color: #666;
+  color: var(--text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -102,8 +104,8 @@
 }
 
 .eco-close:hover {
-  background: #e0e0e0;
-  color: #333;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 /* ===== HEADER ===== */
@@ -121,7 +123,7 @@
 .eco-header-text {
   font-size: 13px;
   font-weight: 700;
-  color: #2d5a47;
+  color: var(--brand-dark);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -131,14 +133,15 @@
   margin: 0 0 14px 0;
   font-size: 15px;
   line-height: 1.5;
-  color: #333;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 /* ===== BOTÓN NUEVO CONSEJO ===== */
 .eco-nuevo {
   background: none;
-  border: 1px solid #2d5a47;
-  color: #2d5a47;
+  border: 1px solid var(--brand-dark);
+  color: var(--brand-dark);
   padding: 8px 14px;
   border-radius: 20px;
   font-size: 13px;
@@ -150,7 +153,7 @@
 }
 
 .eco-nuevo:hover {
-  background: #2d5a47;
+  background: var(--brand-dark);
   color: white;
 }
 

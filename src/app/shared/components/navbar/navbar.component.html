@@ -8,6 +8,10 @@
     <div *ngIf="!estaLogueado" class="always-visible-links">
       <a routerLink="/iniciar" class="btn-valoration">Iniciar Sesión</a>
       <a routerLink="/registro" class="btn-valoration">Registrarse</a>
+      <!-- Botón de tema -->
+      <button class="theme-toggle" (click)="toggleTheme()" [title]="isDarkMode ? 'Modo claro' : 'Modo oscuro'">
+        {{ isDarkMode ? '☀️' : '🌙' }}
+      </button>
     </div>
 
     <!-- Botón hamburguesa para móviles (solo cuando hay sesión) -->
@@ -33,32 +37,43 @@
       <div class="nav-items">
         <a routerLink="/formulario" class="btn-valoration" (click)="closeMobileMenu()">Evaluar</a>
         <a routerLink="/evaluaciones" class="btn-valoration" (click)="closeMobileMenu()">Ver evaluaciones</a>
+        <a (click)="toggleTheme(); closeMobileMenu()" class="btn-valoration">
+          {{ isDarkMode ? '☀️ Modo claro' : '🌙 Modo oscuro' }}
+        </a>
         <a (click)="logout(); closeMobileMenu()" class="btn-valoration">Cerrar sesión</a>
       </div>
     </div>
 
-    <!-- Indicador de usuario desktop con menú desplegable -->
-    <div *ngIf="estaLogueado" class="user-dropdown-container">
-      <div class="user-info-desktop" (click)="toggleUserMenu()">
-        <div class="user-avatar">
-          <span>{{ inicialesUsuario }}</span>
+    <!-- Contenedor derecho: Usuario + Botón tema (solo usuarios logueados en desktop) -->
+    <div *ngIf="estaLogueado" class="navbar-right">
+      <!-- Indicador de usuario desktop con menú desplegable -->
+      <div class="user-dropdown-container">
+        <div class="user-info-desktop" (click)="toggleUserMenu()">
+          <div class="user-avatar">
+            <span>{{ inicialesUsuario }}</span>
+          </div>
+          <span class="user-name-desktop">{{ nombreUsuario || 'Usuario' }}</span>
+          <span class="dropdown-arrow" [class.open]="userMenuOpen">▼</span>
         </div>
-        <span class="user-name-desktop">{{ nombreUsuario || 'Usuario' }}</span>
-        <span class="dropdown-arrow" [class.open]="userMenuOpen">▼</span>
+
+        <!-- Menú desplegable -->
+        <div class="user-dropdown-menu" [class.open]="userMenuOpen">
+          <a routerLink="/formulario" class="dropdown-item" (click)="closeUserMenu()">
+            Evaluar
+          </a>
+          <a routerLink="/evaluaciones" class="dropdown-item" (click)="closeUserMenu()">
+            Ver evaluaciones
+          </a>
+          <a (click)="logout(); closeUserMenu()" class="dropdown-item">
+            Cerrar sesión
+          </a>
+        </div>
       </div>
 
-      <!-- Menú desplegable -->
-      <div class="user-dropdown-menu" [class.open]="userMenuOpen">
-        <a routerLink="/formulario" class="dropdown-item" (click)="closeUserMenu()">
-          Evaluar
-        </a>
-        <a routerLink="/evaluaciones" class="dropdown-item" (click)="closeUserMenu()">
-          Ver evaluaciones
-        </a>
-        <a (click)="logout(); closeUserMenu()" class="dropdown-item">
-          Cerrar sesión
-        </a>
-      </div>
+      <!-- Botón de tema para usuarios logueados (desktop) - siempre a la derecha del usuario -->
+      <button class="theme-toggle" (click)="toggleTheme()" [title]="isDarkMode ? 'Modo claro' : 'Modo oscuro'">
+        {{ isDarkMode ? '☀️' : '🌙' }}
+      </button>
     </div>
 
     <!-- Overlay para cerrar menú de usuario -->
