@@ -105,6 +105,9 @@ export class ResultComponent implements OnInit {
     const buttons = document.querySelectorAll('button, a');
     buttons.forEach((button: any) => button.style.display = 'none');
 
+    // Aplicar clase para forzar fondo blanco en PDF
+    content.classList.add('pdf-mode');
+
     // Escalar el contenido visualmente (temporal)
     content.style.transform = 'scale(0.8)';
     content.style.transformOrigin = 'top left';
@@ -114,7 +117,7 @@ export class ResultComponent implements OnInit {
       margin: 6,
       filename: 'resultados_evaluacion.pdf',
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 }, // menor escala = contenido más pequeño
+      html2canvas: { scale: 2, backgroundColor: '#ffffff' }, // forzar fondo blanco
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
@@ -127,13 +130,15 @@ export class ResultComponent implements OnInit {
         pdf.save('resultados_evaluacion.pdf');
         // Restaurar botones
         buttons.forEach((button: any) => button.style.display = 'inline');
-        // Restaurar escala
+        // Restaurar escala y remover clase PDF
         content.style.transform = '';
         content.style.transformOrigin = '';
         content.style.width = '';
+        content.classList.remove('pdf-mode');
       })
       .catch((error: any) => {
         console.error('Error generando el PDF:', error);
+        content.classList.remove('pdf-mode');
       });
   }
 

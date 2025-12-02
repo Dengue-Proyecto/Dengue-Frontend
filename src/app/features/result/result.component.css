@@ -477,3 +477,84 @@ h2, h3, .conclusion {
     min-width: unset;
   }
 }
+
+/* Estilos para PDF - Forzar fondo blanco independiente del modo */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .container {
+    background-color: #ffffff !important;
+  }
+}
+
+/* Clase para contenido de PDF - forzar fondo blanco */
+#content-to-pdf.pdf-mode,
+.pdf-generating {
+  background-color: #ffffff !important;
+}
+
+#content-to-pdf.pdf-mode .container,
+.pdf-generating .container {
+  background-color: #ffffff !important;
+}
+
+/* Textos principales en oscuro para PDF */
+#content-to-pdf.pdf-mode h1,
+#content-to-pdf.pdf-mode h2,
+#content-to-pdf.pdf-mode h3,
+.pdf-generating h1,
+.pdf-generating h2,
+.pdf-generating h3 {
+  color: #333333 !important;
+}
+
+/* Tarjetas de métricas */
+#content-to-pdf.pdf-mode .metric-card,
+#content-to-pdf.pdf-mode .model-metric-card,
+.pdf-generating .metric-card,
+.pdf-generating .model-metric-card {
+  background-color: #f8f9fa !important;
+  color: #333333 !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+#content-to-pdf.pdf-mode .metric-card h3,
+#content-to-pdf.pdf-mode .model-metric-card h3,
+.pdf-generating .metric-card h3,
+.pdf-generating .model-metric-card h3 {
+  color: #333333 !important;
+}
+
+#content-to-pdf.pdf-mode .metric-card p,
+#content-to-pdf.pdf-mode .model-metric-card p,
+#content-to-pdf.pdf-mode .model-metric-card li,
+.pdf-generating .metric-card p,
+.pdf-generating .model-metric-card p,
+.pdf-generating .model-metric-card li {
+  color: #555555 !important;
+}
+
+/* Conclusión */
+#content-to-pdf.pdf-mode .conclusion,
+.pdf-generating .conclusion {
+  background-color: #f0f0f0 !important;
+  color: #333333 !important;
+}
+
+/* Mantener colores de riesgo */
+#content-to-pdf.pdf-mode .conclusion.risk-high,
+.pdf-generating .conclusion.risk-high {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border-color: #dc3545 !important;
+}
+
+#content-to-pdf.pdf-mode .conclusion.risk-low,
+.pdf-generating .conclusion.risk-low {
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  border-color: #28a745 !important;
+}

@@ -121,11 +121,111 @@
   width: 750px !important;
   padding: 30px !important;
   box-sizing: border-box !important;
+  background-color: #ffffff !important;
 }
 
 .pdf-generating * {
   max-width: 100% !important;
   box-sizing: border-box !important;
+}
+
+/* Forzar fondos blancos en secciones principales del PDF */
+.pdf-generating .result-header,
+.pdf-generating .result-body,
+.pdf-generating .pdf-header,
+.pdf-generating .pdf-footer {
+  background-color: #ffffff !important;
+}
+
+/* Textos principales en oscuro */
+.pdf-generating h2,
+.pdf-generating h3,
+.pdf-generating p,
+.pdf-generating .result-header h2 {
+  color: #333333 !important;
+}
+
+/* Mantener colores del label de riesgo */
+.pdf-generating .risk-label.alto {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+}
+
+.pdf-generating .risk-label.bajo {
+  background-color: #28a745 !important;
+  color: #ffffff !important;
+}
+
+/* Mantener colores de la caja de riesgo */
+.pdf-generating .result-box.risk-low {
+  background-color: #d4edda !important;
+  border-color: #28a745 !important;
+}
+
+.pdf-generating .result-box.risk-high {
+  background-color: #f8d7da !important;
+  border-color: #dc3545 !important;
+}
+
+.pdf-generating .risk-low h3 {
+  color: #155724 !important;
+}
+
+.pdf-generating .risk-high h3 {
+  color: #721c24 !important;
+}
+
+/* Mantener colores del datetime */
+.pdf-generating .datetime {
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+}
+
+/* Mantener colores del código de evaluación */
+.pdf-generating .evaluation-code {
+  background: linear-gradient(135deg, #225946 0%, #468B73 100%) !important;
+}
+
+.pdf-generating .code-label {
+  color: #a8d5c2 !important;
+}
+
+.pdf-generating .code-value {
+  color: #ffffff !important;
+}
+
+/* Mantener colores del disclaimer (Importante) */
+.pdf-generating .disclaimer {
+  background-color: #fff3cd !important;
+  border-left: 4px solid #ffc107 !important;
+  color: #856404 !important;
+}
+
+/* Mantener colores de síntomas reportados */
+.pdf-generating .symptoms-section h4 {
+  color: #333333 !important;
+}
+
+.pdf-generating .symptom-tag {
+  background-color: #e9ecef !important;
+  color: #333333 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.pdf-generating .symptom-item {
+  background-color: #f8f9fa !important;
+  color: #555555 !important;
+  border-left: 4px solid #28a745 !important;
+}
+
+.pdf-generating .symptom-item::before {
+  background-color: #28a745 !important;
+  color: #ffffff !important;
+}
+
+.pdf-generating .no-symptoms {
+  background-color: #d4edda !important;
+  color: #155724 !important;
 }
 
 /* Estilos del encabezado para PDF - MOSTRAR */
