@@ -21,6 +21,98 @@
   box-sizing: border-box;
 }
 
+/* ========== ESTILOS PARA ENCABEZADO PDF ========== */
+/* Oculto en la app, visible solo en PDF */
+.pdf-header {
+  display: none;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 80px;
+}
+
+/* ========== ESTILOS PARA FOOTER PDF ========== */
+/* Oculto en la app, visible solo en PDF */
+.pdf-footer {
+  display: none;
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 60px;
+}
+
+/* ========== ESTILOS PARA FIRMA DEL DOCTOR ========== */
+/* Oculto en la app, visible solo en PDF */
+.doctor-signature {
+  display: none;
+  margin: 40px auto 20px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.signature-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signature-img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.signature-line {
+  width: 200px;
+  height: 2px;
+  background-color: #333;
+  margin: 10px 0;
+}
+
+.doctor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.doctor-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #225946;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.doctor-cmp {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* ========== ESTILOS PARA NIVEL DE RIESGO ========== */
+/* Oculto en la app, visible solo en PDF */
+.risk-label {
+  display: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* Clase especial para aplicar antes de generar PDF */
 .pdf-generating {
   min-width: 750px !important;
@@ -34,8 +126,56 @@
   box-sizing: border-box !important;
 }
 
+/* Estilos del encabezado para PDF - MOSTRAR */
+.pdf-generating .pdf-header {
+  display: block !important;
+  margin-bottom: 25px !important;
+}
+
+.pdf-generating .header-img {
+  max-height: 70px !important;
+}
+
+/* Estilos del footer para PDF - MOSTRAR */
+.pdf-generating .pdf-footer {
+  display: block !important;
+  margin-top: 25px !important;
+}
+
+.pdf-generating .footer-img {
+  max-height: 50px !important;
+}
+
+/* Estilos de firma para PDF - MOSTRAR */
+.pdf-generating .doctor-signature {
+  display: block !important;
+  margin: 30px auto 20px !important;
+}
+
+.pdf-generating .signature-img {
+  width: 120px !important;
+}
+
+.pdf-generating .signature-line {
+  width: 180px !important;
+}
+
+.pdf-generating .doctor-name {
+  font-size: 15px !important;
+}
+
+.pdf-generating .doctor-cmp {
+  font-size: 13px !important;
+}
+
+/* Mostrar etiqueta de riesgo solo en PDF */
+.pdf-generating .risk-label {
+  display: block !important;
+  font-size: 14px !important;
+}
+
 .pdf-generating .result-header h2 {
-  font-size: 42px !important;
+  font-size: 36px !important;
 }
 
 .pdf-generating .datetime {
@@ -55,25 +195,29 @@
   font-size: 24px !important;
 }
 
+.pdf-generating .risk-label {
+  font-size: 14px !important;
+}
+
 .pdf-generating .result-body h3 {
-  font-size: 70px !important;
+  font-size: 60px !important;
 }
 
 .pdf-generating .disclaimer {
-  font-size: 16px !important;
-  padding: 15px 20px !important;
+  font-size: 14px !important;
+  padding: 12px 18px !important;
 }
 
 .pdf-generating .symptoms-section h4 {
-  font-size: 22px !important;
+  font-size: 20px !important;
 }
 
 .pdf-generating .symptom-item {
-  font-size: 15px !important;
+  font-size: 14px !important;
 }
 
 .pdf-generating .no-symptoms {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 .pdf-generating .button-container {

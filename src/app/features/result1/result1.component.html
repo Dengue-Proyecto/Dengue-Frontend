@@ -1,8 +1,13 @@
 <!-- result1.component.html -->
 <div class="result-container">
   <div id="pdfContent">
+    <!-- Encabezado del PDF -->
+    <div class="pdf-header">
+      <img src="/encabezado.png" alt="Encabezado EsSalud" class="header-img">
+    </div>
+
     <div class="result-header">
-      <h2>Nivel de riesgo de tener Dengue</h2>
+      <h2>Evaluación de Riesgo de Dengue</h2>
       <div class="datetime">
         {{ fecha_evaluacion }} | {{ hora_evaluacion }}
       </div>
@@ -16,11 +21,12 @@
 
     <div class="result-body">
       <div class="result-box" [ngClass]="riesgo_random_forest === 'ALTO' ? 'risk-high' : 'risk-low'">
+        <span class="risk-label">Nivel de Riesgo:</span>
         <h3>{{ riesgo_random_forest }}</h3>
       </div>
 
       <div class="disclaimer">
-        <strong>Importante:</strong> Esto es un diagnostico presuntivo. <strong>No olvides apuntar el codigo de seguimiento en la ficha de tu paciente</strong> para futuras consultas médicas.
+        <strong>Importante:</strong> Esto es un diagnóstico presuntivo. <strong>No olvides apuntar el código de seguimiento en la ficha de tu paciente</strong> para futuras consultas médicas.
       </div>
 
       <div class="symptoms-section" *ngIf="sintomas_identificados.length > 0">
@@ -35,6 +41,23 @@
       <div class="no-symptoms" *ngIf="sintomas_identificados.length === 0">
         No se reportaron síntomas
       </div>
+    </div>
+
+    <!-- Sección de firma del médico -->
+    <div class="doctor-signature">
+      <div class="signature-content">
+        <img src="/firmaprueba.png" alt="Firma del Doctor" class="signature-img">
+        <div class="signature-line"></div>
+        <div class="doctor-info">
+          <span class="doctor-name">Dr. {{ nombreMedico }}</span>
+          <span class="doctor-cmp">CMP: {{ numeroCMP }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer del PDF -->
+    <div class="pdf-footer">
+      <img src="/footer.png" alt="Footer EsSalud" class="footer-img">
     </div>
 
     <div class="button-container">

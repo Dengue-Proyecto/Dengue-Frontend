@@ -13,10 +13,14 @@ export class Result1Component implements OnInit {
 
   // Variables para mostrar los resultados
   riesgo_random_forest!: string;
-  codigo_evaluacion!: string; // ✅ AGREGADO
+  codigo_evaluacion!: string;
   sintomas_identificados: string[] = [];
   fecha_evaluacion!: string;
   hora_evaluacion!: string;
+
+  // Variables del médico para el PDF
+  nombreMedico: string = 'Prueba';
+  numeroCMP: string = '000000';
 
   constructor(private router: Router) { }
 
